@@ -1,7 +1,7 @@
 var elasticsearch = require('elasticsearch')
 var client = new elasticsearch.Client({
-  host: 'localhost:9999',
-  log: 'trace'
+  host: 'localhost:9200',
+  log: 'error'
 })
 const shortid = require('shortid')
 
@@ -538,3 +538,4 @@ async function seedData(data, index, indexOption, type, dropIndexIfExists = fals
 seedData(testOrganizations, 'organization', indexDefaultOptions, 'organization', true)
 seedData(testLocations, 'location', indexDefaultOptions, 'location', true)
 seedData(testRegulationTypes, 'regulationtype', indexDefaultOptions, 'regulationtype', true)
+seedData(testLibs, 'lib', indexDefaultOptions, 'lib', true)
