@@ -1,3 +1,11 @@
 port: 3000
 elastic:
   host: 'localhost:9200'
+  organizationIndex: 'organization'
+  organizationType: 'organization'
+  locationIndex: 'location'
+  locationType: 'location'
+  regulationTypesIndex: 'regulationtype'
+  regulationTypesType: 'regulationtype'
+  libIndex: 'lib'
+  libType: 'lib'
