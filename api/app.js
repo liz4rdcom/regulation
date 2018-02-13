@@ -4,11 +4,15 @@ const config = require('config')
 
 const app = express()
 
+const organizations = require('./routes/organizations')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: false
 }))
 app.use(express.static('../public/dist'))
+
+app.use(organizations.baseUrl, organizations.router)
 
 app.use((response, req, res, next) => {
   // TODO logs
