@@ -21,6 +21,19 @@ async function getList() {
   return result.hits.hits.map(utils.toObject)
 }
 
+async function getById(id) {
+  const options = {
+    index,
+    type,
+    id: id
+  }
+
+  let result = await client.get(options)
+
+  return utils.toObject(result)
+}
+
 module.exports = {
-  getList
+  getList,
+  getById
 }
