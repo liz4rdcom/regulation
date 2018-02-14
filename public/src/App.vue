@@ -20,4 +20,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.round-button {
+  border-radius: 50%;
+}
 </style>

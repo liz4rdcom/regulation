@@ -1,5 +1,5 @@
 <template>
-<div id="">
+<div>
   <b-table bordered :items="organizations" :fields="fields">
     <span slot="region" slot-scope="data">{{data.item.factualAddress.region}}</span>
     <span slot="district" slot-scope="data">{{data.item.factualAddress.district}}</span>
@@ -8,6 +8,11 @@
     <span slot="licenseNumbers" slot-scope="data">{{getLicensesText(data.item)}}</span>
     <span slot="messageNumbers" slot-scope="data">{{getMessagesText(data.item)}}</span>
     <span slot="registerNumbers" slot-scope="data">{{getRegisterNumbers(data.item)}}</span>
+    <div slot="actions" slot-scope="data">
+      <b-button variant="primary" @click.stop="goToDetails(data.item)" class="round-button">
+        <i class="fa fa-info"></i>
+      </b-button>
+    </div>
   </b-table>
 </div>
 </template>
@@ -66,6 +71,10 @@ export default {
       {
         key: 'registerNumbers',
         label: 'ნებართვის/ლიცენზიის რეესტრის N'
+      },
+      {
+        key: 'actions',
+        label: ' '
       }
     ],
     organizations: []
@@ -76,8 +85,8 @@ export default {
     this.organizations = response.data
   },
   methods: {
-    details (organization) {
-
+    goToDetails (organization) {
+      this.$router.push('/' + organization.id)
     },
     getPermissionNumber (organization) {
       return organization.regulations
