@@ -50,6 +50,32 @@
           <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate}}</p>
         </span>
       </b-card>
+      <b-card
+        class="mb-2"
+        header="იურიდიული მისამართი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.juridicalAddress != null"
+      >
+        <p><b>რეგიონი:</b> {{organization.juridicalAddress.region}}</p>
+        <p><b>მუნიციპალიტეტი:</b> {{organization.juridicalAddress.district}}</p>
+        <p><b>დასახლებული პუნქტი:</b> {{organization.juridicalAddress.settlement}}</p>
+        <p><b>მისამართი:</b> {{organization.juridicalAddress.addressDescription}}</p>
+        <p><b>საფოსტო ინდექსი:</b> {{organization.juridicalAddress.postalCode}}</p>
+      </b-card>
+      <b-card
+        class="mb-2"
+        header="ფაქტიური მისამართი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.factualAddress != null"
+      >
+        <p><b>რეგიონი:</b> {{organization.factualAddress.region}}</p>
+        <p><b>მუნიციპალიტეტი:</b> {{organization.factualAddress.district}}</p>
+        <p><b>დასახლებული პუნქტი:</b> {{organization.factualAddress.settlement}}</p>
+        <p><b>მისამართი:</b> {{organization.factualAddress.addressDescription}}</p>
+        <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
+      </b-card>
 
     </div>
   </div>
