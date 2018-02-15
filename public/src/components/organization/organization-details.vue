@@ -25,19 +25,46 @@
         <p><b>ელექტრონული ფოსტა:</b> {{organization.email}}</p>
         <p><b>E-Health Email:</b> {{organization.ehealthEmail}}</p>
       </b-card>
+      <b-card
+        class="mb-2"
+        header="ნებართვა"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="permission != null"
+      >
+        <p><b>სანებართვო მოწმობის N:</b> {{permission.documentNumber}}</p>
+        <p><b>ნებართვის გაცემის საფუძველი:</b> {{permission.issueReason}}</p>
+        <p><b>ნებართვის გაცემის თარიღი:</b> {{permission.issueDate}}</p>
+        <p><b>ნებართვის ბრძანების ტიპი:</b> {{permission.commandType}}</p>
+        <p><b>ნებართვის რეესტრის N:</b> {{permission.registerNumber}}</p>
+        <p><b>ნებართვის გაუქმების საფუძველი:</b> {{permission.cancelReason}}</p>
+        <p><b>ნებართვის გაუქმების თარიღი:</b> {{permission.cancelDate}}</p>
+        <p>
+          <b>დუბლიკატი:</b>
+          <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" disabled variant="secondary">
+          </b-form-checkbox>
+        </p>
+        <span v-if="permission.hasDuplicate">
+          <p><b>ნებართვის დუბლიკატის N:</b> {{permission.duplicateNumber}}</p>
+          <p><b>ნებ. დუბლ. გაცემის საფუძველი:</b> {{permission.duplicateIssueReason}}</p>
+          <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate}}</p>
+        </span>
+      </b-card>
 
     </div>
   </div>
 </template>
 
 <script>
-const baseUrl = '/api/organizations'
+import {baseUrl, permissionType} from './organization-constants'
 
 export default {
   name: 'organization-details',
   props: ['id'],
   data: () => ({
-    organization: {}
+    organization: {
+      regulations: []
+    }
   }),
   async created () {
     let url = baseUrl + '/' + this.id
@@ -48,6 +75,12 @@ export default {
   methods: {
     goBack () {
       this.$router.push('/')
+    }
+  },
+  computed: {
+    permission () {
+      return this.organization.regulations
+        .find(item => item.type === permissionType)
     }
   }
 }
@@ -63,6 +96,10 @@ export default {
 
 .org-info {
   text-align: left;
+}
 
+.duplicateCheckbox {
+  display: inline-block;
+  margin-left: 0.5rem;
 }
 </style>
