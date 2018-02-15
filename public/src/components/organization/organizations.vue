@@ -18,10 +18,7 @@
 </template>
 
 <script>
-const baseUrl = '/api/organizations'
-const permissionType = 'ნებართვა'
-const licenseType = 'ლიცენზია'
-const messageType = 'შეტყობინება'
+import {baseUrl, permissionType, licenseType, messageType} from './organization-constants'
 const listTextSeparator = ', '
 
 export default {
