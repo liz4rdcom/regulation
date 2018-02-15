@@ -17,6 +17,13 @@
         <p><b>სახაზინო რეგისტრაციის ადგილი:</b> {{organization.treasuryRegistrationPlace}}</p>
         <p><b>ქართული დასახელება:</b> {{organization.georgianName}}</p>
         <p><b>ლათინური დასახელება:</b> {{organization.latinName}}</p>
+        <p><b>ორგანიზაციის ტიპი:</b> {{organization.organizationType}}</p>
+        <p><b>სამართლებრივი ფორმა:</b> {{organization.legalForm}}</p>
+        <p><b>საწოლთა ფონდი:</b> {{organization.bedStock || 0}}</p>
+        <p><b>Napr_ის ოფისის ტელეფონი:</b> {{organization.naprOfficePhone}}</p>
+        <p><b>ოფისის ტელეფონი:</b> {{organization.phone}}</p>
+        <p><b>ელექტრონული ფოსტა:</b> {{organization.email}}</p>
+        <p><b>E-Health Email:</b> {{organization.ehealthEmail}}</p>
       </b-card>
 
     </div>
