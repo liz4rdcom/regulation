@@ -115,6 +115,54 @@
         >
         </b-table>
       </b-card>
+      <b-card
+        class="mb-2"
+        header="რეგულაციები"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="regulationsWithoutPermission.length > 0"
+      >
+        <b-table
+          :items="regulationsWithoutPermission"
+          :fields="regulationFields"
+        >
+          <span slot="hasDuplicate" slot-scope="data">
+            <b-form-checkbox v-model="data.item.hasDuplicate" disabled>
+            </b-form-checkbox>
+          </span>
+          <span slot="actions" slot-scope="data">
+            <b-button variant="primary" @click.stop="" class="round-button" size="sm">
+              <i class="fa fa-info"></i>
+            </b-button>
+          </span>
+        </b-table>
+      </b-card>
+      <!-- <b-card
+        class="mb-2"
+        header="დამფუძნებელი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.founders.length > 0"
+      >
+        <b-table
+          :items="organization.founders"
+          :fields="founderFields"
+        >
+        </b-table>
+      </b-card>
+      <b-card
+        class="mb-2"
+        header="დამფუძნებელი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.founders.length > 0"
+      >
+        <b-table
+          :items="organization.founders"
+          :fields="founderFields"
+        >
+        </b-table>
+      </b-card> -->
 
     </div>
   </div>
@@ -131,7 +179,7 @@ export default {
       regulations: [],
       clinicalManagers: [],
       managers: [],
-      founders: [],
+      founders: []
     },
     clinicalManagerFields: [
       {
@@ -161,7 +209,7 @@ export default {
       {
         key: 'firingDate',
         label: 'გათავისუფლების თარიღი'
-      },
+      }
     ],
     managerFields: [
       {
@@ -222,6 +270,48 @@ export default {
         key: 'legalForm',
         label: 'სამართლებრივი ფორმა'
       }
+    ],
+    regulationFields: [
+      {
+        key: 'type',
+        label: 'რეგულაციის სახე/ტიპი'
+      },
+      {
+        key: 'documentNumber',
+        label: 'მოწმობის ნომერი/რეგ. N'
+      },
+      {
+        key: 'issueDate',
+        label: 'გაცემის/შემოსვლის თარიღი'
+      },
+      {
+        key: 'registerNumber',
+        label: 'რეესტრის ნომერი'
+      },
+      {
+        key: 'cancelDate',
+        label: 'გაუქმების თარიღი'
+      },
+      {
+        key: 'hasDuplicate',
+        label: 'დუბლიკატი'
+      },
+      {
+        key: 'duplicateNumber',
+        label: 'დუბლიკატის N'
+      },
+      {
+        key: 'duplicateIssueReason',
+        label: 'დუბლიკატის გაცემის საფუძველი'
+      },
+      {
+        key: 'duplicateIssueDate',
+        label: 'დუბლიკატის გაცემის თარიღი'
+      },
+      {
+        key: 'actions',
+        label: ' '
+      }
     ]
   }),
   async created () {
@@ -239,6 +329,10 @@ export default {
     permission () {
       return this.organization.regulations
         .find(item => item.type === permissionType)
+    },
+    regulationsWithoutPermission () {
+      return this.organization.regulations
+        .filter(item => item.type !== permissionType)
     }
   }
 }
