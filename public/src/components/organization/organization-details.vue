@@ -131,26 +131,38 @@
             </b-form-checkbox>
           </span>
           <span slot="actions" slot-scope="data">
-            <b-button variant="primary" @click.stop="" class="round-button" size="sm">
+            <b-button variant="primary" class="round-button" size="sm">
+              <i class="fa fa-info"></i>
+            </b-button>
+          </span>
+        </b-table>
+      </b-card>
+      <b-card
+        class="mb-2"
+        header="საქმიანობები"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.businesses.length > 0"
+      >
+        <b-table
+          :items="organization.businesses"
+          :fields="businessFields"
+        >
+          <span slot="regulation" slot-scope="data">
+            {{regulationShortText(data.item.regulationId)}}
+          </span>
+          <span slot="hasDuplicate" slot-scope="data">
+            <b-form-checkbox v-model="data.item.hasDuplicate" disabled>
+            </b-form-checkbox>
+          </span>
+          <span slot="actions" slot-scope="data">
+            <b-button variant="primary" class="round-button" size="sm">
               <i class="fa fa-info"></i>
             </b-button>
           </span>
         </b-table>
       </b-card>
       <!-- <b-card
-        class="mb-2"
-        header="დამფუძნებელი"
-        header-bg-variant="secondary"
-        header-text-variant="white"
-        v-if="organization.founders.length > 0"
-      >
-        <b-table
-          :items="organization.founders"
-          :fields="founderFields"
-        >
-        </b-table>
-      </b-card>
-      <b-card
         class="mb-2"
         header="დამფუძნებელი"
         header-bg-variant="secondary"
@@ -179,7 +191,8 @@ export default {
       regulations: [],
       clinicalManagers: [],
       managers: [],
-      founders: []
+      founders: [],
+      businesses: []
     },
     clinicalManagerFields: [
       {
@@ -312,6 +325,52 @@ export default {
         key: 'actions',
         label: ' '
       }
+    ],
+    businessFields: [
+      {
+        key: 'regulation',
+        label: 'რეგულაცია'
+      },
+      {
+        key: 'businessType',
+        label: 'საქმიანობის სახე/ტიპი'
+      },
+      {
+        key: 'additionalBusinessInformation',
+        label: 'სხვა (შეტყობინების შემთხვევაში)'
+      },
+      {
+        key: 'documentNumber',
+        label: 'მოწმობის ნომერი/რეგ. N'
+      },
+      {
+        key: 'issueDate',
+        label: 'მინიჭების/შემოსვლის თარიღი'
+      },
+      {
+        key: 'cancelDate',
+        label: 'გაუქმების თარიღი'
+      },
+      {
+        key: 'hasDuplicate',
+        label: 'დუბლიკატი'
+      },
+      {
+        key: 'duplicateNumber',
+        label: 'დუბლიკატის N'
+      },
+      {
+        key: 'duplicateIssueReason',
+        label: 'დუბლიკატის გაცემის საფუძველი'
+      },
+      {
+        key: 'duplicateIssueDate',
+        label: 'დუბლიკატის გაცემის თარიღი'
+      },
+      {
+        key: 'actions',
+        label: ' '
+      }
     ]
   }),
   async created () {
@@ -323,6 +382,13 @@ export default {
   methods: {
     goBack () {
       this.$router.push('/')
+    },
+    regulationShortText (id) {
+      let regulation = this.organization.regulations.find(item => item.id === id)
+
+      if (!regulation) return null
+
+      return regulation.type + '-' + regulation.documentNumber
     }
   },
   computed: {
