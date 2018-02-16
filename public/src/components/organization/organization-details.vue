@@ -76,6 +76,19 @@
         <p><b>მისამართი:</b> {{organization.factualAddress.addressDescription}}</p>
         <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
       </b-card>
+      <b-card
+        class="mb-2"
+        header="კლინიკური მენეჯერი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.clinicalManagers.length > 0"
+      >
+        <b-table
+          :items="organization.clinicalManagers"
+          :fields="clinicalManagerFields"
+        >
+        </b-table>
+      </b-card>
 
     </div>
   </div>
@@ -89,8 +102,39 @@ export default {
   props: ['id'],
   data: () => ({
     organization: {
-      regulations: []
-    }
+      regulations: [],
+      clinicalManagers: []
+    },
+    clinicalManagerFields: [
+      {
+        key: 'firstName',
+        label: 'სახელი'
+      },
+      {
+        key: 'lastName',
+        label: 'გვარი'
+      },
+      {
+        key: 'personalId',
+        label: 'პირადი ნომერი'
+      },
+      {
+        key: 'phone',
+        label: 'ტელეფონი'
+      },
+      {
+        key: 'email',
+        label: 'ელ. ფოსტა'
+      },
+      {
+        key: 'appointingDate',
+        label: 'დანიშვნის თარიღი'
+      },
+      {
+        key: 'firingDate',
+        label: 'გათავისუფლების თარიღი'
+      },
+    ]
   }),
   async created () {
     let url = baseUrl + '/' + this.id
