@@ -287,6 +287,7 @@ const testOrganizations = [
         cancelReason: null,
         cancelDate: null,
         hasDuplicate: false,
+        duplicateNumber: null,
         duplicateIssueDate: null,
         duplicateIssueReason: null
       },
@@ -301,6 +302,7 @@ const testOrganizations = [
         cancelReason: null,
         cancelDate: null,
         hasDuplicate: true,
+        duplicateNumber: '77997',
         duplicateIssueDate: '2018-01-08',
         duplicateIssueReason: 'დოკუმენტის დაზიანება'
       }
