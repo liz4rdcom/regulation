@@ -89,6 +89,32 @@
         >
         </b-table>
       </b-card>
+      <b-card
+        class="mb-2"
+        header="ხელმძღვანელი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.managers.length > 0"
+      >
+        <b-table
+          :items="organization.managers"
+          :fields="managerFields"
+        >
+        </b-table>
+      </b-card>
+      <b-card
+        class="mb-2"
+        header="დამფუძნებელი"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="organization.founders.length > 0"
+      >
+        <b-table
+          :items="organization.founders"
+          :fields="founderFields"
+        >
+        </b-table>
+      </b-card>
 
     </div>
   </div>
@@ -103,7 +129,9 @@ export default {
   data: () => ({
     organization: {
       regulations: [],
-      clinicalManagers: []
+      clinicalManagers: [],
+      managers: [],
+      founders: [],
     },
     clinicalManagerFields: [
       {
@@ -134,6 +162,66 @@ export default {
         key: 'firingDate',
         label: 'გათავისუფლების თარიღი'
       },
+    ],
+    managerFields: [
+      {
+        key: 'position',
+        label: 'თანამდებობა'
+      },
+      {
+        key: 'firstName',
+        label: 'სახელი'
+      },
+      {
+        key: 'lastName',
+        label: 'გვარი'
+      },
+      {
+        key: 'personalId',
+        label: 'პირადი ნომერი'
+      },
+      {
+        key: 'phone',
+        label: 'ტელეფონი'
+      },
+      {
+        key: 'email',
+        label: 'ელ. ფოსტა'
+      },
+      {
+        key: 'other',
+        label: 'სხვა'
+      }
+    ],
+    founderFields: [
+      {
+        key: 'fullName',
+        label: 'სახელი და გვარი'
+      },
+      {
+        key: 'personalId',
+        label: 'პირადი ნომერი'
+      },
+      {
+        key: 'founderCompanyName',
+        label: 'ორგანიზაციის დასახელება'
+      },
+      {
+        key: 'taxCode',
+        label: 'საიდენტიფიკაციო კოდი'
+      },
+      {
+        key: 'founderType',
+        label: 'დამფუძნებლის ტიპი'
+      },
+      {
+        key: 'share',
+        label: 'წილობრივი თანაფარდობა'
+      },
+      {
+        key: 'legalForm',
+        label: 'სამართლებრივი ფორმა'
+      }
     ]
   }),
   async created () {
