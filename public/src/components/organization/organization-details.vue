@@ -162,19 +162,24 @@
           </span>
         </b-table>
       </b-card>
-      <!-- <b-card
+      <b-card
         class="mb-2"
-        header="დამფუძნებელი"
+        header="ფილიალები"
         header-bg-variant="secondary"
         header-text-variant="white"
-        v-if="organization.founders.length > 0"
+        v-if="organization.branches.length > 0"
       >
         <b-table
-          :items="organization.founders"
-          :fields="founderFields"
+          :items="organization.branches"
+          :fields="branchFields"
         >
+          <span slot="actions" slot-scope="data">
+            <b-button variant="primary" class="round-button" size="sm">
+              <i class="fa fa-info"></i>
+            </b-button>
+          </span>
         </b-table>
-      </b-card> -->
+      </b-card>
 
     </div>
   </div>
@@ -192,7 +197,8 @@ export default {
       clinicalManagers: [],
       managers: [],
       founders: [],
-      businesses: []
+      businesses: [],
+      branches: []
     },
     clinicalManagerFields: [
       {
@@ -366,6 +372,44 @@ export default {
       {
         key: 'duplicateIssueDate',
         label: 'დუბლიკატის გაცემის თარიღი'
+      },
+      {
+        key: 'actions',
+        label: ' '
+      }
+    ],
+    branchFields: [
+      {
+        key: 'name',
+        label: 'დასახელება'
+      },
+      {
+        key: 'region',
+        label: 'რეგიონი'
+      },
+      {
+        key: 'district',
+        label: 'მუნიციპალიტეტი'
+      },
+      {
+        key: 'settlement',
+        label: 'დასახლებული პუნქტი'
+      },
+      {
+        key: 'addressDescription',
+        label: 'მისამართი'
+      },
+      {
+        key: 'status',
+        label: 'სტატუსი'
+      },
+      {
+        key: 'startDate',
+        label: 'დაწყების თარიღი'
+      },
+      {
+        key: 'cancelDate',
+        label: 'გაუქმების თარიღი'
       },
       {
         key: 'actions',
