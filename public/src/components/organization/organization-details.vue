@@ -76,20 +76,7 @@
         <p><b>მისამართი:</b> {{organization.factualAddress.addressDescription}}</p>
         <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
       </b-card>
-      <b-card
-        class="mb-2"
-        header="კლინიკური მენეჯერი"
-        header-bg-variant="secondary"
-        header-text-variant="white"
-        v-if="organization.clinicalManagers.length > 0"
-      >
-        <b-table
-          responsive
-          :items="organization.clinicalManagers"
-          :fields="clinicalManagerFields"
-        >
-        </b-table>
-      </b-card>
+      <clinical-managers :organization="organization"></clinical-managers>
       <b-card
         class="mb-2"
         header="ხელმძღვანელი"
@@ -271,6 +258,7 @@
 
 <script>
 import {baseUrl, permissionType, messageType} from './organization-constants'
+import clinicalManagersComponent from './clinical-managers'
 
 export default {
   name: 'organization-details',
@@ -287,36 +275,6 @@ export default {
     currentRegulation: {},
     currentBusiness: {},
     currentBranch: {},
-    clinicalManagerFields: [
-      {
-        key: 'firstName',
-        label: 'სახელი'
-      },
-      {
-        key: 'lastName',
-        label: 'გვარი'
-      },
-      {
-        key: 'personalId',
-        label: 'პირადი ნომერი'
-      },
-      {
-        key: 'phone',
-        label: 'ტელეფონი'
-      },
-      {
-        key: 'email',
-        label: 'ელ. ფოსტა'
-      },
-      {
-        key: 'appointingDate',
-        label: 'დანიშვნის თარიღი'
-      },
-      {
-        key: 'firingDate',
-        label: 'გათავისუფლების თარიღი'
-      }
-    ],
     managerFields: [
       {
         key: 'position',
@@ -564,6 +522,9 @@ export default {
       return this.organization.regulations
         .filter(item => item.type !== permissionType)
     }
+  },
+  components: {
+    'clinical-managers': clinicalManagersComponent
   }
 }
 </script>
