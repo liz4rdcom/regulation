@@ -77,20 +77,7 @@
         <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
       </b-card>
       <clinical-managers :organization="organization"></clinical-managers>
-      <b-card
-        class="mb-2"
-        header="ხელმძღვანელი"
-        header-bg-variant="secondary"
-        header-text-variant="white"
-        v-if="organization.managers.length > 0"
-      >
-        <b-table
-          responsive
-          :items="organization.managers"
-          :fields="managerFields"
-        >
-        </b-table>
-      </b-card>
+      <managers :organization="organization"></managers>
       <b-card
         class="mb-2"
         header="დამფუძნებელი"
@@ -259,6 +246,7 @@
 <script>
 import {baseUrl, permissionType, messageType} from './organization-constants'
 import clinicalManagersComponent from './clinical-managers'
+import managersComponent from './managers'
 
 export default {
   name: 'organization-details',
@@ -275,36 +263,6 @@ export default {
     currentRegulation: {},
     currentBusiness: {},
     currentBranch: {},
-    managerFields: [
-      {
-        key: 'position',
-        label: 'თანამდებობა'
-      },
-      {
-        key: 'firstName',
-        label: 'სახელი'
-      },
-      {
-        key: 'lastName',
-        label: 'გვარი'
-      },
-      {
-        key: 'personalId',
-        label: 'პირადი ნომერი'
-      },
-      {
-        key: 'phone',
-        label: 'ტელეფონი'
-      },
-      {
-        key: 'email',
-        label: 'ელ. ფოსტა'
-      },
-      {
-        key: 'other',
-        label: 'სხვა'
-      }
-    ],
     founderFields: [
       {
         key: 'fullName',
@@ -524,7 +482,8 @@ export default {
     }
   },
   components: {
-    'clinical-managers': clinicalManagersComponent
+    'clinical-managers': clinicalManagersComponent,
+    'managers': managersComponent
   }
 }
 </script>
