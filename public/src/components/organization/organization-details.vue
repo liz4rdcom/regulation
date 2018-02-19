@@ -185,11 +185,39 @@
             </b-form-checkbox>
           </span>
           <span slot="actions" slot-scope="data">
-            <b-button variant="primary" class="round-button" size="sm">
+            <b-button variant="primary" class="round-button" size="sm" @click.stop="showBusinessInfo(data.item)">
               <i class="fa fa-info"></i>
             </b-button>
           </span>
         </b-table>
+        <b-modal ref="businessInfoModal" title="საქმიანობა" hide-footer>
+          <p><b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}</p>
+          <p><b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}</p>
+          <p><b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}</p>
+          <p>
+            <b v-if="isMessageBusiness(currentBusiness)">რეგ. ნომერი:</b>
+            <b v-else>მოწმობის N:</b>
+            {{currentBusiness.documentNumber}}
+          </p>
+          <p><b>გაცემის საფუძველი:</b> {{currentBusiness.issueReason}}</p>
+          <p>
+            <b v-if="isMessageBusiness(currentBusiness)">შემოსვლის თარიღი:</b>
+            <b v-else>გაცემის თარიღი:</b>
+            {{currentBusiness.issueDate}}
+          </p>
+          <p><b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}</p>
+          <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate}}</p>
+          <p>
+            <b>დუბლიკატი:</b>
+            <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="secondary">
+            </b-form-checkbox>
+          </p>
+          <span v-if="currentBusiness.hasDuplicate">
+            <p><b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}</p>
+            <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}</p>
+            <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate}}</p>
+          </span>
+        </b-modal>
       </b-card>
       <b-card
         class="mb-2"
@@ -230,6 +258,7 @@ export default {
       branches: []
     },
     currentRegulation: {},
+    currentBusiness: {},
     clinicalManagerFields: [
       {
         key: 'firstName',
@@ -469,7 +498,19 @@ export default {
 
       this.$refs.regulationInfoModal.show()
     },
+    showBusinessInfo (business) {
+      this.currentBusiness = business
+
+      this.$refs.businessInfoModal.show()
+    },
     isMessage (regulation) {
+      return regulation.type === messageType
+    },
+    isMessageBusiness (business) {
+      let regulation = this.organization.regulations.find(item => item.id === business.regulationId)
+
+      if (!regulation) return false
+
       return regulation.type === messageType
     }
   },
