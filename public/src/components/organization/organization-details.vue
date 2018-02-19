@@ -237,39 +237,32 @@
           :fields="branchFields"
         >
           <span slot="actions" slot-scope="data">
-            <b-button variant="primary" class="round-button" size="sm">
+            <b-button variant="primary" class="round-button" size="sm" @click.stop="showBranchInfo(data.item)">
               <i class="fa fa-info"></i>
             </b-button>
           </span>
         </b-table>
-        <!-- <b-modal ref="branchInfoModal" title="ფილიალი" hide-footer>
-          <p><b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}</p>
-          <p><b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}</p>
-          <p><b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}</p>
+        <b-modal ref="branchInfoModal" title="ფილიალი" hide-footer>
+          <p><b>დასახელება:</b> {{currentBranch.name}}</p>
+          <p><b>ფილიალის სტატუსი:</b> {{currentBranch.status}}</p>
+          <p><b>რეგისტრაციის N:</b> {{currentBranch.registrationNumber}}</p>
+          <p><b>ფილ. ფუნქციონ. საფუძველი:</b> {{currentBranch.functioningReason}}</p>
+          <p><b>დაწყების თარიღი:</b> {{currentBranch.startDate}}</p>
+          <p><b>გაუქმების თარიღი:</b> {{currentBranch.cancelDate}}</p>
+          <p><b>რეგიონი:</b> {{currentBranch.region}}</p>
+          <p><b>მუნიციპალიტეტი:</b> {{currentBranch.district}}</p>
+          <p><b>დასახლებული პუნქტი:</b> {{currentBranch.settlement}}</p>
+          <p><b>მისამართი:</b> {{currentBranch.addressDescription}}</p>
+          <p><b>საფოსტო ინდექსი:</b> {{currentBranch.postalCode}}</p>
           <p>
-            <b v-if="isMessageBusiness(currentBusiness)">რეგ. ნომერი:</b>
-            <b v-else>მოწმობის N:</b>
-            {{currentBusiness.documentNumber}}
+            <b>საქმიანობები: <br /></b>
+            <ul>
+              <li v-for="businessType in getBranchBusinessTypes(currentBranch)" :key="businessType">
+                {{businessType}}
+              </li>
+            </ul>
           </p>
-          <p><b>გაცემის საფუძველი:</b> {{currentBusiness.issueReason}}</p>
-          <p>
-            <b v-if="isMessageBusiness(currentBusiness)">შემოსვლის თარიღი:</b>
-            <b v-else>გაცემის თარიღი:</b>
-            {{currentBusiness.issueDate}}
-          </p>
-          <p><b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}</p>
-          <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate}}</p>
-          <p>
-            <b>დუბლიკატი:</b>
-            <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="secondary">
-            </b-form-checkbox>
-          </p>
-          <span v-if="currentBusiness.hasDuplicate">
-            <p><b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}</p>
-            <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}</p>
-            <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate}}</p>
-          </span>
-        </b-modal> -->
+        </b-modal>
       </b-card>
 
     </div>
@@ -552,6 +545,14 @@ export default {
       if (!regulation) return false
 
       return regulation.type === messageType
+    },
+    getBranchBusinessTypes (branch) {
+      if (!branch.businessIds) return []
+
+      let businessPairs = this.organization.businesses.map(item => [item.id, item])
+      let businessesMap = new Map(businessPairs)
+
+      return branch.businessIds.map(id => businessesMap.get(id).businessType)
     }
   },
   computed: {
