@@ -78,20 +78,7 @@
       </b-card>
       <clinical-managers :organization="organization"></clinical-managers>
       <managers :organization="organization"></managers>
-      <b-card
-        class="mb-2"
-        header="დამფუძნებელი"
-        header-bg-variant="secondary"
-        header-text-variant="white"
-        v-if="organization.founders.length > 0"
-      >
-        <b-table
-          responsive
-          :items="organization.founders"
-          :fields="founderFields"
-        >
-        </b-table>
-      </b-card>
+      <founders :organization="organization"></founders>
       <b-card
         class="mb-2"
         header="რეგულაციები"
@@ -247,6 +234,7 @@
 import {baseUrl, permissionType, messageType} from './organization-constants'
 import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
+import foundersComponent from './founders'
 
 export default {
   name: 'organization-details',
@@ -263,36 +251,6 @@ export default {
     currentRegulation: {},
     currentBusiness: {},
     currentBranch: {},
-    founderFields: [
-      {
-        key: 'fullName',
-        label: 'სახელი და გვარი'
-      },
-      {
-        key: 'personalId',
-        label: 'პირადი ნომერი'
-      },
-      {
-        key: 'founderCompanyName',
-        label: 'ორგანიზაციის დასახელება'
-      },
-      {
-        key: 'taxCode',
-        label: 'საიდენტიფიკაციო კოდი'
-      },
-      {
-        key: 'founderType',
-        label: 'დამფუძნებლის ტიპი'
-      },
-      {
-        key: 'share',
-        label: 'წილობრივი თანაფარდობა'
-      },
-      {
-        key: 'legalForm',
-        label: 'სამართლებრივი ფორმა'
-      }
-    ],
     regulationFields: [
       {
         key: 'type',
@@ -483,7 +441,8 @@ export default {
   },
   components: {
     'clinical-managers': clinicalManagersComponent,
-    'managers': managersComponent
+    'managers': managersComponent,
+    'founders': foundersComponent
   }
 }
 </script>
