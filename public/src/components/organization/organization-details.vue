@@ -84,6 +84,7 @@
         v-if="organization.clinicalManagers.length > 0"
       >
         <b-table
+          responsive
           :items="organization.clinicalManagers"
           :fields="clinicalManagerFields"
         >
@@ -97,6 +98,7 @@
         v-if="organization.managers.length > 0"
       >
         <b-table
+          responsive
           :items="organization.managers"
           :fields="managerFields"
         >
@@ -110,6 +112,7 @@
         v-if="organization.founders.length > 0"
       >
         <b-table
+          responsive
           :items="organization.founders"
           :fields="founderFields"
         >
@@ -123,6 +126,7 @@
         v-if="regulationsWithoutPermission.length > 0"
       >
         <b-table
+          responsive
           :items="regulationsWithoutPermission"
           :fields="regulationFields"
         >
@@ -174,6 +178,7 @@
         v-if="organization.businesses.length > 0"
       >
         <b-table
+          responsive
           :items="organization.businesses"
           :fields="businessFields"
         >
@@ -227,6 +232,7 @@
         v-if="organization.branches.length > 0"
       >
         <b-table
+          responsive
           :items="organization.branches"
           :fields="branchFields"
         >
@@ -236,6 +242,34 @@
             </b-button>
           </span>
         </b-table>
+        <!-- <b-modal ref="branchInfoModal" title="ფილიალი" hide-footer>
+          <p><b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}</p>
+          <p><b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}</p>
+          <p><b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}</p>
+          <p>
+            <b v-if="isMessageBusiness(currentBusiness)">რეგ. ნომერი:</b>
+            <b v-else>მოწმობის N:</b>
+            {{currentBusiness.documentNumber}}
+          </p>
+          <p><b>გაცემის საფუძველი:</b> {{currentBusiness.issueReason}}</p>
+          <p>
+            <b v-if="isMessageBusiness(currentBusiness)">შემოსვლის თარიღი:</b>
+            <b v-else>გაცემის თარიღი:</b>
+            {{currentBusiness.issueDate}}
+          </p>
+          <p><b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}</p>
+          <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate}}</p>
+          <p>
+            <b>დუბლიკატი:</b>
+            <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="secondary">
+            </b-form-checkbox>
+          </p>
+          <span v-if="currentBusiness.hasDuplicate">
+            <p><b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}</p>
+            <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}</p>
+            <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate}}</p>
+          </span>
+        </b-modal> -->
       </b-card>
 
     </div>
@@ -259,6 +293,7 @@ export default {
     },
     currentRegulation: {},
     currentBusiness: {},
+    currentBranch: {},
     clinicalManagerFields: [
       {
         key: 'firstName',
@@ -502,6 +537,11 @@ export default {
       this.currentBusiness = business
 
       this.$refs.businessInfoModal.show()
+    },
+    showBranchInfo (branch) {
+      this.currentBranch = branch
+
+      this.$refs.branchInfoModal.show()
     },
     isMessage (regulation) {
       return regulation.type === messageType
