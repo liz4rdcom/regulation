@@ -6,7 +6,8 @@ const libRepository = require('../infrastructure/lib.repository')
 
 router.get('/statuses', async (req, res, next) => {
   try {
-    let result = libRepository.getOrganizationStatuses()
+    let result = await libRepository.getOrganizationStatuses()
+    console.log(result)
 
     next({result})
   } catch (error) {
@@ -16,7 +17,7 @@ router.get('/statuses', async (req, res, next) => {
 
 router.get('/naprStatuses', async (req, res, next) => {
   try {
-    let result = libRepository.getNaprStatuses()
+    let result = await libRepository.getNaprStatuses()
 
     next({result})
   } catch (error) {
@@ -26,7 +27,7 @@ router.get('/naprStatuses', async (req, res, next) => {
 
 router.get('/organizationTypes', async (req, res, next) => {
   try {
-    let result = libRepository.getOrganizationTypes()
+    let result = await libRepository.getOrganizationTypes()
 
     next({result})
   } catch (error) {
@@ -36,7 +37,7 @@ router.get('/organizationTypes', async (req, res, next) => {
 
 router.get('/legalForms', async (req, res, next) => {
   try {
-    let result = libRepository.getLegalForms()
+    let result = await libRepository.getLegalForms()
 
     next({result})
   } catch (error) {
@@ -46,7 +47,7 @@ router.get('/legalForms', async (req, res, next) => {
 
 router.get('/commandTypes', async (req, res, next) => {
   try {
-    let result = libRepository.getCommandTypes()
+    let result = await libRepository.getCommandTypes()
 
     next({result})
   } catch (error) {
@@ -56,7 +57,7 @@ router.get('/commandTypes', async (req, res, next) => {
 
 router.get('/businessStatuses', async (req, res, next) => {
   try {
-    let result = libRepository.getBusinessStatuses()
+    let result = await libRepository.getBusinessStatuses()
 
     next({result})
   } catch (error) {

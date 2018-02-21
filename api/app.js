@@ -5,6 +5,7 @@ const config = require('config')
 const app = express()
 
 const organizations = require('./routes/organizations')
+const lib = require('./routes/lib')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('../public/dist'))
 
 app.use(organizations.baseUrl, organizations.router)
+app.use(lib.baseUrl, lib.router)
 
 app.use((response, req, res, next) => {
   // TODO logs

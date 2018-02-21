@@ -14,33 +14,39 @@ async function getLibDocument() {
     type
   }
 
-  let result = client.search(options)
+  let result = await client.search(options)
 
   return result.hits.hits[0]._source
 }
 
 async function getOrganizationStatuses() {
-  return await getLibDocument().statuses
+  let result = await getLibDocument()
+  return result.statuses
 }
 
 async function getNaprStatuses() {
-  return await getLibDocument().naprStatuses
+  let result = await getLibDocument()
+  return result.naprStatuses
 }
 
 async function getOrganizationTypes() {
-  return await getLibDocument().organizationTypes
+  let result = await getLibDocument()
+  return result.organizationTypes
 }
 
 async function getLegalForms() {
-  return await getLibDocument().legalForms
+  let result = await getLibDocument()
+  return result.legalForms
 }
 
 async function getCommandTypes() {
-  return await getLibDocument().commandTypes
+  let result = await getLibDocument()
+  return result.commandTypes
 }
 
 async function getBusinessStatuses() {
-  return await getLibDocument().businessStatuses
+  let result = await getLibDocument()
+  return result.businessStatuses
 }
 
 module.exports = {
