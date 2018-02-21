@@ -27,31 +27,6 @@
       </b-card>
       <b-card
         class="mb-2"
-        header="ნებართვა"
-        header-bg-variant="secondary"
-        header-text-variant="white"
-        v-if="permission != null"
-      >
-        <p><b>სანებართვო მოწმობის N:</b> {{permission.documentNumber}}</p>
-        <p><b>ნებართვის გაცემის საფუძველი:</b> {{permission.issueReason}}</p>
-        <p><b>ნებართვის გაცემის თარიღი:</b> {{permission.issueDate}}</p>
-        <p><b>ნებართვის ბრძანების ტიპი:</b> {{permission.commandType}}</p>
-        <p><b>ნებართვის რეესტრის N:</b> {{permission.registerNumber}}</p>
-        <p><b>ნებართვის გაუქმების საფუძველი:</b> {{permission.cancelReason}}</p>
-        <p><b>ნებართვის გაუქმების თარიღი:</b> {{permission.cancelDate}}</p>
-        <p>
-          <b>დუბლიკატი:</b>
-          <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" disabled variant="secondary">
-          </b-form-checkbox>
-        </p>
-        <span v-if="permission.hasDuplicate">
-          <p><b>ნებართვის დუბლიკატის N:</b> {{permission.duplicateNumber}}</p>
-          <p><b>ნებ. დუბლ. გაცემის საფუძველი:</b> {{permission.duplicateIssueReason}}</p>
-          <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate}}</p>
-        </span>
-      </b-card>
-      <b-card
-        class="mb-2"
         header="იურიდიული მისამართი"
         header-bg-variant="secondary"
         header-text-variant="white"
@@ -75,6 +50,31 @@
         <p><b>დასახლებული პუნქტი:</b> {{organization.factualAddress.settlement}}</p>
         <p><b>მისამართი:</b> {{organization.factualAddress.addressDescription}}</p>
         <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
+      </b-card>
+      <b-card
+        class="mb-2"
+        header="ნებართვა"
+        header-bg-variant="secondary"
+        header-text-variant="white"
+        v-if="permission != null"
+      >
+        <p><b>სანებართვო მოწმობის N:</b> {{permission.documentNumber}}</p>
+        <p><b>ნებართვის გაცემის საფუძველი:</b> {{permission.issueReason}}</p>
+        <p><b>ნებართვის გაცემის თარიღი:</b> {{permission.issueDate}}</p>
+        <p><b>ნებართვის ბრძანების ტიპი:</b> {{permission.commandType}}</p>
+        <p><b>ნებართვის რეესტრის N:</b> {{permission.registerNumber}}</p>
+        <p><b>ნებართვის გაუქმების საფუძველი:</b> {{permission.cancelReason}}</p>
+        <p><b>ნებართვის გაუქმების თარიღი:</b> {{permission.cancelDate}}</p>
+        <p>
+          <b>დუბლიკატი:</b>
+          <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" disabled variant="secondary">
+          </b-form-checkbox>
+        </p>
+        <span v-if="permission.hasDuplicate">
+          <p><b>ნებართვის დუბლიკატის N:</b> {{permission.duplicateNumber}}</p>
+          <p><b>ნებ. დუბლ. გაცემის საფუძველი:</b> {{permission.duplicateIssueReason}}</p>
+          <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate}}</p>
+        </span>
       </b-card>
       <clinical-managers :organization="organization"></clinical-managers>
       <managers :organization="organization"></managers>
