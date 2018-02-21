@@ -2,7 +2,7 @@
   <div>
     <b-card
       class="mb-2"
-      header="ხელმძღვანელი"
+      header="ხელმძღვანელები"
       header-bg-variant="secondary"
       header-text-variant="white"
       v-if="organization.managers.length > 0"

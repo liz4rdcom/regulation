@@ -2,7 +2,7 @@
   <div>
     <b-card
       class="mb-2"
-      header="კლინიკური მენეჯერი"
+      header="კლინიკური მენეჯერები"
       header-bg-variant="secondary"
       header-text-variant="white"
       v-if="organization.clinicalManagers.length > 0"
