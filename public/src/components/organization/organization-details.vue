@@ -8,7 +8,7 @@
 
     <div class="org-info">
       <b-card class="mb-2" header="ორგანიზაცია" header-bg-variant="secondary" header-text-variant="white">
-        <p><b>სტატუსი:</b> {{organization.status}}</p>
+        <p><b>სტატუსი:</b> {{organization.statusGeoName}}</p>
         <p><b>Napr სტატუსი:</b> {{organization.naprStatus}}</p>
         <p><b>სამმართველოს რეგისტრაციის N:</b> {{organization.managementRegistrationNumber}}</p>
         <p><b>საიდენტიფიკაციო კოდი:</b> {{organization.taxCode}}</p>
