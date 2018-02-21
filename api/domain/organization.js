@@ -9,6 +9,8 @@ class Organization {
     this.branches = []
 
     Object.assign(this, mainInfo)
+
+    if (this.bedStock != null && this.bedStock < 0) throw new RecordError('საწოლთა ფონდი არ შეიძლება იყოს უარყოფითი რიცხვი')
   }
 
   addRegulation(regulation) {
