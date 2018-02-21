@@ -24,6 +24,16 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.post('/maininfo', async (req, res, next) => {
+  try {
+    let result = await organizationInteractor.registerOrganization(req.body)
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
 module.exports = {
   router,
   baseUrl

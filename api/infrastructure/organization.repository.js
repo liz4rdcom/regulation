@@ -33,7 +33,20 @@ async function getById(id) {
   return utils.toObject(result)
 }
 
+async function addOrganization(organization) {
+  const options = {
+    index,
+    type,
+    body: organization
+  }
+
+  let result = await client.index(options)
+
+  return result._id
+}
+
 module.exports = {
   getList,
-  getById
+  getById,
+  addOrganization
 }
