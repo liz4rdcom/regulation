@@ -7,6 +7,8 @@ const client = elasticsearch.Client({
 
 const index = config.get('elastic.libIndex')
 const type = config.get('elastic.libType')
+const locationIndex = config.get('elastic.locationIndex')
+const locationType = config.get('elastic.locationType')
 
 async function getLibDocument() {
   const options = {
@@ -49,11 +51,23 @@ async function getBusinessStatuses() {
   return result.businessStatuses
 }
 
+async function getLocationsTree() {
+  const options = {
+    index: locationIndex,
+    type: locationType
+  }
+
+  let result = await client.search(options)
+
+  return result.hits.hits[0]._source.locationsInGeorgia
+}
+
 module.exports = {
   getOrganizationStatuses,
   getNaprStatuses,
   getOrganizationTypes,
   getLegalForms,
   getCommandTypes,
-  getBusinessStatuses
+  getBusinessStatuses,
+  getLocationsTree
 }

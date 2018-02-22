@@ -3,11 +3,11 @@ const router = require('express').Router()
 const baseUrl = '/api/libs'
 
 const libRepository = require('../infrastructure/lib.repository')
+const libInteractor = require('../interactors/lib.interactor')
 
 router.get('/statuses', async (req, res, next) => {
   try {
     let result = await libRepository.getOrganizationStatuses()
-    console.log(result)
 
     next({result})
   } catch (error) {
@@ -58,6 +58,16 @@ router.get('/commandTypes', async (req, res, next) => {
 router.get('/businessStatuses', async (req, res, next) => {
   try {
     let result = await libRepository.getBusinessStatuses()
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
+router.get('/locations', async (req, res, next) => {
+  try {
+    let result = await libInteractor.getLocationsToShow()
 
     next({result})
   } catch (error) {
