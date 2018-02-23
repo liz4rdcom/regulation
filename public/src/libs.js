@@ -54,6 +54,15 @@ async function fetchBusinessStatuses () {
   return this.businessStatuses
 }
 
+async function fetchLocations() {
+  if (this.locations) return this.locations
+
+  let response = await axios.get('/api/libs/locations')
+  this.locations = response.data
+
+  return this.locations
+}
+
 export default {
   statuses: null,
   naprStatuses: null,
@@ -61,10 +70,12 @@ export default {
   legalForms: null,
   commandTypes: null,
   businessStatuses: null,
+  locations: null,
   fetchStatuses,
   fetchNaprStatuses,
   fetchOrganizationTypes,
   fetchLegalForms,
   fetchCommandTypes,
-  fetchBusinessStatuses
+  fetchBusinessStatuses,
+  fetchLocations
 }
