@@ -1,6 +1,11 @@
 <template>
 <div>
-  <b-table bordered :items="organizations" :fields="fields">
+  <b-button variant="primary" class="addButton" @click="goToAddPage">
+    ორგანიზაციის რეგისტრაცია
+  </b-button>
+  <br>
+  <br>
+  <b-table bordered responsive :items="organizations" :fields="fields">
     <span slot="region" slot-scope="data">{{data.item.factualAddress.region}}</span>
     <span slot="district" slot-scope="data">{{data.item.factualAddress.district}}</span>
     <span slot="addressDescription" slot-scope="data">{{data.item.factualAddress.addressDescription}}</span>
@@ -85,6 +90,9 @@ export default {
     goToDetails (organization) {
       this.$router.push('/' + organization.id)
     },
+    goToAddPage () {
+      this.$router.push('/add')
+    },
     getPermissionNumber (organization) {
       return organization.regulations
         .filter(regulation => regulation.type === permissionType)[0].documentNumber
@@ -113,4 +121,7 @@ export default {
 </script>
 
 <style scoped>
+.addButton {
+  margin-left: 2vw;
+}
 </style>
