@@ -8,6 +8,32 @@ async function getLocationsToShow() {
   return result
 }
 
+async function getRegulationTypesToShow() {
+  let regulationTypes = await libRepository.getRegulationTypes()
+
+  regulationTypes.map(type => {
+    type.businessTypes = businessTypesToShow(type.businessTypes)
+  })
+
+  return regulationTypes
+}
+
+function businessTypesToShow(types) {
+  let resultTypes = []
+
+  types.forEach(item => {
+    resultTypes.push(item)
+
+    if (item.subtypes) {
+      item.subtypes.forEach(subtype => {
+        resultTypes.push(subtype)
+      })
+    }
+  })
+
+  return resultTypes
+}
+
 function regionToShow(region) {
   let unitsToShow = region.units.map(districtToShow)
 
@@ -29,5 +55,6 @@ function districtToShow(district) {
 }
 
 module.exports = {
-  getLocationsToShow
+  getLocationsToShow,
+  getRegulationTypesToShow
 }

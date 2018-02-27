@@ -75,6 +75,16 @@ router.get('/locations', async (req, res, next) => {
   }
 })
 
+router.get('/regulationTypes', async (req, res, next) => {
+  try {
+    let result = await libInteractor.getRegulationTypesToShow()
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
 module.exports = {
   baseUrl,
   router

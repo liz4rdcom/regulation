@@ -5,10 +5,14 @@ const client = elasticsearch.Client({
   host: config.get('elastic.host')
 })
 
+const utils = require('./utils')
+
 const index = config.get('elastic.libIndex')
 const type = config.get('elastic.libType')
 const locationIndex = config.get('elastic.locationIndex')
 const locationType = config.get('elastic.locationType')
+const regulationTypesIndex = config.get('elastic.regulationTypesIndex')
+const regulationTypesType = config.get('elastic.regulationTypesType')
 
 async function getLibDocument() {
   const options = {
@@ -62,6 +66,17 @@ async function getLocationsTree() {
   return result.hits.hits[0]._source.locationsInGeorgia
 }
 
+async function getRegulationTypes() {
+  const options = {
+    index: regulationTypesIndex,
+    type: regulationTypesType
+  }
+
+  let result = await client.search(options)
+
+  return result.hits.hits.map(utils.toObject)
+}
+
 module.exports = {
   getOrganizationStatuses,
   getNaprStatuses,
@@ -69,5 +84,6 @@ module.exports = {
   getLegalForms,
   getCommandTypes,
   getBusinessStatuses,
-  getLocationsTree
+  getLocationsTree,
+  getRegulationTypes
 }
