@@ -74,6 +74,53 @@
     >
       <locations :locations="locations" @change="onFactualAddressChanged"></locations>
     </b-card>
+    <b-card
+      class="mb-2"
+      header="ნებართვა"
+      header-bg-variant="secondary"
+      header-text-variant="white"
+    >
+      <b-form-group label="სანებართვო მოწმობის N">
+        <b-form-input class="col-md-5" type="text" v-model="permission.documentNumber"></b-form-input>
+      </b-form-group>
+      <b-form-group label="ნებართვის გაცემის საფუძველი">
+        <b-form-input class="col-md-5" type="text" v-model="permission.issueReason"></b-form-input>
+      </b-form-group>
+      <b-form-group label="ნებართვის გაცემის თარიღი">
+        <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.issueDate"></datepicker>
+      </b-form-group>
+      <b-form-group label="ნებართვის ბრძანების ტიპი">
+        <b-form-select v-model="permission.commandType" class="mb-3 col-md-5">
+          <option v-for="type in commandTypes" :key="type">{{type}}</option>
+        </b-form-select>
+      </b-form-group>
+      <b-form-group label="ნებართვის რეესტრის N">
+        <b-form-input class="col-md-5" type="text" v-model="permission.registerNumber"></b-form-input>
+      </b-form-group>
+      <b-form-group label="ნებართვის გაუქმების საფუძველი">
+        <b-form-input class="col-md-5" type="text" v-model="permission.cancelReason"></b-form-input>
+      </b-form-group>
+      <b-form-group label="ნებართვის გაუქმების თარიღი">
+        <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.cancelDate"></datepicker>
+      </b-form-group>
+      <p>
+        <b>დუბლიკატი:</b>
+        <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="secondary">
+        </b-form-checkbox>
+      </p>
+      <span v-if="permission.hasDuplicate">
+        <b-form-group label="ნებართვის დუბლიკატის N">
+          <b-form-input class="col-md-5" type="text" v-model="permission.duplicateNumber"></b-form-input>
+        </b-form-group>
+        <b-form-group label="ნებ. დუბლ. გაცემის საფუძველი">
+          <b-form-input class="col-md-5" type="text" v-model="permission.duplicateIssueReason"></b-form-input>
+        </b-form-group>
+        <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
+          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.duplicateIssueDate"></datepicker>
+        </b-form-group>
+      </span>
+    </b-card>
+    <clinical-managers :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
   </div>
 </template>
 
@@ -81,20 +128,30 @@
 import Datepicker from 'vuejs-datepicker'
 import lib from '../../libs'
 import locations from '../common/locations'
+import clinicalManagersComponent from './clinical-managers'
+import {datepickerFormat} from '../../utils'
 
 export default {
   name: 'organization-add',
   data: () => ({
     organization: {
       juridicalAddress: {},
-      factualAddress: {}
+      factualAddress: {},
+      regulations: [],
+      clinicalManagers: [],
+      managers: [],
+      founders: [],
+      businesses: [],
+      branches: []
     },
-    datepickerFormat: 'd MMMM yyyy',
+    datepickerFormat: datepickerFormat,
     statuses: [],
     naprStatuses: [],
     organizationTypes: [],
     legalForms: [],
-    locations: []
+    locations: [],
+    commandTypes: [],
+    permission: {}
   }),
   async created() {
     [
@@ -102,13 +159,15 @@ export default {
       this.naprStatuses,
       this.organizationTypes,
       this.legalForms,
-      this.locations
+      this.locations,
+      this.commandTypes
     ] = await Promise.all([
       lib.fetchStatuses(),
       lib.fetchNaprStatuses(),
       lib.fetchOrganizationTypes(),
       lib.fetchLegalForms(),
-      lib.fetchLocations()
+      lib.fetchLocations(),
+      lib.fetchCommandTypes()
     ])
   },
   methods: {
@@ -117,14 +176,28 @@ export default {
     },
     onFactualAddressChanged(location) {
       this.organization.factualAddress = location
+    },
+    onClinicalManagerAdd(manager) {
+      this.organization.clinicalManagers.push(manager)
+    },
+    onClinicalManagerEdit(manager, index) {
+      Object.assign(this.organization.clinicalManagers[index], manager)
+    },
+    onClinicalManagerRemove(manager, index) {
+      this.organization.clinicalManagers.splice(index, 1)
     }
   },
   components: {
     Datepicker,
-    locations
+    locations,
+    'clinical-managers': clinicalManagersComponent
   }
 }
 </script>
 
 <style scoped>
+.duplicateCheckbox {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
 </style>
