@@ -122,6 +122,8 @@
     </b-card>
     <clinical-managers :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
     <managers :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
+    <founders :organization="organization"></founders>
+    <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
   </div>
 </template>
 
@@ -131,6 +133,8 @@ import lib from '../../libs'
 import locations from '../common/locations'
 import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
+import foundersComponent from './founders'
+import regulationsComponent from './regulations'
 import {datepickerFormat} from '../../utils'
 
 export default {
@@ -196,13 +200,24 @@ export default {
     },
     onManagerRemove(manager, index) {
       this.organization.managers.splice(index, 1)
+    },
+    onRegulationAdd(regulation) {
+      this.organization.regulations.push(regulation)
+    },
+    onRegulationEdit(regulation, index) {
+      Object.assign(this.organization.regulations[index], regulation)
+    },
+    onRegulationRemove(regulation, index) {
+      this.organization.regulations.splice(index, 1)
     }
   },
   components: {
     Datepicker,
     locations,
     'clinical-managers': clinicalManagersComponent,
-    'managers': managersComponent
+    'managers': managersComponent,
+    'founders': foundersComponent,
+    'regulations': regulationsComponent
   }
 }
 </script>
