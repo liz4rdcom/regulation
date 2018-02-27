@@ -121,6 +121,7 @@
       </span>
     </b-card>
     <clinical-managers :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
+    <managers :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
   </div>
 </template>
 
@@ -129,6 +130,7 @@ import Datepicker from 'vuejs-datepicker'
 import lib from '../../libs'
 import locations from '../common/locations'
 import clinicalManagersComponent from './clinical-managers'
+import managersComponent from './managers'
 import {datepickerFormat} from '../../utils'
 
 export default {
@@ -185,12 +187,22 @@ export default {
     },
     onClinicalManagerRemove(manager, index) {
       this.organization.clinicalManagers.splice(index, 1)
+    },
+    onManagerAdd(manager) {
+      this.organization.managers.push(manager)
+    },
+    onManagerEdit(manager, index) {
+      Object.assign(this.organization.managers[index], manager)
+    },
+    onManagerRemove(manager, index) {
+      this.organization.managers.splice(index, 1)
     }
   },
   components: {
     Datepicker,
     locations,
-    'clinical-managers': clinicalManagersComponent
+    'clinical-managers': clinicalManagersComponent,
+    'managers': managersComponent
   }
 }
 </script>
