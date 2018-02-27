@@ -7,7 +7,7 @@
       header-text-variant="white"
       v-if="organization.clinicalManagers.length > 0 || editable"
     >
-      <b-button variant="primary" class="addButton" v-if="editable" @click="toggleAddModal">
+      <b-button variant="primary" class="addButton round-button" size="sm" v-if="editable" @click="toggleAddModal">
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
@@ -16,10 +16,10 @@
         :fields="clinicalManagerFields"
       >
         <span slot="actions" slot-scope="data" v-if="editable">
-          <b-button variant="primary" @click.stop="onEdit(data.item, data.index)">
+          <b-button variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button variant="danger" @click.stop="onDelete(data.item, data.index)">
+          <b-button variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)">
             <i class="fa fa-times"></i>
           </b-button>
         </span>
