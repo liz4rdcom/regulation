@@ -1,3 +1,4 @@
+const shortid = require('shortid')
 const organizationRepository = require('../infrastructure/organization.repository')
 const factory = require('../domain/factory')
 const domainUtils = require('../domain/domain.utils')
@@ -8,6 +9,10 @@ async function getList() {
 
 async function getById(id) {
   return await organizationRepository.getById(id)
+}
+
+function generateUniqueId() {
+  return shortid.generate()
 }
 
 async function registerOrganization(organizationObject) {
@@ -21,5 +26,6 @@ async function registerOrganization(organizationObject) {
 module.exports = {
   getList,
   getById,
-  registerOrganization
+  registerOrganization,
+  generateUniqueId
 }

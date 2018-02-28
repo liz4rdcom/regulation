@@ -14,6 +14,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/uniqueId', async (req, res, next) => {
+  try {
+    let result = organizationInteractor.generateUniqueId()
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     let result = await organizationInteractor.getById(req.params.id)
