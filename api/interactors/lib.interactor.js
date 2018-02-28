@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const libRepository = require('../infrastructure/lib.repository')
 
 async function getLocationsToShow() {
@@ -22,11 +23,11 @@ function businessTypesToShow(types) {
   let resultTypes = []
 
   types.forEach(item => {
-    resultTypes.push(item)
+    resultTypes.push(_.omit(item, ['subtypes']))
 
     if (item.subtypes) {
       item.subtypes.forEach(subtype => {
-        resultTypes.push(subtype)
+        resultTypes.push({type: subtype})
       })
     }
   })
