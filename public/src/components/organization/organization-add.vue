@@ -135,7 +135,8 @@ import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
 import foundersComponent from './founders'
 import regulationsComponent from './regulations'
-import {datepickerFormat} from '../../utils'
+import {datepickerFormat, editEntity, removeEntity} from '../../utils'
+import {baseUrl} from './organization-constants'
 
 export default {
   name: 'organization-add',
@@ -183,32 +184,43 @@ export default {
     onFactualAddressChanged(location) {
       this.organization.factualAddress = location
     },
-    onClinicalManagerAdd(manager) {
+    async onClinicalManagerAdd(manager) {
+      manager.id = await this.newUniqueId()
+
       this.organization.clinicalManagers.push(manager)
     },
-    onClinicalManagerEdit(manager, index) {
-      Object.assign(this.organization.clinicalManagers[index], manager)
+    onClinicalManagerEdit(manager) {
+      editEntity(this.organization.clinicalManagers, manager)
     },
-    onClinicalManagerRemove(manager, index) {
-      this.organization.clinicalManagers.splice(index, 1)
+    onClinicalManagerRemove(manager) {
+      removeEntity(this.organization.clinicalManagers, manager)
     },
-    onManagerAdd(manager) {
+    async onManagerAdd(manager) {
+      manager.id = await this.newUniqueId()
+
       this.organization.managers.push(manager)
     },
-    onManagerEdit(manager, index) {
-      Object.assign(this.organization.managers[index], manager)
+    onManagerEdit(manager) {
+      editEntity(this.organization.managers, manager)
     },
-    onManagerRemove(manager, index) {
-      this.organization.managers.splice(index, 1)
+    onManagerRemove(manager) {
+      removeEntity(this.organization.managers, manager)
     },
-    onRegulationAdd(regulation) {
+    async onRegulationAdd(regulation) {
+      regulation.id = await this.newUniqueId()
+
       this.organization.regulations.push(regulation)
     },
-    onRegulationEdit(regulation, index) {
-      Object.assign(this.organization.regulations[index], regulation)
+    onRegulationEdit(regulation) {
+      editEntity(this.organization.regulations, regulation)
     },
-    onRegulationRemove(regulation, index) {
-      this.organization.regulations.splice(index, 1)
+    onRegulationRemove(regulation) {
+      removeEntity(this.organization.regulations, regulation)
+    },
+    async newUniqueId() {
+      let response = await this.$http.get(baseUrl + '/uniqueId')
+
+      return response.data
     }
   },
   components: {

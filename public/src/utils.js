@@ -13,3 +13,15 @@ export function formatDateStrict(date) {
 
   return moment(date).format('YYYY-MM-DD')
 }
+
+export function editEntity(list, entity) {
+  let found = list.find(item => item.id === entity.id)
+
+  Object.assign(found, entity)
+}
+
+export function removeEntity(list, entity) {
+  let index = list.findIndex(item => item.id === entity.id)
+
+  list.splice(index)
+}
