@@ -23,10 +23,10 @@
           <b-button variant="primary" class="round-button" size="sm" @click.stop="showRegulationInfo(data.item)">
             <i class="fa fa-info"></i>
           </b-button>
-          <b-button v-if="editable" variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)">
+          <b-button v-if="editable" variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item)">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button v-if="editable" variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)">
+          <b-button v-if="editable" variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item)">
             <i class="fa fa-times"></i>
           </b-button>
         </span>
@@ -128,7 +128,6 @@ export default {
   },
   data: () => ({
     currentRegulation: {},
-    currentIndex: null,
     regulationFields: [
       {
         key: 'type',
@@ -202,32 +201,28 @@ export default {
     },
     toggleAddModal() {
       this.currentRegulation = {}
-      this.currentIndex = null
 
       this.$refs.regulationsChangeModal.show()
     },
-    onEdit(regulation, index) {
+    onEdit(regulation) {
       this.currentRegulation = Object.assign({}, regulation)
-      this.currentIndex = index
 
       this.$refs.regulationsChangeModal.show()
     },
-    onDelete(regulation, index) {
+    onDelete(regulation) {
       this.$emit('delete', regulation, index)
     },
     onSave() {
-      if (this.currentIndex != null) {
-        this.$emit('edit', this.currentRegulation, this.currentIndex)
+      if (this.currentRegulation.id) {
+        this.$emit('edit', this.currentRegulation)
       } else {
         this.$emit('add', this.currentRegulation)
       }
 
       this.currentRegulation = {}
-      this.currentIndex = null
     },
     onCancel() {
       this.currentRegulation = {}
-      this.currentIndex = null
     }
   },
   computed: {

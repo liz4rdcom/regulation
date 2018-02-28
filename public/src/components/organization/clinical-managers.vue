@@ -16,10 +16,10 @@
         :fields="clinicalManagerFields"
       >
         <span slot="actions" slot-scope="data" v-if="editable">
-          <b-button variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)">
+          <b-button variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item)">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)">
+          <b-button variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item)">
             <i class="fa fa-times"></i>
           </b-button>
         </span>
@@ -102,38 +102,33 @@ export default {
       }
     ],
     currentManager: {},
-    currentIndex: null,
     datepickerFormat: datepickerFormat
   }),
   methods: {
     toggleAddModal() {
       this.currentManager = {}
-      this.currentIndex = null
 
       this.$refs.clinicalManagersChangeModal.show()
     },
     onSave() {
-      if (this.currentIndex != null) {
-        this.$emit('edit', this.currentManager, this.currentIndex)
+      if (this.currentManager.id) {
+        this.$emit('edit', this.currentManager)
       } else {
         this.$emit('add', this.currentManager)
       }
 
       this.currentManager = {}
-      this.currentIndex = null
     },
     onCancel() {
       this.currentManager = {}
-      this.currentIndex = null
     },
-    onEdit(manager, index) {
+    onEdit(manager) {
       this.currentManager = Object.assign({}, manager)
-      this.currentIndex = index
 
       this.$refs.clinicalManagersChangeModal.show()
     },
-    onDelete(manager, index) {
-      this.$emit('delete', manager, index)
+    onDelete(manager) {
+      this.$emit('delete', manager)
     }
   },
   components: {
