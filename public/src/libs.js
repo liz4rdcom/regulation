@@ -63,6 +63,15 @@ async function fetchLocations() {
   return this.locations
 }
 
+async function fetchRegulationTypes() {
+  if (this.regulationTypes) return this.regulationTypes
+
+  let response = await axios.get('/api/libs/regulationTypes')
+  this.regulationTypes = response.data
+
+  return this.regulationTypes
+}
+
 export default {
   statuses: null,
   naprStatuses: null,
@@ -71,11 +80,13 @@ export default {
   commandTypes: null,
   businessStatuses: null,
   locations: null,
+  regulationTypes: null,
   fetchStatuses,
   fetchNaprStatuses,
   fetchOrganizationTypes,
   fetchLegalForms,
   fetchCommandTypes,
   fetchBusinessStatuses,
-  fetchLocations
+  fetchLocations,
+  fetchRegulationTypes
 }

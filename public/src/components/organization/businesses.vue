@@ -5,8 +5,11 @@
       header="საქმიანობები"
       header-bg-variant="secondary"
       header-text-variant="white"
-      v-if="organization.businesses.length > 0"
+      v-if="organization.businesses.length > 0 || editable"
     >
+      <b-button variant="primary" class="addButton round-button" size="sm" v-if="editable" @click="toggleAddModal">
+        <i class="fa fa-plus"></i>
+      </b-button>
       <b-table
         responsive
         :items="organization.businesses"
@@ -22,6 +25,12 @@
         <span slot="actions" slot-scope="data">
           <b-button variant="primary" class="round-button" size="sm" @click.stop="showBusinessInfo(data.item)">
             <i class="fa fa-info"></i>
+          </b-button>
+          <b-button v-if="editable" variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)">
+            <i class="fa fa-pencil"></i>
+          </b-button>
+          <b-button v-if="editable" variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)">
+            <i class="fa fa-times"></i>
           </b-button>
         </span>
       </b-table>
@@ -53,12 +62,61 @@
           <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate}}</p>
         </span>
       </b-modal>
+      <b-modal ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+        <b-form-group label="რეგულაცია">
+          <b-form-select v-model="currentBusiness.regulationId" class="mb-3 col-md-12">
+            <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
+          </b-form-select>
+        </b-form-group>
+        <b-form-group label="საქმიანობის სახე/ტიპი">
+          <b-form-select v-model="currentBusiness.businessType" class="mb-3 col-md-12">
+            <option v-for="type in businessTypes" :key="type">{{type}}</option>
+          </b-form-select>
+        </b-form-group>
+        <b-form-group label="საქმ. ინვაზ. გაუტკივარებით (სხვა)" v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
+          <b-form-select v-model="currentBusiness.additionalBusinessInformation" class="mb-3 col-md-12">
+            <option v-for="type in businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia" :key="type">{{type}}</option>
+          </b-form-select>
+        </b-form-group>
+        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'">
+          <b-form-input type="text" v-model="currentBusiness.documentNumber"></b-form-input>
+        </b-form-group>
+        <b-form-group label="გაცემის საფუძველი">
+          <b-form-input type="text" v-model="currentBusiness.issueReason"></b-form-input>
+        </b-form-group>
+        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
+          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.issueDate"></datepicker>
+        </b-form-group>
+        <b-form-group label="გაუქმების საფუძველი">
+          <b-form-input type="text" v-model="currentBusiness.cancelReason"></b-form-input>
+        </b-form-group>
+        <b-form-group label="გაუქმების თარიღი">
+          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
+        </b-form-group>
+        <b-form-group label="დუბლიკატი">
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" variant="secondary"></b-form-checkbox>
+        </b-form-group>
+        <span v-if="currentBusiness.hasDuplicate">
+          <b-form-group label="დუბლიკატის N">
+            <b-form-input type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
+          </b-form-group>
+          <b-form-group label="დუბლ. გაცემის საფუძველი">
+            <b-form-input type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
+          </b-form-group>
+          <b-form-group label="დუბლ. გაცემის თარიღი">
+            <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
+          </b-form-group>
+        </span>
+      </b-modal>
     </b-card>
   </div>
 </template>
 
 <script>
 import {messageType} from './organization-constants'
+import Datepicker from 'vuejs-datepicker'
+import {datepickerFormat, formatDateStrict} from '../../utils'
+import lib from '../../libs'
 
 export default {
   name: 'businesses',
@@ -90,11 +148,13 @@ export default {
       },
       {
         key: 'issueDate',
-        label: 'მინიჭების/შემოსვლის თარიღი'
+        label: 'მინიჭების/შემოსვლის თარიღი',
+        formatter: formatDateStrict
       },
       {
         key: 'cancelDate',
-        label: 'გაუქმების თარიღი'
+        label: 'გაუქმების თარიღი',
+        formatter: formatDateStrict
       },
       {
         key: 'hasDuplicate',
@@ -110,14 +170,25 @@ export default {
       },
       {
         key: 'duplicateIssueDate',
-        label: 'დუბლიკატის გაცემის თარიღი'
+        label: 'დუბლიკატის გაცემის თარიღი',
+        formatter: formatDateStrict
       },
       {
         key: 'actions',
         label: ' '
       }
-    ]
+    ],
+    regulationTypes: [],
+    businessTypeWithInvasiveAnesthesia: {},
+    datepickerFormat: datepickerFormat
   }),
+  async created() {
+    this.regulationTypes = await lib.fetchRegulationTypes()
+
+    let messageRegulationType = this.regulationTypes.find(item => item.regulationType === messageType)
+
+    this.businessTypeWithInvasiveAnesthesia = messageRegulationType.businessTypes.find(item => !!item.businessesWithInvasiveAnesthesia)
+  },
   methods: {
     regulationShortText (id) {
       let regulation = this.organization.regulations.find(item => item.id === id)
@@ -137,7 +208,46 @@ export default {
       if (!regulation) return false
 
       return regulation.type === messageType
+    },
+    toggleAddModal() {
+      this.currentBusiness = {}
+
+      this.$refs.businessChangeModal.show()
+    },
+    onEdit(business, index) {
+      this.currentBusiness = Object.assign({}, business)
+
+      this.$refs.businessChangeModal.show()
+    },
+    onDelete(business, index) {
+      this.$emit('delete', business, index)
+    },
+    onSave() {
+      if (this.currentBusiness.id) {
+        this.$emit('edit', this.currentBusiness)
+      } else {
+        this.$emit('add', this.currentBusiness)
+      }
+
+      this.currentBusiness = {}
+    },
+    onCancel() {
+      this.currentBusiness = {}
     }
+  },
+  computed: {
+    businessTypes() {
+      let regulation = this.organization.regulations.find(item => item.id === this.currentBusiness.regulationId)
+      if (!regulation) return []
+
+      let regulationType = this.regulationTypes.find(type => type.regulationType === regulation.type)
+      if (!regulationType) return []
+
+      return regulationType.businessTypes.map(item => item.type)
+    }
+  },
+  components: {
+    Datepicker
   }
 }
 </script>

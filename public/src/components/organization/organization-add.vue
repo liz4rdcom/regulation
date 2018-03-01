@@ -124,6 +124,7 @@
     <managers :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
     <founders :organization="organization"></founders>
     <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
+    <businesses :organization="organization" editable @add="onBusinessAdd" @edit="onBusinessEdit" @delete="onBusinessDelete"></businesses>
   </div>
 </template>
 
@@ -135,8 +136,9 @@ import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
 import foundersComponent from './founders'
 import regulationsComponent from './regulations'
+import businessComponent from './businesses.vue'
 import {datepickerFormat, editEntity, removeEntity} from '../../utils'
-import {baseUrl} from './organization-constants'
+import {baseUrl, permissionType} from './organization-constants'
 
 export default {
   name: 'organization-add',
@@ -158,7 +160,9 @@ export default {
     legalForms: [],
     locations: [],
     commandTypes: [],
-    permission: {}
+    permission: {
+      type: permissionType
+    }
   }),
   async created() {
     [
@@ -167,14 +171,16 @@ export default {
       this.organizationTypes,
       this.legalForms,
       this.locations,
-      this.commandTypes
+      this.commandTypes,
+      this.permission.id
     ] = await Promise.all([
       lib.fetchStatuses(),
       lib.fetchNaprStatuses(),
       lib.fetchOrganizationTypes(),
       lib.fetchLegalForms(),
       lib.fetchLocations(),
-      lib.fetchCommandTypes()
+      lib.fetchCommandTypes(),
+      this.newUniqueId()
     ])
   },
   methods: {
@@ -217,10 +223,48 @@ export default {
     onRegulationRemove(regulation) {
       removeEntity(this.organization.regulations, regulation)
     },
+    async onBusinessAdd(business) {
+      business.id = await this.newUniqueId()
+
+      this.organization.businesses.push(business)
+    },
+    onBusinessEdit(business) {
+      editEntity(this.organization.businesses, business)
+    },
+    onBusinessDelete(business) {
+      removeEntity(this.organization.businesses, business)
+    },
     async newUniqueId() {
       let response = await this.$http.get(baseUrl + '/uniqueId')
 
       return response.data
+    },
+    permissionIsFilled() {
+      return !!this.permission.documentNumber &&
+             !!this.permission.issueDate &&
+             !!this.permission.registerNumber
+    }
+  },
+  watch: {
+    permission: {
+      async handler() {
+        let foundPermissionIndex = this.organization.regulations.findIndex(item => item.id === this.permission.id)
+
+        // if permission is filled and doesn't exist in regulations list
+        if (this.permissionIsFilled() && foundPermissionIndex === -1) {
+          this.organization.regulations.push(this.permission)
+
+          return
+        }
+
+        // if it is empty but added in regulations list
+        if (!this.permissionIsFilled() && foundPermissionIndex > -1) {
+          this.organization.regulations.splice(foundPermissionIndex, 1)
+
+          // return
+        }
+      },
+      deep: true
     }
   },
   components: {
@@ -229,7 +273,8 @@ export default {
     'clinical-managers': clinicalManagersComponent,
     'managers': managersComponent,
     'founders': foundersComponent,
-    'regulations': regulationsComponent
+    'regulations': regulationsComponent,
+    'businesses': businessComponent
   }
 }
 </script>
