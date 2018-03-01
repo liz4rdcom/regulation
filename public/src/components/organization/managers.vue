@@ -122,7 +122,7 @@ export default {
       this.$refs.managersChangeModal.show()
     },
     onDelete(manager) {
-      this.$emit('delete', manager, index)
+      this.$emit('delete', manager)
     }
   }
 }

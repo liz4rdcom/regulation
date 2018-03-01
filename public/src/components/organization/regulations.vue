@@ -75,24 +75,24 @@
         <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
           <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
         </b-form-group>
-        <b-form-group label="ბრძანების ტიპი">
+        <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
           <b-form-select v-model="currentRegulation.commandType" class="mb-3 col-md-12">
             <option v-for="type in commandTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
-        <b-form-group label="რეესტრის N">
+        <b-form-group label="რეესტრის N" v-if="!isMessage(currentRegulation)">
           <b-form-input type="text" v-model="currentRegulation.registerNumber"></b-form-input>
         </b-form-group>
-        <b-form-group label="გაუქმების საფუძველი">
+        <b-form-group label="გაუქმების საფუძველი" v-if="!isMessage(currentRegulation)">
           <b-form-input type="text" v-model="currentRegulation.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
           <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
-        <b-form-group label="დუბლიკატი">
+        <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
           <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" variant="secondary"></b-form-checkbox>
         </b-form-group>
-        <span v-if="currentRegulation.hasDuplicate">
+        <span v-if="currentRegulation.hasDuplicate && !isMessage(currentRegulation)">
           <b-form-group label="დუბლიკატის N">
             <b-form-input type="text" v-model="currentRegulation.duplicateNumber"></b-form-input>
           </b-form-group>
@@ -210,7 +210,7 @@ export default {
       this.$refs.regulationsChangeModal.show()
     },
     onDelete(regulation) {
-      this.$emit('delete', regulation, index)
+      this.$emit('delete', regulation)
     },
     onSave() {
       if (this.currentRegulation.id) {
