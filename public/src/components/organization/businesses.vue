@@ -73,10 +73,13 @@
             <option v-for="type in businessTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
-        <b-form-group label="საქმ. ინვაზ. გაუტკივარებით (სხვა)" v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
-          <b-form-select v-model="currentBusiness.additionalBusinessInformation" class="mb-3 col-md-12">
+        <b-form-group label="საქმ. ინვაზ. გაუტკივარებით" v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
+          <b-form-select v-model="currentBusinessWithInvasiveAnesthesia" @change="onBusinessWithInvasiveAnesthesiaChange" class="mb-3 col-md-12">
             <option v-for="type in businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia" :key="type">{{type}}</option>
           </b-form-select>
+        </b-form-group>
+        <b-form-group label="სხვა" v-if="isOtherBusiness()">
+          <b-form-input type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'">
           <b-form-input type="text" v-model="currentBusiness.documentNumber"></b-form-input>
@@ -113,7 +116,7 @@
 </template>
 
 <script>
-import {messageType} from './organization-constants'
+import {messageType, businessOther} from './organization-constants'
 import Datepicker from 'vuejs-datepicker'
 import {datepickerFormat, formatDateStrict} from '../../utils'
 import lib from '../../libs'
@@ -129,6 +132,7 @@ export default {
   },
   data: () => ({
     currentBusiness: {},
+    currentBusinessWithInvasiveAnesthesia: null,
     businessFields: [
       {
         key: 'regulation',
@@ -211,11 +215,13 @@ export default {
     },
     toggleAddModal() {
       this.currentBusiness = {}
+      this.currentBusinessWithInvasiveAnesthesia = null
 
       this.$refs.businessChangeModal.show()
     },
     onEdit(business, index) {
       this.currentBusiness = Object.assign({}, business)
+      this.initCurrentBusinessWithInvasiveAnesthesia()
 
       this.$refs.businessChangeModal.show()
     },
@@ -230,9 +236,39 @@ export default {
       }
 
       this.currentBusiness = {}
+      this.currentBusinessWithInvasiveAnesthesia = null
     },
     onCancel() {
       this.currentBusiness = {}
+      this.currentBusinessWithInvasiveAnesthesia = null
+    },
+    isOtherBusiness() {
+      return this.isMessageBusiness(this.currentBusiness) &&
+             this.currentBusinessWithInvasiveAnesthesia === businessOther
+    },
+    onBusinessWithInvasiveAnesthesiaChange(value) {
+      if (value !== businessOther) {
+        this.currentBusiness.additionalBusinessInformation = value
+
+        return
+      }
+
+      this.currentBusiness.additionalBusinessInformation = null
+    },
+    initCurrentBusinessWithInvasiveAnesthesia() {
+      if (!this.isMessageBusiness(this.currentBusiness) || !this.currentBusiness.additionalBusinessInformation) return
+
+      if (
+        this.businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia.includes(
+          this.currentBusiness.additionalBusinessInformation
+        )
+      ) {
+        this.currentBusinessWithInvasiveAnesthesia = this.currentBusiness.additionalBusinessInformation
+
+        return
+      }
+
+      this.currentBusinessWithInvasiveAnesthesia = businessOther
     }
   },
   computed: {
