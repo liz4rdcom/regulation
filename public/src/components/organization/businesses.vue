@@ -64,7 +64,7 @@
       </b-modal>
       <b-modal ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-form-group label="რეგულაცია">
-          <b-form-select v-model="currentBusiness.regulationId" class="mb-3 col-md-12">
+          <b-form-select v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-3 col-md-12">
             <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
           </b-form-select>
         </b-form-group>
@@ -81,14 +81,29 @@
         <b-form-group label="სხვა" v-if="isOtherBusiness()">
           <b-form-input type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
         </b-form-group>
-        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'">
-          <b-form-input type="text" v-model="currentBusiness.documentNumber"></b-form-input>
+        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'" >
+          <b-form-input
+            type="text"
+            v-model="currentBusiness.documentNumber"
+            :disabled="isMessageBusiness(currentBusiness)">
+          </b-form-input>
         </b-form-group>
-        <b-form-group label="გაცემის საფუძველი">
-          <b-form-input type="text" v-model="currentBusiness.issueReason"></b-form-input>
+        <b-form-group label="გაცემის საფუძველი" >
+          <b-form-input
+            type="text"
+            v-model="currentBusiness.issueReason"
+            :disabled="isMessageBusiness(currentBusiness)">
+          </b-form-input>
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.issueDate"></datepicker>
+          <datepicker
+            monday-first
+            language="ge"
+            :format="datepickerFormat"
+            input-class="picker-input col-md-12"
+            v-model="currentBusiness.issueDate"
+            :disabled-picker="isMessageBusiness(currentBusiness)">
+          </datepicker>
         </b-form-group>
         <b-form-group label="გაუქმების საფუძველი">
           <b-form-input type="text" v-model="currentBusiness.cancelReason"></b-form-input>
@@ -96,10 +111,10 @@
         <b-form-group label="გაუქმების თარიღი">
           <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
         </b-form-group>
-        <b-form-group label="დუბლიკატი">
+        <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
           <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" variant="secondary"></b-form-checkbox>
         </b-form-group>
-        <span v-if="currentBusiness.hasDuplicate">
+        <span v-if="currentBusiness.hasDuplicate && !isMessageBusiness(currentBusiness)">
           <b-form-group label="დუბლიკატის N">
             <b-form-input type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
           </b-form-group>
@@ -269,6 +284,15 @@ export default {
       }
 
       this.currentBusinessWithInvasiveAnesthesia = businessOther
+    },
+    onRegulationChange(regulationId) {
+      let regulation = this.organization.regulations.find(item => item.id === regulationId)
+
+      if (regulation.type === messageType) {
+        this.currentBusiness.documentNumber = regulation.documentNumber
+        this.currentBusiness.issueReason = regulation.issueReason
+        this.currentBusiness.issueDate = regulation.issueDate
+      }
     }
   },
   computed: {
