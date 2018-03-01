@@ -16,6 +16,9 @@
       @change="settlementChanged" class="mb-3 col-md-5">
     </b-form-select>
   </b-form-group>
+  <b-form-group label="მისამართი">
+    <b-form-input class="col-md-5" type="text" :value="address" @change="addressChanged"></b-form-input>
+  </b-form-group>
   <b-form-group label="საფოსტო ინდექსი">
     <b-form-input class="col-md-5" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
   </b-form-group>
@@ -49,7 +52,7 @@
 export default {
   name: 'locations',
   props: ['locations', 'currentLocationName', 'currentLocationUnitName',
-    'currentSettlementName', 'currentPostalCode'
+    'currentSettlementName', 'currentAddress', 'currentPostalCode'
   ],
   data() {
     return {
@@ -66,6 +69,7 @@ export default {
       selectedSettlementName: '',
       selectedLocation: this.locationDefaultObject,
       selectedUnit: this.unitDefaultObject,
+      address: '',
       postalCode: ''
     }
   },
@@ -93,6 +97,9 @@ export default {
     currentSettlementName(value) {
       this.selectedSettlementName = value
     },
+    currentAddress(value) {
+      this.address = value
+    },
     currentPostalCode(value) {
       this.postalCode = value
     }
@@ -103,6 +110,7 @@ export default {
         locationName: this.selectedLocationName,
         locationUnitName: this.selectedLocationUnitName,
         settlement: this.selectedSettlementName,
+        address: this.address,
         postalCode: this.postalCode
       }
     }
@@ -126,6 +134,11 @@ export default {
     },
     settlementChanged(settlement) {
       this.selectedSettlementName = settlement
+
+      this.$emit('change', this.locationFullObject)
+    },
+    addressChanged(address) {
+      this.address = address
 
       this.$emit('change', this.locationFullObject)
     },
