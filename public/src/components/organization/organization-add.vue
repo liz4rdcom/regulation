@@ -125,6 +125,7 @@
     <founders :organization="organization"></founders>
     <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
     <businesses :organization="organization" editable @add="onBusinessAdd" @edit="onBusinessEdit" @delete="onBusinessDelete"></businesses>
+    <branches :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
   </div>
 </template>
 
@@ -136,7 +137,8 @@ import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
 import foundersComponent from './founders'
 import regulationsComponent from './regulations'
-import businessComponent from './businesses.vue'
+import businessComponent from './businesses'
+import branchesComponent from './branches'
 import {datepickerFormat, editEntity, removeEntity} from '../../utils'
 import {baseUrl, permissionType} from './organization-constants'
 
@@ -242,6 +244,17 @@ export default {
     onBusinessDelete(business) {
       removeEntity(this.organization.businesses, business)
     },
+    async onBranchesAdd(branch) {
+      branch.id = await this.newUniqueId()
+
+      this.organization.branches.push(branch)
+    },
+    onBranchesEdit(branch) {
+      editEntity(this.organization.branches, branch)
+    },
+    onBranchesDelete(branch) {
+      removeEntity(this.organization.branches, branch)
+    },
     async newUniqueId() {
       let response = await this.$http.get(baseUrl + '/uniqueId')
 
@@ -282,7 +295,8 @@ export default {
     'managers': managersComponent,
     'founders': foundersComponent,
     'regulations': regulationsComponent,
-    'businesses': businessComponent
+    'businesses': businessComponent,
+    'branches': branchesComponent
   }
 }
 </script>
