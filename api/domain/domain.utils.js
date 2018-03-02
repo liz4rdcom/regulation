@@ -1,4 +1,4 @@
-const shortid = require('shortid');
+const shortid = require('shortid')
 
 function generateIdsForOrganizationFields(organizationObject) {
   organizationObject.regulations.forEach(setId)

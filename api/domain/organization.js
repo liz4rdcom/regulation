@@ -32,7 +32,7 @@ class Organization {
   addBranch(branch) {
     let organizationBusinessIds = new Set(this.businesses.map(item => item.id))
 
-    let ids = branch.businessIds.filter(id => organizationBusinessIds.has(id))
+    let ids = branch.businessIds.filter(id => !organizationBusinessIds.has(id))
 
     if (ids.length > 0) throw new RecordError('ფილიალს არ შეიძლება ჰქონდეს ორგანიზაციისგან განსხვავებული საქმიანობა')
 
