@@ -126,6 +126,18 @@
     <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
     <businesses :organization="organization" editable @add="onBusinessAdd" @edit="onBusinessEdit" @delete="onBusinessDelete"></businesses>
     <branches :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
+    <div class="card-footer">
+      <b-button variant="primary" @click="save">
+        შენახვა
+      </b-button>
+      <b-button variant="danger" @click="onCancelClick">
+        უკან დაბრუნება
+      </b-button>
+    </div>
+    <b-modal ref="cancelQuestionModal" size="lg" hide-header-close ok-variant="danger" ok-title="დიახ" cancel-title="არა" @ok="onCancelYes">
+      <b>უკან დაბრუნების შემთხვევაში თქვენ მიერ შეტანილი ცვლილებები დაიკარგება.</b> <br><br>
+      <b>გსურთ უკან დაბრუნება?</b>
+    </b-modal>
   </div>
 </template>
 
@@ -264,6 +276,54 @@ export default {
       return !!this.permission.documentNumber &&
              !!this.permission.issueDate &&
              !!this.permission.registerNumber
+    },
+    async save() {
+      let response = await this.$http.post(baseUrl, this.organization)
+
+      this.organization.id = response.data
+
+      this.$router.push('/')
+    },
+    onCancelClick() {
+      if (this.isEmptyPage()) {
+        this.$router.push('/')
+
+        return
+      }
+
+      this.$refs.cancelQuestionModal.show()
+    },
+    onCancelYes() {
+      this.$router.push('/')
+    },
+    isEmptyPage() {
+      if (Object.keys(this.organization.juridicalAddress) > 0) return false
+
+      if (Object.keys(this.organization.factualAddress) > 0) return false
+
+      let listFields = [
+        'regulations',
+        'clinicalManagers',
+        'managers',
+        'founders',
+        'businesses',
+        'branches'
+      ]
+
+      for (let field of listFields) {
+        if (this.organization[field].length > 0) return false
+      }
+
+      let predefinedFieldsSet = new Set(listFields.concat(['juridicalAddress', 'factualAddress']))
+
+      let organizationOtherFields = Object.keys(this.organization)
+        .filter(field => !predefinedFieldsSet.has(field))
+
+      for (let field of organizationOtherFields) {
+        if (this.organization[field]) return false
+      }
+
+      return true
     }
   },
   watch: {
