@@ -2,25 +2,25 @@
 <div>
   <b-form-group label="რეგიონი">
     <b-form-select :value="selectedLocationName" :options="locations" value-field="locationName"
-      text-field="locationName" @change="locationChanged" class="mb-3 col-md-5">
+      text-field="locationName" @change="locationChanged" :class="inputClass">
     </b-form-select>
   </b-form-group>
   <b-form-group label="მუნიციპალიტეტი">
     <b-form-select :value="selectedLocationUnitName" :options="selectedLocation.units"
       value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
-      class="mb-3 col-md-5">
+      :class="inputClass">
     </b-form-select>
   </b-form-group>
   <b-form-group label="დასახლებული პუნქტი">
     <b-form-select :value="selectedSettlementName" :options="selectedUnit.settlements"
-      @change="settlementChanged" class="mb-3 col-md-5">
+      @change="settlementChanged" :class="inputClass">
     </b-form-select>
   </b-form-group>
   <b-form-group label="მისამართი">
-    <b-form-input class="col-md-5" type="text" :value="address" @change="addressChanged"></b-form-input>
+    <b-form-input :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
   </b-form-group>
   <b-form-group label="საფოსტო ინდექსი">
-    <b-form-input class="col-md-5" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
+    <b-form-input :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
   </b-form-group>
 </div>
 </template>
@@ -51,9 +51,18 @@
   */
 export default {
   name: 'locations',
-  props: ['locations', 'currentLocationName', 'currentLocationUnitName',
-    'currentSettlementName', 'currentAddress', 'currentPostalCode'
-  ],
+  props: {
+    locations: {},
+    currentLocationName: {},
+    currentLocationUnitName: {},
+    currentSettlementName: {},
+    currentAddress: {},
+    currentPostalCode: {},
+    inputClass: {
+      type: String,
+      default: 'col-md-5'
+    }
+  },
   data() {
     return {
       locationDefaultObject: Object.freeze({
