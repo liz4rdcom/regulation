@@ -153,6 +153,7 @@ import businessComponent from './businesses'
 import branchesComponent from './branches'
 import {datepickerFormat, editEntity, removeEntity} from '../../utils'
 import {baseUrl, permissionType} from './organization-constants'
+import {bus} from '../common/bus'
 
 export default {
   name: 'organization-add',
@@ -278,11 +279,15 @@ export default {
              !!this.permission.registerNumber
     },
     async save() {
-      let response = await this.$http.post(baseUrl, this.organization)
+      try {
+        let response = await this.$http.post(baseUrl, this.organization)
 
-      this.organization.id = response.data
+        this.organization.id = response.data
 
-      this.$router.push('/')
+        this.$router.push('/')
+      } catch (error) {
+        bus.$emit('error', error)
+      }
     },
     onCancelClick() {
       if (this.isEmptyPage()) {
