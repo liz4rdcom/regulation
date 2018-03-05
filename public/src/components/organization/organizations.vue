@@ -94,8 +94,10 @@ export default {
       this.$router.push('/add')
     },
     getPermissionNumber (organization) {
-      return organization.regulations
-        .filter(regulation => regulation.type === permissionType)[0].documentNumber
+      let permission = organization.regulations
+        .filter(regulation => regulation.type === permissionType)[0]
+
+      return permission ? permission.documentNumber : null
     },
     getLicensesText (organization) {
       return organization.regulations
