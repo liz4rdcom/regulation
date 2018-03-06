@@ -44,6 +44,8 @@ module.exports = {
     'eol-last': 'warn',
     'padded-blocks': 'warn',
     'prefer-arrow-callback': 'warn',
-    'comma-dangle': 'warn'
+    'comma-dangle': 'warn',
+    'computed-property-even-spacing': 'off',
+    'indent': 'off'
   }
 }

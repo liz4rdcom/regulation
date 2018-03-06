@@ -17,12 +17,16 @@
       <b-button variant="primary" @click.stop="goToDetails(data.item)" class="round-button">
         <i class="fa fa-info"></i>
       </b-button>
+      <b-button variant="primary" @click.stop="goToEditPage(data.item)" class="round-button">
+        <i class="fa fa-pencil"></i>
+      </b-button>
     </div>
   </b-table>
 </div>
 </template>
 
 <script>
+import lib from '../../libs'
 import {baseUrl, permissionType, licenseType, messageType} from './organization-constants'
 const listTextSeparator = ', '
 
@@ -85,6 +89,17 @@ export default {
     let response = await this.$http.get(baseUrl)
 
     this.organizations = response.data
+
+    await Promise.all([
+      lib.fetchStatuses(),
+      lib.fetchNaprStatuses(),
+      lib.fetchOrganizationTypes(),
+      lib.fetchLegalForms(),
+      lib.fetchCommandTypes(),
+      lib.fetchBusinessStatuses(),
+      lib.fetchLocations(),
+      lib.fetchRegulationTypes()
+    ])
   },
   methods: {
     goToDetails (organization) {
@@ -92,6 +107,9 @@ export default {
     },
     goToAddPage () {
       this.$router.push('/add')
+    },
+    goToEditPage(organization) {
+      this.$router.push('/edit/' + organization.id)
     },
     getPermissionNumber (organization) {
       let permission = organization.regulations
