@@ -23,9 +23,20 @@ async function registerOrganization(organizationObject) {
   return await organizationRepository.addOrganization(organization)
 }
 
+async function editOrganization(id, organizationObject) {
+  if (!organizationObject.id) organizationObject.id = id
+
+  domainUtils.generateIdsForOrganizationFields(organizationObject)
+
+  let organization = factory.createValidOrganization(organizationObject)
+
+  await organizationRepository.editOrganization(organization)
+}
+
 module.exports = {
   getList,
   getById,
   registerOrganization,
-  generateUniqueId
+  generateUniqueId,
+  editOrganization
 }

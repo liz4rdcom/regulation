@@ -45,8 +45,20 @@ async function addOrganization(organization) {
   return result._id
 }
 
+async function editOrganization(organization) {
+  const options = {
+    index,
+    type,
+    body: organization,
+    id: organization.id
+  }
+
+  await client.index(options)
+}
+
 module.exports = {
   getList,
   getById,
-  addOrganization
+  addOrganization,
+  editOrganization
 }
