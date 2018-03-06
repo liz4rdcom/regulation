@@ -73,7 +73,10 @@ async function advancedSearch(query) {
     ['regulationType', 'regulations.type'],
     ['businessType', 'businesses.businessType'],
     ['businessWithInvasiveAnesthesia', 'businesses.additionalBusinessInformation'],
-    ['status', 'statusGeoName']
+    ['commandType', 'regulations.commandType'],
+    ['region', 'factualAddress.region'],
+    ['district', 'factualAddress.district'],
+    ['settlement', 'factualAddress.settlement']
   ])
 
   let boolQuery = Object.keys(query)

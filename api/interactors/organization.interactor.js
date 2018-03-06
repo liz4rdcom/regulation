@@ -37,8 +37,16 @@ async function fullTextSearch(queryString = '') {
   return await organizationRepository.fullTextSearch(queryString)
 }
 
-async function advancedSearch(query) {
-  if (!query) return await getList()
+async function advancedSearch(queryObject = {}) {
+  let query = Object.keys(queryObject)
+    .filter(key => !!queryObject[key])
+    .reduce((acc, key) => {
+      acc[key] = queryObject[key]
+
+      return acc
+    }, {})
+
+  if (Object.keys(query) === 0) return await getList()
 
   return await organizationRepository.advancedSearch(query)
 }
