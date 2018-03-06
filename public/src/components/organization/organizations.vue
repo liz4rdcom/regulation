@@ -5,6 +5,21 @@
   </b-button>
   <br>
   <br>
+  <b-container>
+    <b-row>
+      <b-col cols="1"></b-col>
+      <b-col cols="8">
+        <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
+        </b-form-input>
+      </b-col>
+      <b-col cols="1">
+        <b-button variant="primary" @click="search">
+          <i class="fa fa-search"></i>
+        </b-button>
+      </b-col>
+    </b-row>
+  </b-container>
+  <br>
   <b-table bordered responsive :items="organizations" :fields="fields">
     <span slot="region" slot-scope="data">{{data.item.factualAddress.region}}</span>
     <span slot="district" slot-scope="data">{{data.item.factualAddress.district}}</span>
@@ -83,7 +98,8 @@ export default {
         label: ' '
       }
     ],
-    organizations: []
+    organizations: [],
+    searchString: ''
   }),
   async created () {
     let response = await this.$http.get(baseUrl)
@@ -102,6 +118,13 @@ export default {
     ])
   },
   methods: {
+    async search() {
+      let url = baseUrl + '/search'
+
+      let response = await this.$http.get(url, {params: {query: this.searchString}})
+
+      this.organizations = response.data
+    },
     goToDetails (organization) {
       this.$router.push('/' + organization.id)
     },
