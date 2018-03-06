@@ -3,23 +3,26 @@
   <b-form-group label="რეგიონი">
     <b-form-select :value="selectedLocationName" :options="locations" value-field="locationName"
       text-field="locationName" @change="locationChanged" :class="inputClass">
+      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
   <b-form-group label="მუნიციპალიტეტი">
     <b-form-select :value="selectedLocationUnitName" :options="selectedLocation.units"
       value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
       :class="inputClass">
+      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
   <b-form-group label="დასახლებული პუნქტი">
     <b-form-select :value="selectedSettlementName" :options="selectedUnit.settlements"
       @change="settlementChanged" :class="inputClass">
+      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
-  <b-form-group label="მისამართი">
+  <b-form-group label="მისამართი" v-if="!searching">
     <b-form-input :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
   </b-form-group>
-  <b-form-group label="საფოსტო ინდექსი">
+  <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
     <b-form-input :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
   </b-form-group>
 </div>
@@ -61,6 +64,10 @@ export default {
     inputClass: {
       type: String,
       default: 'col-md-5'
+    },
+    searching: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -73,9 +80,9 @@ export default {
         locationUnitName: '',
         settlements: []
       }),
-      selectedLocationName: '',
-      selectedLocationUnitName: '',
-      selectedSettlementName: '',
+      selectedLocationName: null,
+      selectedLocationUnitName: null,
+      selectedSettlementName: null,
       selectedLocation: this.locationDefaultObject,
       selectedUnit: this.unitDefaultObject,
       address: '',
@@ -83,9 +90,9 @@ export default {
     }
   },
   created() {
-    this.selectedLocationName = this.currentLocationName
-    this.selectedLocationUnitName = this.currentLocationUnitName
-    this.selectedSettlementName = this.currentSettlementName
+    this.selectedLocationName = this.currentLocationName || null
+    this.selectedLocationUnitName = this.currentLocationUnitName || null
+    this.selectedSettlementName = this.currentSettlementName || null
 
     this.selectedLocation = this.locationDefaultObject
     this.selectedUnit = this.unitDefaultObject
@@ -132,6 +139,8 @@ export default {
 
       this.selectedLocation = location || this.locationDefaultObject
       this.selectedUnit = this.unitDefaultObject
+
+      if (this.searching) this.$emit('change', this.locationFullObject)
     },
     locationUnitChanged(unitName) {
       this.selectedLocationUnitName = unitName
@@ -140,6 +149,8 @@ export default {
         unitName)
 
       this.selectedUnit = unit || this.unitDefaultObject
+
+      if (this.searching) this.$emit('change', this.locationFullObject)
     },
     settlementChanged(settlement) {
       this.selectedSettlementName = settlement
