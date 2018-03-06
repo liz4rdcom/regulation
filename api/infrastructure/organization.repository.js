@@ -56,9 +56,22 @@ async function editOrganization(organization) {
   await client.index(options)
 }
 
+async function fullTextSearch(queryString) {
+  const options = {
+    index,
+    type,
+    q: '*' + queryString + '*'
+  }
+
+  let result = await client.search(options)
+
+  return result.hits.hits.map(utils.toObject)
+}
+
 module.exports = {
   getList,
   getById,
   addOrganization,
-  editOrganization
+  editOrganization,
+  fullTextSearch
 }

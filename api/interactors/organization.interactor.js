@@ -33,10 +33,15 @@ async function editOrganization(id, organizationObject) {
   await organizationRepository.editOrganization(organization)
 }
 
+async function fullTextSearch(queryString = '') {
+  return await organizationRepository.fullTextSearch(queryString)
+}
+
 module.exports = {
   getList,
   getById,
   registerOrganization,
   generateUniqueId,
-  editOrganization
+  editOrganization,
+  fullTextSearch
 }

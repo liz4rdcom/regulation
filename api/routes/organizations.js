@@ -24,6 +24,16 @@ router.get('/uniqueId', async (req, res, next) => {
   }
 })
 
+router.get('/search', async (req, res, next) => {
+  try {
+    let result = await organizationInteractor.fullTextSearch(req.query.query)
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     let result = await organizationInteractor.getById(req.params.id)
