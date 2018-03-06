@@ -68,10 +68,52 @@ async function fullTextSearch(queryString) {
   return result.hits.hits.map(utils.toObject)
 }
 
+async function advancedSearch(query) {
+  let fieldMap = new Map([
+    ['regulationType', 'regulations.type'],
+    ['businessType', 'businesses.businessType'],
+    ['businessWithInvasiveAnesthesia', 'businesses.additionalBusinessInformation'],
+    ['status', 'statusGeoName']
+  ])
+
+  let boolQuery = Object.keys(query)
+    .reduce((acc, key) => {
+      let body = {}
+
+      if (fieldMap.has(key)) {
+        body[fieldMap.get(key)] = query[key]
+      } else {
+        body[key] = query[key]
+      }
+
+      acc.push(body)
+
+      return acc
+    }, [])
+    .map(item => ({match: item}))
+
+  let options = {
+    index,
+    type,
+    body: {
+      query: {
+        bool: {
+          must: boolQuery
+        }
+      }
+    }
+  }
+
+  let result = await client.search(options)
+
+  return result.hits.hits.map(utils.toObject)
+}
+
 module.exports = {
   getList,
   getById,
   addOrganization,
   editOrganization,
-  fullTextSearch
+  fullTextSearch,
+  advancedSearch
 }

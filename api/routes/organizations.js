@@ -34,6 +34,16 @@ router.get('/search', async (req, res, next) => {
   }
 })
 
+router.get('/advancedSearch', async (req, res, next) => {
+  try {
+    let result = await organizationInteractor.advancedSearch(req.query)
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     let result = await organizationInteractor.getById(req.params.id)

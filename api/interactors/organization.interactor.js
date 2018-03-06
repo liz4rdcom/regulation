@@ -37,11 +37,18 @@ async function fullTextSearch(queryString = '') {
   return await organizationRepository.fullTextSearch(queryString)
 }
 
+async function advancedSearch(query) {
+  if (!query) return await getList()
+
+  return await organizationRepository.advancedSearch(query)
+}
+
 module.exports = {
   getList,
   getById,
   registerOrganization,
   generateUniqueId,
   editOrganization,
-  fullTextSearch
+  fullTextSearch,
+  advancedSearch
 }
