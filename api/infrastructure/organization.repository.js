@@ -61,7 +61,29 @@ async function fullTextSearch(queryString) {
   const options = {
     index,
     type,
-    q: '*' + queryString + '*'
+    body: {
+      query: {
+        bool: {
+          should: [
+            {
+              'query_string': {
+                query: '*' + queryString + '*'
+              }
+            },
+            {
+              nested: {
+                path: 'businesses',
+                query: {
+                  'query_string': {
+                    query: '*' + queryString + '*'
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 
   let result = await client.search(options)
@@ -113,8 +135,6 @@ async function advancedSearch(query) {
       }
     }
   }
-
-  console.dir(options, {depth: null})
 
   let result = await client.search(options)
 
