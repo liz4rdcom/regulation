@@ -1,28 +1,6 @@
 <template>
 <div>
-  <b-button variant="primary" class="addButton" @click="goToAddPage">
-    ორგანიზაციის რეგისტრაცია
-  </b-button>
-  <br>
-  <br>
   <div>
-    <b-form-checkbox v-model="showAdvancedSearch" class="mb-5 searchCheckbox">
-      გაფართოებული ძებნა
-    </b-form-checkbox>
-    <br>
-    <b-container v-if="!showAdvancedSearch" class="searchArea">
-      <b-row>
-        <b-col>
-          <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
-          </b-form-input>
-        </b-col>
-        <b-col cols="1">
-          <b-button variant="primary" @click="search">
-            <i class="fa fa-search"></i>
-          </b-button>
-        </b-col>
-      </b-row>
-    </b-container>
     <div v-if="showAdvancedSearch" class="advancedSearchArea">
       <b-container>
         <b-row>
@@ -37,89 +15,112 @@
             </b-form-group>
             <b-form-group label="საქმიანობის სახე">
               <b-form-select v-model="searchParams.businessType" @change="searchParams.businessWithInvasiveAnesthesia = null" class="col-md-12">
-                  <template slot="first">
-                    <option :value="null" selected>ყველა</option>
-                  </template>
-                  <option v-for="type in getBusinessTypes(searchParams.regulationType)" :key="type">{{type}}</option>
-                </b-form-select>
-              </b-form-group>
+                <template slot="first">
+                  <option :value="null" selected>ყველა</option>
+                </template>
+                <option v-for="type in getBusinessTypes(searchParams.regulationType)" :key="type">{{type}}</option>
+              </b-form-select>
+            </b-form-group>
             <b-form-group label="საქმ. ინვაზ. გაუტკივარებით">
               <b-form-select
-                v-model="searchParams.businessWithInvasiveAnesthesia"
-                :disabled="!hasBusinessesWithInvasiveAnesthesia(searchParams.regulationType, searchParams.businessType)"
-                class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="business in getBusinessesWithInvasiveAnesthesia(searchParams.regulationType, searchParams.businessType)" :key="business">{{business}}</option>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="ბრძანების ტიპი">
-              <b-form-select v-model="searchParams.commandType" class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="type in commandTypes" :key="type">{{type}}</option>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="საქმიანობის წარმოების პერიოდი">
-              <b-container>
-                <b-row>
-                  <b-col xl="6" class="leftCol">
-                    <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessStartDate"></datepicker>
-                  </b-col>
-                  <b-col xl="6" class="rightCol">
-                    <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessEndDate"></datepicker>
-                  </b-col>
-                </b-row>
-              </b-container>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label="სტატუსი">
-              <b-form-select v-model="searchParams.statusGeoName" class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="status in statuses" :key="status">{{status}}</option>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Napr სტატუსი">
-              <b-form-select v-model="searchParams.naprStatus" class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="status in naprStatuses" :key="status">{{status}}</option>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="ორგანიზაციის ტიპი">
-              <b-form-select v-model="searchParams.organizationType" class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="type in organizationTypes" :key="type">{{type}}</option>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="სამართლებრივი ფორმა">
-              <b-form-select v-model="searchParams.legalForm" class="col-md-12">
-                <template slot="first">
-                  <option :value="null" selected>ყველა</option>
-                </template>
-                <option v-for="form in legalForms" :key="form">{{form}}</option>
-              </b-form-select>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <locations :locations="locations" input-class="col-md-12" searching @change="addressChanged"></locations>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-button variant="primary" class="advancedSearchButton" @click="advancedSearch">
+              v-model="searchParams.businessWithInvasiveAnesthesia"
+              :disabled="!hasBusinessesWithInvasiveAnesthesia(searchParams.regulationType, searchParams.businessType)"
+              class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="business in getBusinessesWithInvasiveAnesthesia(searchParams.regulationType, searchParams.businessType)" :key="business">{{business}}</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="ბრძანების ტიპი">
+            <b-form-select v-model="searchParams.commandType" class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="type in commandTypes" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="საქმიანობის წარმოების პერიოდი">
+            <b-container>
+              <b-row>
+                <b-col xl="6" class="leftCol">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessStartDate"></datepicker>
+                </b-col>
+                <b-col xl="6" class="rightCol">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessEndDate"></datepicker>
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label="სტატუსი">
+            <b-form-select v-model="searchParams.statusGeoName" class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="status in statuses" :key="status">{{status}}</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="Napr სტატუსი">
+            <b-form-select v-model="searchParams.naprStatus" class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="status in naprStatuses" :key="status">{{status}}</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="ორგანიზაციის ტიპი">
+            <b-form-select v-model="searchParams.organizationType" class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="type in organizationTypes" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="სამართლებრივი ფორმა">
+            <b-form-select v-model="searchParams.legalForm" class="col-md-12">
+              <template slot="first">
+                <option :value="null" selected>ყველა</option>
+              </template>
+              <option v-for="form in legalForms" :key="form">{{form}}</option>
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <locations :locations="locations" input-class="col-md-12" searching @change="addressChanged"></locations>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-button variant="primary" class="advancedSearchButton" @click="advancedSearch">
+          <i class="fa fa-search"></i>
+        </b-button>
+      </b-row>
+    </b-container>
+  </div>
+    <b-container class="searchArea">
+      <b-row>
+        <b-col>
+          <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
+          </b-form-input>
+        </b-col>
+        <b-col cols="0.5">
+          <b-button variant="primary" @click="search">
             <i class="fa fa-search"></i>
           </b-button>
-        </b-row>
-      </b-container>
-    </div>
+        </b-col>
+        <b-col cols="0.5">
+          <b-button variant="primary" class="addButton" @click="goToAddPage">
+            <i class="fa fa-plus"></i>
+          </b-button>
+        </b-col>
+        <b-col cols="4">
+          <b-form-checkbox v-model="showAdvancedSearch" class="mb-5 searchCheckbox">
+            გაფართოებული ძებნა
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 
   <br>
@@ -352,16 +353,13 @@ export default {
 
 <style scoped>
 .addButton {
-  margin-left: 2vw;
-}
-
-.searchCheckbox {
-  margin-left: 40%;
+  margin-left: 10px;
 }
 
 .searchArea {
-  width: 50%;
+  width: 70%;
   margin: auto;
+  margin-top: 25px;
 }
 
 .advancedSearchArea {
