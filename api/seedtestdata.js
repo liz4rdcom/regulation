@@ -38,6 +38,24 @@ const indexDefaultOptions = {
   }
 }
 
+const organizationIndexOptions = {
+  'settings': {
+    'index': {
+      'number_of_shards': 1,
+      'number_of_replicas': 1
+    }
+  },
+  'mappings': {
+    'organization': {
+      'properties': {
+        'businesses': {
+          'type': 'nested'
+        }
+      }
+    }
+  }
+}
+
 const testLocations = [{
   locationsInGeorgia: [
     {
@@ -1541,7 +1559,7 @@ const testOrganizations = [
     naprStatus: 'რეგისტრირებულია',
     managementRegistrationNumber: '2878',
     treasuryRegistrationNumber: '000010101000',
-    treasuryRegistrationDate: '2016-11-09',
+    treasuryRegistrationDate: '2016-11-09T00:00:00',
     treasuryRegistrationPlace: 'სასამართლო',
     juridicalAddress: {
       region: 'თბილისი',
@@ -1565,7 +1583,7 @@ const testOrganizations = [
         id: shortid.generate(),
         name: 'შპს ხვლიკი',
         status: 'აქტიური',
-        startDate: '2018-02-08',
+        startDate: '2018-02-08T00:00:00',
         registrationNumber: '810',
         functioningReason: null,
         cancelDate: null,
@@ -1585,7 +1603,7 @@ const testOrganizations = [
         type: 'ლიცენზია',
         documentNumber: '12112',
         issueReason: 'რაღაც',
-        issueDate: '2018-02-04',
+        issueDate: '2018-02-04T00:00:00',
         registerNumber: '22-5555',
         commandType: 'გაცემა',
         cancelReason: null,
@@ -1593,7 +1611,7 @@ const testOrganizations = [
         hasDuplicate: true,
         duplicateNumber: '545455',
         duplicateIssueReason: 'დოკუმენტის დაკარგვა',
-        duplicateIssueDate: '2018-02-04',
+        duplicateIssueDate: '2018-02-04T00:00:00',
         comment: 'სატესტო'
       },
       {
@@ -1601,7 +1619,7 @@ const testOrganizations = [
         type: 'ნებართვა',
         documentNumber: '12345',
         issueReason: 'რაააღაც',
-        issueDate: '2017-02-05',
+        issueDate: '2017-02-05T00:00:00',
         registerNumber: '33-545',
         commandType: 'გაცემა',
         cancelReason: null,
@@ -1609,7 +1627,7 @@ const testOrganizations = [
         hasDuplicate: true,
         duplicateNumber: '54333',
         duplicateIssueReason: 'დოკუმენტის დაკარგვა',
-        duplicateIssueDate: '2018-02-08',
+        duplicateIssueDate: '2018-02-08T00:00:00',
         comment: 'სატესტო'
       }
     ],
@@ -1636,12 +1654,12 @@ const testOrganizations = [
         additionalBusinessInformation: null,
         documentNumber: '77887',
         issueReason: 'სატესტო',
-        issueDate: '2017-03-01',
+        issueDate: '2017-03-01T00:00:00',
         cancelReason: null,
         cancelDate: null,
         hasDuplicate: true,
         duplicateNumber: '77997',
-        duplicateIssueDate: '2018-01-08',
+        duplicateIssueDate: '2018-01-08T00:00:00',
         duplicateIssueReason: 'დოკუმენტის დაზიანება'
       }
     ],
@@ -1652,7 +1670,7 @@ const testOrganizations = [
         lastName: 'ვიღაც',
         phone: null,
         email: null,
-        appointingDate: '2018-02-07',
+        appointingDate: '2018-02-07T00:00:00',
         firingDate: null
       }
     ],
@@ -1875,7 +1893,7 @@ async function seedData(data, index, indexOption, type, dropIndexIfExists = fals
   }
 }
 
-seedData(testOrganizations, 'organization', indexDefaultOptions, 'organization', true)
+seedData(testOrganizations, 'organization', organizationIndexOptions, 'organization', true)
 seedData(testLocations, 'location', indexDefaultOptions, 'location', true)
 seedData(testRegulationTypes, 'regulationtype', indexDefaultOptions, 'regulationtype', true)
 seedData(testLibs, 'lib', indexDefaultOptions, 'lib', true)
