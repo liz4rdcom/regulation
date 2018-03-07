@@ -1,5 +1,6 @@
 const elasticsearch = require('elasticsearch')
 const config = require('config')
+const _ = require('lodash')
 
 const client = elasticsearch.Client({
   host: config.get('elastic.host')
@@ -71,15 +72,15 @@ async function fullTextSearch(queryString) {
 async function advancedSearch(query) {
   let fieldMap = new Map([
     ['regulationType', 'regulations.type'],
-    ['businessType', 'businesses.businessType'],
-    ['businessWithInvasiveAnesthesia', 'businesses.additionalBusinessInformation'],
     ['commandType', 'regulations.commandType'],
     ['region', 'factualAddress.region'],
     ['district', 'factualAddress.district'],
     ['settlement', 'factualAddress.settlement']
   ])
 
-  let boolQuery = Object.keys(query)
+  let businessFields = ['businessType', 'businessWithInvasiveAnesthesia', 'businessStartDate', 'businessEndDate']
+
+  let boolQuery = Object.keys(_.omit(query, businessFields))
     .reduce((acc, key) => {
       let body = {}
 
@@ -95,6 +96,12 @@ async function advancedSearch(query) {
     }, [])
     .map(item => ({match: item}))
 
+  let businessPart = businessAdvancedSearchQueryPart(query)
+
+  if (businessPart) {
+    boolQuery.push(businessPart)
+  }
+
   let options = {
     index,
     type,
@@ -107,9 +114,103 @@ async function advancedSearch(query) {
     }
   }
 
+  console.dir(options, {depth: null})
+
   let result = await client.search(options)
 
   return result.hits.hits.map(utils.toObject)
+}
+
+function businessAdvancedSearchQueryPart(query) {
+  if (!query.businessType) return null
+
+  let mustPart = []
+
+  if (query.businessType) {
+    mustPart.push({
+      match: {
+        'businesses.businessType': query.businessType
+      }
+    })
+  }
+
+  if (query.businessWithInvasiveAnesthesia) {
+    mustPart.push({
+      match: {
+        'businesses.additionalBusinessInformation': query.businessWithInvasiveAnesthesia
+      }
+    })
+  }
+
+  if (!query.businessStartDate || !query.businessEndDate) {
+    return {
+      nested: {
+        path: 'businesses',
+        query: {
+          bool: {
+            must: mustPart
+          }
+        }
+      }
+    }
+  }
+
+  let issueDatePart = {
+    range: {
+      'businesses.issueDate': {
+        'lte': query.businessEndDate
+      }
+    }
+  }
+
+  let cancelDatePart = {
+    range: {
+      'businesses.cancelDate': {
+        'gte': query.businessStartDate
+      }
+    }
+  }
+
+  let cancelDateNullPart = {
+    nested: {
+      path: 'businesses',
+      query: {
+        exists: {
+          field: 'businesses.cancelDate'
+        }
+      }
+    }
+  }
+
+  let shouldPart = [
+    {
+      bool: {
+        must: [
+          issueDatePart,
+          cancelDatePart
+        ].concat(mustPart)
+      }
+    },
+    {
+      bool: {
+        must: [
+          issueDatePart
+        ].concat(mustPart),
+        'must_not': cancelDateNullPart
+      }
+    }
+  ]
+
+  return {
+    nested: {
+      path: 'businesses',
+      query: {
+        bool: {
+          should: shouldPart
+        }
+      }
+    }
+  }
 }
 
 module.exports = {
