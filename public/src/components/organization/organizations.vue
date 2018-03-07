@@ -92,6 +92,21 @@
           <option v-for="form in legalForms" :key="form">{{form}}</option>
         </b-form-select>
       </b-form-group>
+      <b-form-group label="საქმიანობის წარმოების პერიოდი">
+        <b-container>
+          <b-row>
+            <b-col cols="3" class="leftCol">
+              <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessStartDate"></datepicker>
+            </b-col>
+            <b-col cols="0.5">
+              -
+            </b-col>
+            <b-col cols="3" class="rightCol">
+              <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessEndDate"></datepicker>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-form-group>
       <b-button variant="primary" @click="advancedSearch">
         <i class="fa fa-search"></i>
       </b-button>
@@ -122,7 +137,9 @@
 <script>
 import lib from '../../libs'
 import {baseUrl, permissionType, licenseType, messageType} from './organization-constants'
-import locationsCOmponent from '../common/locations'
+import locationsComponent from '../common/locations'
+import Datepicker from 'vuejs-datepicker'
+import {datepickerFormat} from '../../utils'
 
 const listTextSeparator = ', '
 
@@ -180,6 +197,7 @@ export default {
       }
     ],
     organizations: [],
+    datepickerFormat: datepickerFormat,
     searchString: '',
     showAdvancedSearch: false,
     searchParams: {
@@ -317,7 +335,8 @@ export default {
   },
   computed: { },
   components: {
-    'locations': locationsCOmponent
+    'locations': locationsComponent,
+    Datepicker
   }
 }
 </script>
@@ -335,4 +354,13 @@ export default {
   width: 50%;
   margin: auto;
 }
+
+.leftCol {
+  padding-left: 0px;
+}
+
+.rightCol {
+  padding-right: 0px;
+}
+
 </style>
