@@ -93,11 +93,15 @@ async function fullTextSearch(queryString) {
 
 async function advancedSearch(query) {
   let fieldMap = new Map([
-    ['regulationType', 'regulations.type'],
-    ['commandType', 'regulations.commandType'],
-    ['region', 'factualAddress.region'],
-    ['district', 'factualAddress.district'],
-    ['settlement', 'factualAddress.settlement']
+    ['regulationType', 'regulations.type.keyword'],
+    ['commandType', 'regulations.commandType.keyword'],
+    ['region', 'factualAddress.region.keyword'],
+    ['district', 'factualAddress.district.keyword'],
+    ['settlement', 'factualAddress.settlement.keyword'],
+    ['statusGeoName', 'statusGeoName.keyword'],
+    ['naprStatus', 'naprStatus.keyword'],
+    ['organizationType', 'organizationType.keyword'],
+    ['legalForm', 'legalForm.keyword']
   ])
 
   let businessFields = ['businessType', 'businessWithInvasiveAnesthesia', 'businessStartDate', 'businessEndDate']
@@ -149,7 +153,7 @@ function businessAdvancedSearchQueryPart(query) {
   if (query.businessType) {
     mustPart.push({
       match: {
-        'businesses.businessType': query.businessType
+        'businesses.businessType.keyword': query.businessType
       }
     })
   }
@@ -157,7 +161,7 @@ function businessAdvancedSearchQueryPart(query) {
   if (query.businessWithInvasiveAnesthesia) {
     mustPart.push({
       match: {
-        'businesses.additionalBusinessInformation': query.businessWithInvasiveAnesthesia
+        'businesses.additionalBusinessInformation.keyword': query.businessWithInvasiveAnesthesia
       }
     })
   }
