@@ -97,6 +97,7 @@
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
           <datepicker
+            clear-button
             monday-first
             language="ge"
             :format="datepickerFormat"
@@ -109,7 +110,7 @@
           <b-form-input type="text" v-model="currentBusiness.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
           <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" variant="secondary"></b-form-checkbox>
@@ -122,7 +123,7 @@
             <b-form-input type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
+            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
       </b-modal>

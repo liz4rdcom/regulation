@@ -21,7 +21,7 @@
         <b-form-input class="col-md-5" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
       </b-form-group>
       <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
-        <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="organization.treasuryRegistrationDate"></datepicker>
+        <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="organization.treasuryRegistrationDate"></datepicker>
       </b-form-group>
       <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
         <b-form-input class="col-md-5" type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
@@ -103,7 +103,7 @@
         <b-form-input class="col-md-5" type="text" v-model="permission.issueReason"></b-form-input>
       </b-form-group>
       <b-form-group label="ნებართვის გაცემის თარიღი">
-        <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.issueDate"></datepicker>
+        <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.issueDate"></datepicker>
       </b-form-group>
       <b-form-group label="ნებართვის ბრძანების ტიპი">
         <b-form-select v-model="permission.commandType" class="mb-3 col-md-5">
@@ -117,7 +117,7 @@
         <b-form-input class="col-md-5" type="text" v-model="permission.cancelReason"></b-form-input>
       </b-form-group>
       <b-form-group label="ნებართვის გაუქმების თარიღი">
-        <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.cancelDate"></datepicker>
+        <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.cancelDate"></datepicker>
       </b-form-group>
       <p>
         <b>დუბლიკატი:</b>
@@ -132,7 +132,7 @@
           <b-form-input class="col-md-5" type="text" v-model="permission.duplicateIssueReason"></b-form-input>
         </b-form-group>
         <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.duplicateIssueDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.duplicateIssueDate"></datepicker>
         </b-form-group>
       </span>
     </b-card>

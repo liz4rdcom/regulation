@@ -64,10 +64,10 @@
           <b-form-input type="text" v-model="currentBranch.functioningReason"></b-form-input>
         </b-form-group>
         <b-form-group label="დაწყების თარიღი">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
         </b-form-group>
         <locations
           :locations="locations"

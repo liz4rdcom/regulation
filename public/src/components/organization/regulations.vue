@@ -73,7 +73,7 @@
           <b-form-input type="text" v-model="currentRegulation.issueReason"></b-form-input>
         </b-form-group>
         <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
         </b-form-group>
         <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
           <b-form-select v-model="currentRegulation.commandType" class="mb-3 col-md-12">
@@ -87,7 +87,7 @@
           <b-form-input type="text" v-model="currentRegulation.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
+          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
           <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" variant="secondary"></b-form-checkbox>
@@ -100,7 +100,7 @@
             <b-form-input type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
+            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
         <b-form-group label="შენიშვნა">
