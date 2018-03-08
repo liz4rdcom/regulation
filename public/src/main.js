@@ -8,11 +8,18 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'font-awesome/css/font-awesome.min.css'
+import * as moment from 'moment'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.prototype.$http = axios
+
+Vue.filter('date', value => {
+  if (!value) return ''
+
+  return moment(value).format('YYYY-MM-DD')
+})
 
 /* eslint-disable no-new */
 new Vue({

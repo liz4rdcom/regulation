@@ -32,8 +32,8 @@
         <p><b>ფილიალის სტატუსი:</b> {{currentBranch.status}}</p>
         <p><b>რეგისტრაციის N:</b> {{currentBranch.registrationNumber}}</p>
         <p><b>ფილ. ფუნქციონ. საფუძველი:</b> {{currentBranch.functioningReason}}</p>
-        <p><b>დაწყების თარიღი:</b> {{currentBranch.startDate}}</p>
-        <p><b>გაუქმების თარიღი:</b> {{currentBranch.cancelDate}}</p>
+        <p><b>დაწყების თარიღი:</b> {{currentBranch.startDate | date}}</p>
+        <p><b>გაუქმების თარიღი:</b> {{currentBranch.cancelDate | date}}</p>
         <p><b>რეგიონი:</b> {{currentBranch.region}}</p>
         <p><b>მუნიციპალიტეტი:</b> {{currentBranch.district}}</p>
         <p><b>დასახლებული პუნქტი:</b> {{currentBranch.settlement}}</p>

@@ -13,7 +13,7 @@
         <p><b>სამმართველოს რეგისტრაციის N:</b> {{organization.managementRegistrationNumber}}</p>
         <p><b>საიდენტიფიკაციო კოდი:</b> {{organization.taxCode}}</p>
         <p><b>სახაზინო რეგისტრაციის N:</b> {{organization.treasuryRegistrationNumber}}</p>
-        <p><b>სახაზინო რეგისტრაციის თარიღი:</b> {{organization.treasuryRegistrationDate}}</p>
+        <p><b>სახაზინო რეგისტრაციის თარიღი:</b> {{organization.treasuryRegistrationDate | date}}</p>
         <p><b>სახაზინო რეგისტრაციის ადგილი:</b> {{organization.treasuryRegistrationPlace}}</p>
         <p><b>ქართული დასახელება:</b> {{organization.georgianName}}</p>
         <p><b>ლათინური დასახელება:</b> {{organization.latinName}}</p>
@@ -60,11 +60,11 @@
       >
         <p><b>სანებართვო მოწმობის N:</b> {{permission.documentNumber}}</p>
         <p><b>ნებართვის გაცემის საფუძველი:</b> {{permission.issueReason}}</p>
-        <p><b>ნებართვის გაცემის თარიღი:</b> {{permission.issueDate}}</p>
+        <p><b>ნებართვის გაცემის თარიღი:</b> {{permission.issueDate | date}}</p>
         <p><b>ნებართვის ბრძანების ტიპი:</b> {{permission.commandType}}</p>
         <p><b>ნებართვის რეესტრის N:</b> {{permission.registerNumber}}</p>
         <p><b>ნებართვის გაუქმების საფუძველი:</b> {{permission.cancelReason}}</p>
-        <p><b>ნებართვის გაუქმების თარიღი:</b> {{permission.cancelDate}}</p>
+        <p><b>ნებართვის გაუქმების თარიღი:</b> {{permission.cancelDate | date}}</p>
         <p>
           <b>დუბლიკატი:</b>
           <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" disabled variant="secondary">
@@ -73,7 +73,7 @@
         <span v-if="permission.hasDuplicate">
           <p><b>ნებართვის დუბლიკატის N:</b> {{permission.duplicateNumber}}</p>
           <p><b>ნებ. დუბლ. გაცემის საფუძველი:</b> {{permission.duplicateIssueReason}}</p>
-          <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate}}</p>
+          <p><b>ნებ. დუბლ. გაცემის თარიღი:</b> {{permission.duplicateIssueDate | date}}</p>
         </span>
       </b-card>
       <clinical-managers :organization="organization"></clinical-managers>

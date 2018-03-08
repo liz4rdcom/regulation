@@ -47,10 +47,10 @@
         <p>
           <b v-if="isMessageBusiness(currentBusiness)">შემოსვლის თარიღი:</b>
           <b v-else>გაცემის თარიღი:</b>
-          {{currentBusiness.issueDate}}
+          {{currentBusiness.issueDate | date}}
         </p>
         <p><b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}</p>
-        <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate}}</p>
+        <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate | date}}</p>
         <p>
           <b>დუბლიკატი:</b>
           <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="secondary">
@@ -59,7 +59,7 @@
         <span v-if="currentBusiness.hasDuplicate">
           <p><b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}</p>
           <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}</p>
-          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate}}</p>
+          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate | date}}</p>
         </span>
       </b-modal>
       <b-modal ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">

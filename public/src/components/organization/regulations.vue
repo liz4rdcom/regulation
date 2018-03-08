@@ -42,12 +42,12 @@
         <p>
           <b v-if="isMessage(currentRegulation)">შემოსვლის თარიღი:</b>
           <b v-else>გაცემის თარიღი:</b>
-          {{currentRegulation.issueDate}}
+          {{currentRegulation.issueDate | date}}
         </p>
         <p><b>ბრძანების ტიპი:</b> {{currentRegulation.commandType}}</p>
         <p><b>რეესტრის N:</b> {{currentRegulation.registerNumber}}</p>
         <p><b>გაუქმების საფუძველი:</b> {{currentRegulation.cancelReason}}</p>
-        <p><b>გაუქმების თარიღი:</b> {{currentRegulation.cancelDate}}</p>
+        <p><b>გაუქმების თარიღი:</b> {{currentRegulation.cancelDate | date}}</p>
         <p>
           <b>დუბლიკატი:</b>
           <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" disabled variant="secondary">
@@ -56,7 +56,7 @@
         <span v-if="currentRegulation.hasDuplicate">
           <p><b>დუბლიკატის N:</b> {{currentRegulation.duplicateNumber}}</p>
           <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentRegulation.duplicateIssueReason}}</p>
-          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentRegulation.duplicateIssueDate}}</p>
+          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentRegulation.duplicateIssueDate | date}}</p>
         </span>
         <p><b>შენიშვნა:</b> {{currentRegulation.comment}}</p>
       </b-modal>
