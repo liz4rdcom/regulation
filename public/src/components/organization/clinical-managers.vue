@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="კლინიკური მენეჯერები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="organization.clinicalManagers.length > 0 || editable"
     >

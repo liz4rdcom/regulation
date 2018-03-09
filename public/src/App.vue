@@ -57,11 +57,16 @@ export default {
 }
 
 .toolbar {
-  background-color: rgb(3, 96, 206);
+  background-color: #196AB0;
   height: 70px;
   /* height: 83px; */
   margin-bottom: 5px;
   color: white;
+}
+
+.bg-stone {
+  background-color: #336B87;
+  border-color: #336B87;
 }
 
 .actions {

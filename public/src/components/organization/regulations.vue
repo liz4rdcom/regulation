@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="რეგულაციები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="regulationsWithoutPermission.length > 0 || editable"
     >
@@ -50,7 +50,7 @@
         <p><b>გაუქმების თარიღი:</b> {{currentRegulation.cancelDate | date}}</p>
         <p>
           <b>დუბლიკატი:</b>
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" disabled variant="secondary">
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" disabled variant="stone">
           </b-form-checkbox>
         </p>
         <span v-if="currentRegulation.hasDuplicate">
@@ -90,7 +90,7 @@
           <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" variant="secondary"></b-form-checkbox>
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" variant="stone"></b-form-checkbox>
         </b-form-group>
         <span v-if="currentRegulation.hasDuplicate && !isMessage(currentRegulation)">
           <b-form-group label="დუბლიკატის N">

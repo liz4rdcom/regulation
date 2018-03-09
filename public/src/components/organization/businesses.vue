@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="საქმიანობები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="organization.businesses.length > 0 || editable"
     >
@@ -53,7 +53,7 @@
         <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate | date}}</p>
         <p>
           <b>დუბლიკატი:</b>
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="secondary">
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="stone">
           </b-form-checkbox>
         </p>
         <span v-if="currentBusiness.hasDuplicate">
@@ -113,7 +113,7 @@
           <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" variant="secondary"></b-form-checkbox>
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" variant="stone"></b-form-checkbox>
         </b-form-group>
         <span v-if="currentBusiness.hasDuplicate && !isMessageBusiness(currentBusiness)">
           <b-form-group label="დუბლიკატის N">

@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="ფილიალები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="organization.branches.length > 0 || editable"
     >

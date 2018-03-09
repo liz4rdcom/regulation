@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="ხელმძღვანელები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="organization.managers.length > 0 || editable"
     >

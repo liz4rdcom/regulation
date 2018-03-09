@@ -1,6 +1,6 @@
 <template>
   <div class="org-info">
-    <b-card class="mb-2 main-info" header="ორგანიზაცია" header-bg-variant="secondary" header-text-variant="white">
+    <b-card class="mb-2 main-info" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
       <b-form-group label="სტატუსი">
         <b-form-select v-model="organization.statusGeoName" class="mb-3 col-md-5">
           <option v-for="status in statuses" :key="status">{{status}}</option>
@@ -61,7 +61,7 @@
     <b-card
       class="mb-2"
       header="იურიდიული მისამართი"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
     >
       <locations :locations="locations" @change="onJuridicalAddressChanged"></locations>
@@ -69,7 +69,7 @@
     <b-card
       class="mb-2"
       header="ფაქტიური მისამართი"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
     >
       <locations :locations="locations" @change="onFactualAddressChanged"></locations>
@@ -77,7 +77,7 @@
     <b-card
       class="mb-2"
       header="ნებართვა"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
     >
       <b-form-group label="სანებართვო მოწმობის N">
@@ -105,7 +105,7 @@
       </b-form-group>
       <p>
         <b>დუბლიკატი:</b>
-        <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="secondary">
+        <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="stone">
         </b-form-checkbox>
       </p>
       <span v-if="permission.hasDuplicate">

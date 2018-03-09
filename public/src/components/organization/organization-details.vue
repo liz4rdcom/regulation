@@ -8,7 +8,7 @@
     </div>
 
     <div class="org-info">
-      <b-card class="mb-2" header="ორგანიზაცია" header-bg-variant="secondary" header-text-variant="white">
+      <b-card class="mb-2" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
         <p><b>სტატუსი:</b> {{organization.statusGeoName}}</p>
         <p><b>Napr სტატუსი:</b> {{organization.naprStatus}}</p>
         <p><b>სამმართველოს რეგისტრაციის N:</b> {{organization.managementRegistrationNumber}}</p>
@@ -29,7 +29,7 @@
       <b-card
         class="mb-2"
         header="იურიდიული მისამართი"
-        header-bg-variant="secondary"
+        header-bg-variant="stone"
         header-text-variant="white"
         v-if="organization.juridicalAddress != null"
       >
@@ -42,7 +42,7 @@
       <b-card
         class="mb-2"
         header="ფაქტიური მისამართი"
-        header-bg-variant="secondary"
+        header-bg-variant="stone"
         header-text-variant="white"
         v-if="organization.factualAddress != null"
       >
@@ -55,7 +55,7 @@
       <b-card
         class="mb-2"
         header="ნებართვა"
-        header-bg-variant="secondary"
+        header-bg-variant="stone"
         header-text-variant="white"
         v-if="permission != null"
       >

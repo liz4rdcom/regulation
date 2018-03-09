@@ -3,7 +3,7 @@
     <b-card
       class="mb-2"
       header="დამფუძნებლები"
-      header-bg-variant="secondary"
+      header-bg-variant="stone"
       header-text-variant="white"
       v-if="organization.founders.length > 0"
     >
