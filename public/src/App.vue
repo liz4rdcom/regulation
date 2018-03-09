@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <div class="toolbar">
+      <!-- <span style="font-size: 13px;">რეგულირების მოდული</span><br />
+      <span style="font-size: 13px;">ლიცენზირება/ნებართვები</span><br />
+      <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span> -->
+    </div>
     <router-view/>
   </div>
 </template>
@@ -16,7 +21,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .round-button {
@@ -48,5 +52,13 @@ export default {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.toolbar {
+  background-color: rgb(3, 96, 206);
+  height: 70px;
+  /* height: 83px; */
+  margin-bottom: 60px;
+  color: white;
 }
 </style>
