@@ -1,6 +1,29 @@
 <template>
 <div>
   <div>
+    <b-container class="searchArea">
+      <b-row>
+        <b-col>
+          <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
+          </b-form-input>
+        </b-col>
+        <b-col cols="0.5">
+          <b-button variant="primary" @click="search">
+            <i class="fa fa-search"></i>
+          </b-button>
+        </b-col>
+        <b-col cols="0.5">
+          <b-button variant="primary" class="addButton" @click="goToAddPage">
+            <i class="fa fa-plus"></i>
+          </b-button>
+        </b-col>
+        <b-col cols="4">
+          <b-button variant="primary" :class="showAdvancedSearch ? 'advancedSearchToggleFocused': 'advancedSearchToggleInactive'" @click="showAdvancedSearch = !showAdvancedSearch">
+            გაფართოებული ძებნა
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
     <div v-if="showAdvancedSearch" class="advancedSearchArea">
       <b-container>
         <b-row>
@@ -98,29 +121,6 @@
       </b-row>
     </b-container>
   </div>
-    <b-container class="searchArea">
-      <b-row>
-        <b-col>
-          <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
-          </b-form-input>
-        </b-col>
-        <b-col cols="0.5">
-          <b-button variant="primary" @click="search">
-            <i class="fa fa-search"></i>
-          </b-button>
-        </b-col>
-        <b-col cols="0.5">
-          <b-button variant="primary" class="addButton" @click="goToAddPage">
-            <i class="fa fa-plus"></i>
-          </b-button>
-        </b-col>
-        <b-col cols="4">
-          <b-form-checkbox v-model="showAdvancedSearch" class="mb-5 searchCheckbox">
-            გაფართოებული ძებნა
-          </b-form-checkbox>
-        </b-col>
-      </b-row>
-    </b-container>
   </div>
 
   <br>
@@ -360,7 +360,17 @@ export default {
 .searchArea {
   width: 70%;
   margin: auto;
-  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.advancedSearchToggleFocused {
+  background-color: #0069d9;
+  border-color: #0062cc;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.advancedSearchToggleInactive:focus {
+  box-shadow: 0 0 0 0;
 }
 
 .advancedSearchArea {
