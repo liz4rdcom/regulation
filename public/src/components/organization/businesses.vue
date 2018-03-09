@@ -7,7 +7,7 @@
       header-text-variant="white"
       v-if="organization.businesses.length > 0 || editable"
     >
-      <b-button variant="primary" class="addButton round-button" size="sm" v-if="editable" @click="toggleAddModal">
+      <b-button variant="primary" class="addButton round-button" size="sm" v-if="editable" @click="toggleAddModal" v-b-tooltip.hover title="საქმიანობის დამატება">
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
@@ -23,13 +23,13 @@
           </b-form-checkbox>
         </span>
         <span slot="actions" slot-scope="data">
-          <b-button variant="primary" class="round-button" size="sm" @click.stop="showBusinessInfo(data.item)">
+          <b-button variant="primary" class="round-button" size="sm" @click.stop="showBusinessInfo(data.item)" v-b-tooltip.hover title="სრული ინფორმაცია">
             <i class="fa fa-info"></i>
           </b-button>
-          <b-button v-if="editable" variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)">
+          <b-button v-if="editable" variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item, data.index)" v-b-tooltip.hover title="რედაქტირება">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button v-if="editable" variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)">
+          <b-button v-if="editable" variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item, data.index)" v-b-tooltip.hover title="წაშლა">
             <i class="fa fa-times"></i>
           </b-button>
         </span>

@@ -8,12 +8,12 @@
           </b-form-input>
         </b-col>
         <b-col cols="0.5">
-          <b-button variant="primary" @click="search">
+          <b-button variant="primary" @click="search" v-b-tooltip.hover title="ძებნა">
             <i class="fa fa-search"></i>
           </b-button>
         </b-col>
         <b-col cols="0.5">
-          <b-button variant="primary" class="addButton" @click="goToAddPage">
+          <b-button variant="primary" class="addButton" @click="goToAddPage" v-b-tooltip.hover title="ორგანიზაციის დამატება">
             <i class="fa fa-plus"></i>
           </b-button>
         </b-col>
@@ -115,7 +115,7 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-button variant="primary" class="advancedSearchButton" @click="advancedSearch">
+        <b-button variant="primary" class="advancedSearchButton" @click="advancedSearch" v-b-tooltip.hover title="გაფართოებული ძებნა">
           <i class="fa fa-search"></i>
         </b-button>
       </b-row>
@@ -133,10 +133,10 @@
     <span slot="messageNumbers" slot-scope="data">{{getMessagesText(data.item)}}</span>
     <span slot="registerNumbers" slot-scope="data">{{getRegisterNumbers(data.item)}}</span>
     <div slot="actions" slot-scope="data">
-      <b-button variant="primary" @click.stop="goToDetails(data.item)" class="round-button">
+      <b-button variant="primary" @click.stop="goToDetails(data.item)" class="round-button" v-b-tooltip.hover title="სრული ინფორმაცია">
         <i class="fa fa-info"></i>
       </b-button>
-      <b-button variant="primary" @click.stop="goToEditPage(data.item)" class="round-button">
+      <b-button variant="primary" @click.stop="goToEditPage(data.item)" class="round-button" v-b-tooltip.hover title="რედაქტირება">
         <i class="fa fa-pencil"></i>
       </b-button>
     </div>
