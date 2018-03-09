@@ -79,7 +79,7 @@
       </b-card>
       <clinical-managers :organization="organization"></clinical-managers>
       <managers :organization="organization"></managers>
-      <founders :organization="organization"></founders>
+      <!-- <founders :organization="organization"></founders> -->
       <regulations :organization="organization"></regulations>
       <businesses :organization="organization"></businesses>
       <branches :organization="organization"></branches>
