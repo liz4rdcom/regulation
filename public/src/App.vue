@@ -60,7 +60,7 @@ export default {
   background-color: rgb(3, 96, 206);
   height: 70px;
   /* height: 83px; */
-  margin-bottom: 60px;
+  margin-bottom: 5px;
   color: white;
 }
 

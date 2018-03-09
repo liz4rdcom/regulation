@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="header">
-      <i class="fa fa-arrow-left fa-2x" @click="goBack"></i>
-      <!-- <b-button  variant="link">
-      </b-button> -->
+      <b-button variant="primary" @click="goBack">
+        უკან დაბრუნება
+      </b-button>
+      <!-- <i class="fa fa-arrow-left fa-2x" @click="goBack"></i> -->
     </div>
 
     <div class="org-info">

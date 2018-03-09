@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="organizations">
   <div>
     <b-container class="searchArea">
       <b-row>
@@ -353,6 +353,10 @@ export default {
 </script>
 
 <style scoped>
+.organizations {
+  margin-top: 55px;
+}
+
 .addButton {
   margin-left: 10px;
 }
