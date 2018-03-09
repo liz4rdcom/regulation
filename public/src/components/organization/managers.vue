@@ -93,7 +93,8 @@ export default {
       },
       {
         key: 'actions',
-        label: ' '
+        label: ' ',
+        class: 'actions'
       }
     ],
     currentManager: {}

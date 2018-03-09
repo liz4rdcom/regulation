@@ -63,4 +63,8 @@ export default {
   margin-bottom: 60px;
   color: white;
 }
+
+.actions {
+  white-space: nowrap;
+}
 </style>
