@@ -25,6 +25,8 @@ export default {
 
 .round-button {
   border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
 }
 
 /* copied properties from bootstrap's form-control */
