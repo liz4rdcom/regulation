@@ -24,7 +24,7 @@ export default {
 }
 
 .round-button {
-  border-radius: 50%;
+  border-radius: 50% !important;
   width: 2.4rem;
   height: 2.4rem;
 }
