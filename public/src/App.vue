@@ -64,6 +64,17 @@ export default {
   color: white;
 }
 
+.btn-bl {
+  background-color: #0F76DB;
+  border-color: #0F76DB;
+  color: white;
+}
+
+.btn-bl:hover {
+  background-color: #1363B9;
+  border-color: #1363B9;
+}
+
 .bg-stone {
   background-color: #336B87;
   border-color: #336B87;
