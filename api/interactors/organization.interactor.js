@@ -51,6 +51,10 @@ async function advancedSearch(queryObject = {}) {
   return await organizationRepository.advancedSearch(query)
 }
 
+async function deleteOrganization(id) {
+  await organizationRepository.deleteOrganizationById(id)
+}
+
 module.exports = {
   getList,
   getById,
@@ -58,5 +62,6 @@ module.exports = {
   generateUniqueId,
   editOrganization,
   fullTextSearch,
-  advancedSearch
+  advancedSearch,
+  deleteOrganization
 }

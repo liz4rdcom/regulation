@@ -237,11 +237,22 @@ function businessAdvancedSearchQueryPart(query) {
   }
 }
 
+async function deleteOrganizationById(id) {
+  let options = {
+    index,
+    type,
+    id
+  }
+
+  await client.delete(options)
+}
+
 module.exports = {
   getList,
   getById,
   addOrganization,
   editOrganization,
   fullTextSearch,
-  advancedSearch
+  advancedSearch,
+  deleteOrganizationById
 }
