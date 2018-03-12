@@ -150,13 +150,11 @@ function businessAdvancedSearchQueryPart(query) {
 
   let mustPart = []
 
-  if (query.businessType) {
-    mustPart.push({
-      match: {
-        'businesses.businessType.keyword': query.businessType
-      }
-    })
-  }
+  mustPart.push({
+    match: {
+      'businesses.businessType.keyword': query.businessType
+    }
+  })
 
   if (query.businessWithInvasiveAnesthesia) {
     mustPart.push({
@@ -182,7 +180,7 @@ function businessAdvancedSearchQueryPart(query) {
   let issueDatePart = {
     range: {
       'businesses.issueDate': {
-        'lte': query.businessEndDate
+        'lte': query.businessStartDate
       }
     }
   }
@@ -190,7 +188,7 @@ function businessAdvancedSearchQueryPart(query) {
   let cancelDatePart = {
     range: {
       'businesses.cancelDate': {
-        'gte': query.businessStartDate
+        'gte': query.businessEndDate
       }
     }
   }
