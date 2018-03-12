@@ -64,6 +64,11 @@ export default {
   color: white;
 }
 
+.bg-stone {
+  background-color: #336B87 !important;
+  border-color: #336B87 !important;
+}
+
 .btn-bl {
   background-color: #0F76DB;
   border-color: #0F76DB;
@@ -73,11 +78,6 @@ export default {
 .btn-bl:hover {
   background-color: #1363B9;
   border-color: #1363B9;
-}
-
-.bg-stone {
-  background-color: #336B87;
-  border-color: #336B87;
 }
 
 .actions {
