@@ -2,6 +2,8 @@ const elasticsearch = require('elasticsearch')
 const config = require('config')
 const _ = require('lodash')
 
+const libRepository = require('./lib.repository')
+
 const client = elasticsearch.Client({
   host: config.get('elastic.host')
 })
@@ -129,7 +131,9 @@ async function advancedSearch(query) {
     }, [])
     .map(item => ({match: item}))
 
-  let businessPart = businessAdvancedSearchQueryPart(query)
+  let businessesWithInvasiveAnesthesia = await libRepository.getBusinessesWithInvasiveAnesthesia()
+
+  let businessPart = businessAdvancedSearchQueryPart(query, businessesWithInvasiveAnesthesia)
 
   if (businessPart) {
     boolQuery.push(businessPart)
@@ -146,16 +150,17 @@ async function advancedSearch(query) {
       }
     }
   }
-  console.dir(options, {depth: null})
+
   let result = await client.search(options)
 
   return result.hits.hits.map(utils.toObject)
 }
 
-function businessAdvancedSearchQueryPart(query) {
+function businessAdvancedSearchQueryPart(query, businessesWithInvasiveAnesthesia) {
   if (!query.businessType) return null
 
   let mustPart = []
+  let mustNotPart = []
 
   mustPart.push({
     match: {
@@ -164,11 +169,19 @@ function businessAdvancedSearchQueryPart(query) {
   })
 
   if (query.businessWithInvasiveAnesthesia) {
-    mustPart.push({
-      match: {
-        'businesses.additionalBusinessInformation.keyword': query.businessWithInvasiveAnesthesia
-      }
-    })
+    if (query.businessWithInvasiveAnesthesia !== 'სხვა') {
+      mustPart.push({
+        match: {
+          'businesses.additionalBusinessInformation.keyword': query.businessWithInvasiveAnesthesia
+        }
+      })
+    } else {
+      mustNotPart.push({
+        terms: {
+          'businesses.additionalBusinessInformation.keyword': businessesWithInvasiveAnesthesia
+        }
+      })
+    }
   }
 
   if (query.businessAssignStartDate && query.businessAssignEndDate) {
@@ -184,13 +197,14 @@ function businessAdvancedSearchQueryPart(query) {
     mustPart.push(assignPart)
   }
 
-  if (!query.businessStartDate || !query.businessEndDate) {
+  if (!(query.businessStartDate && query.businessEndDate)) {
     return {
       nested: {
         path: 'businesses',
         query: {
           bool: {
-            must: mustPart
+            must: mustPart,
+            'must_not': mustNotPart
           }
         }
       }
@@ -230,7 +244,8 @@ function businessAdvancedSearchQueryPart(query) {
         must: [
           issueDatePart,
           cancelDatePart
-        ].concat(mustPart)
+        ].concat(mustPart),
+        'must_not': mustNotPart
       }
     },
     {
@@ -238,7 +253,7 @@ function businessAdvancedSearchQueryPart(query) {
         must: [
           issueDatePart
         ].concat(mustPart),
-        'must_not': cancelDateNullPart
+        'must_not': [cancelDateNullPart].concat(mustNotPart)
       }
     }
   ]

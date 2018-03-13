@@ -14,6 +14,8 @@ const locationType = config.get('elastic.locationType')
 const regulationTypesIndex = config.get('elastic.regulationTypesIndex')
 const regulationTypesType = config.get('elastic.regulationTypesType')
 
+const messageType = 'შეტყობინება'
+
 async function getLibDocument() {
   const options = {
     index,
@@ -77,6 +79,16 @@ async function getRegulationTypes() {
   return result.hits.hits.map(utils.toObject)
 }
 
+async function getBusinessesWithInvasiveAnesthesia() {
+  let regulationTypes = await getRegulationTypes()
+
+  let type = regulationTypes.find(item => item.regulationType === messageType)
+
+  let businessType = type.businessTypes.find(item => !!item.businessesWithInvasiveAnesthesia)
+
+  return businessType.businessesWithInvasiveAnesthesia
+}
+
 module.exports = {
   getOrganizationStatuses,
   getNaprStatuses,
@@ -85,5 +97,6 @@ module.exports = {
   getCommandTypes,
   getBusinessStatuses,
   getLocationsTree,
-  getRegulationTypes
+  getRegulationTypes,
+  getBusinessesWithInvasiveAnesthesia
 }
