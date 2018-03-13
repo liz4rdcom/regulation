@@ -109,6 +109,18 @@
               <option v-for="form in legalForms" :key="form">{{form}}</option>
             </b-form-select>
           </b-form-group>
+          <b-form-group label="საქმიანობის მინიჭების პერიოდი">
+            <b-container>
+              <b-row>
+                <b-col xl="6" class="leftCol">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignStartDate"></datepicker>
+                </b-col>
+                <b-col xl="6" class="rightCol">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignEndDate"></datepicker>
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-form-group>
         </b-col>
         <b-col>
           <locations :locations="locations" input-class="col-md-12" searching @change="addressChanged"></locations>

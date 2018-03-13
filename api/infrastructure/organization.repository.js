@@ -104,7 +104,14 @@ async function advancedSearch(query) {
     ['legalForm', 'legalForm.keyword']
   ])
 
-  let businessFields = ['businessType', 'businessWithInvasiveAnesthesia', 'businessStartDate', 'businessEndDate']
+  let businessFields = [
+    'businessType',
+    'businessWithInvasiveAnesthesia',
+    'businessStartDate',
+    'businessEndDate',
+    'businessAssignStartDate',
+    'businessAssignEndDate'
+  ]
 
   let boolQuery = Object.keys(_.omit(query, businessFields))
     .reduce((acc, key) => {
@@ -139,7 +146,7 @@ async function advancedSearch(query) {
       }
     }
   }
-
+  console.dir(options, {depth: null})
   let result = await client.search(options)
 
   return result.hits.hits.map(utils.toObject)
@@ -162,6 +169,19 @@ function businessAdvancedSearchQueryPart(query) {
         'businesses.additionalBusinessInformation.keyword': query.businessWithInvasiveAnesthesia
       }
     })
+  }
+
+  if (query.businessAssignStartDate && query.businessAssignEndDate) {
+    let assignPart = {
+      range: {
+        'businesses.issueDate': {
+          'gte': query.businessAssignStartDate,
+          'lte': query.businessAssignEndDate
+        }
+      }
+    }
+
+    mustPart.push(assignPart)
   }
 
   if (!query.businessStartDate || !query.businessEndDate) {
