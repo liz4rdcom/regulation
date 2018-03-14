@@ -72,6 +72,14 @@ async function fetchRegulationTypes() {
   return this.regulationTypes
 }
 
+async function syncPerson(personalId) {
+  let url = `/api/libs/syncPerson/${personalId}`
+
+  let response = await axios.get(url)
+
+  return response.data
+}
+
 export default {
   statuses: null,
   naprStatuses: null,
@@ -88,5 +96,6 @@ export default {
   fetchCommandTypes,
   fetchBusinessStatuses,
   fetchLocations,
-  fetchRegulationTypes
+  fetchRegulationTypes,
+  syncPerson
 }
