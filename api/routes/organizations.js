@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const organizationInteractor = require('../interactors/organization.interactor')
+const naprService = require('../infrastructure/napr.service')
 
 const baseUrl = '/api/organizations'
 
@@ -37,6 +38,16 @@ router.get('/search', async (req, res, next) => {
 router.get('/advancedSearch', async (req, res, next) => {
   try {
     let result = await organizationInteractor.advancedSearch(req.query)
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
+router.get('/syncOrganization/:taxCode', async (req, res, next) => {
+  try {
+    let result = await naprService.callNaprByTaxCode(req.params.taxCode)
 
     next({result})
   } catch (error) {
