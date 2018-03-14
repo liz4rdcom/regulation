@@ -213,7 +213,8 @@ export default {
     commandTypes: [],
     permission: {
       type: permissionType
-    }
+    },
+    tabIndex: 0
   }),
   async created() {
     [

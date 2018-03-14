@@ -119,7 +119,8 @@ export default {
       founders: [],
       businesses: [],
       branches: []
-    }
+    },
+    tabIndex: 0
   }),
   async created () {
     let url = baseUrl + '/' + this.id
