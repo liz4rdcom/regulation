@@ -172,15 +172,6 @@ export default {
 </script>
 
 <style scoped>
-.sync-button {
-  margin-top: calc(1.875rem + 1px);
-}
-
-.rowDirection {
-  display: flex;
-  flex-direction: row;
-}
-
 .rowDirection .col-md-11 {
   padding-left: 0;
 }

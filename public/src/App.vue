@@ -89,4 +89,13 @@ export default {
 .actions {
   white-space: nowrap;
 }
+
+.sync-button {
+  margin-top: calc(1.875rem + 1px);
+}
+
+.rowDirection {
+  display: flex;
+  flex-direction: row;
+}
 </style>

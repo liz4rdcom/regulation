@@ -25,17 +25,23 @@
         </span>
       </b-table>
       <b-modal ref="managersChangeModal" title="მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
-        <b-form-group label="თანამდებობა">
-           <b-form-input v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
-        </b-form-group>
+        <img :src="photoSrc" alt="photo" float="right" v-if="currentManager.photo">
+        <div class="rowDirection">
+          <b-form-group label="პირადი ნომერი" class="col-md-11">
+            <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
+          </b-form-group>
+          <b-button variant="primary" class="round-button sync-button" @click="callSync()">
+            <i class="fa fa-search"></i>
+          </b-button>
+        </div>
         <b-form-group label="სახელი">
-           <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
+          <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="გვარი">
-           <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
+          <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
-        <b-form-group label="პირადი ნომერი">
-           <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
+        <b-form-group label="თანამდებობა">
+           <b-form-input v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="ტელეფონი">
            <b-form-input v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
@@ -52,6 +58,9 @@
 </template>
 
 <script>
+import lib from '../../libs'
+import {bus} from '../common/bus'
+
 export default {
   name: 'managers',
   props: {
@@ -97,7 +106,10 @@ export default {
         class: 'actions'
       }
     ],
-    currentManager: {}
+    currentManager: {
+      firstName: '',
+      lastName: ''
+    }
   }),
   methods: {
     toggleAddModal() {
@@ -112,10 +124,10 @@ export default {
         this.$emit('add', this.currentManager)
       }
 
-      this.currentManager = {}
+      this.currentManager = this.managerStartState
     },
     onCancel() {
-      this.currentManager = {}
+      this.currentManager = this.managerStartState
     },
     onEdit(manager) {
       this.currentManager = Object.assign({}, manager)
@@ -124,10 +136,35 @@ export default {
     },
     onDelete(manager) {
       this.$emit('delete', manager)
+    },
+    async callSync() {
+      try {
+        let person = await lib.syncPerson(this.currentManager.personalId)
+
+        this.currentManager.firstName = person.firstname
+        this.currentManager.lastName = person.lastname
+        this.currentManager.photo = person.photo
+      } catch (error) {
+        bus.$emit('error', error)
+      }
+    }
+  },
+  computed: {
+    managerStartState() {
+      return {
+        firstName: '',
+        lastName: ''
+      }
+    },
+    photoSrc() {
+      return 'data:image/jpeg;base64,' + this.currentManager.photo
     }
   }
 }
 </script>
 
 <style scoped>
+.rowDirection .col-md-11 {
+  padding-left: 0;
+}
 </style>
