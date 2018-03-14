@@ -4,7 +4,6 @@
       <b-button variant="bl" class="backButton" @click="goBack">
         უკან დაბრუნება
       </b-button>
-      <!-- <i class="fa fa-arrow-left fa-2x" @click="goBack"></i> -->
     </div>
 
     <div class="org-info">
