@@ -7,7 +7,7 @@
     </div>
 
     <div class="org-info">
-      <b-tabs small card ref="tabs" v-model="tabIndex">
+      <b-tabs card ref="tabs" v-model="tabIndex">
         <b-tab title="ძირითადი ინფორმაცია">
           <b-card class="mb-2" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
             <p><b>სტატუსი:</b> {{organization.statusGeoName}}</p>

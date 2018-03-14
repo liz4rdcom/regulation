@@ -98,4 +98,8 @@ export default {
   display: flex;
   flex-direction: row;
 }
+
+.page-footer {
+  margin-bottom: 1rem;
+}
 </style>

@@ -5,7 +5,7 @@
         უკან დაბრუნება
       </b-button>
     </div>
-    <b-tabs small card ref="tabs" v-model="tabIndex">
+    <b-tabs card ref="tabs" v-model="tabIndex">
       <b-tab title="ძირითადი ინფორმაცია">
         <b-card class="mb-2 main-info" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
           <b-form-group label="სტატუსი">
@@ -160,7 +160,7 @@
         <branches :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
       </b-tab>
     </b-tabs>
-    <div class="card-footer">
+    <div class="card-footer page-footer">
       <b-button variant="primary" @click="save">
         შენახვა
       </b-button>
