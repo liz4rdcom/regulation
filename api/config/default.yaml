@@ -9,3 +9,5 @@ elastic:
   regulationTypesType: 'regulationtype'
   libIndex: 'lib'
   libType: 'lib'
+cra:
+  timeout: 5000

@@ -4,6 +4,7 @@ const baseUrl = '/api/libs'
 
 const libRepository = require('../infrastructure/lib.repository')
 const libInteractor = require('../interactors/lib.interactor')
+const craService = require('../infrastructure/cra.service')
 
 router.get('/statuses', async (req, res, next) => {
   try {
@@ -78,6 +79,16 @@ router.get('/locations', async (req, res, next) => {
 router.get('/regulationTypes', async (req, res, next) => {
   try {
     let result = await libInteractor.getRegulationTypesToShow()
+
+    next({result})
+  } catch (error) {
+    next({error})
+  }
+})
+
+router.get('/syncPerson/:personalId', async (req, res, next) => {
+  try {
+    let result = await craService.callCraService(req.params.personalId)
 
     next({result})
   } catch (error) {
