@@ -32,8 +32,8 @@ export default {
     })
     bus.$on('error', (error) => {
       this.notification = error.response.data.message
-      this.notificationType = (error.response.status === 500) ? 'danger' :
-        'warning'
+      this.notificationType = (error.response.status === 500) ? 'danger'
+        : 'warning'
       this.showAlert()
     })
   },

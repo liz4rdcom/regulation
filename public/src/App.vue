@@ -6,12 +6,18 @@
       <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span> -->
     </div>
     <router-view/>
+    <notify></notify>
   </div>
 </template>
 
 <script>
+import notify from './components/common/notify'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    notify
+  }
 }
 </script>
 
