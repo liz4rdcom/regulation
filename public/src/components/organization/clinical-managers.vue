@@ -15,15 +15,36 @@
         :items="organization.clinicalManagers"
         :fields="clinicalManagerFields"
       >
-        <span slot="actions" slot-scope="data" v-if="editable">
-          <b-button variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item)" v-b-tooltip.hover title="რედაქტირება">
+        <span slot="actions" slot-scope="data">
+          <b-button variant="primary" class="round-button" size="sm" @click.stop="toggleInfoModal(data.item)" v-b-tooltip.hover title="სრული ინფორმაცია">
+            <i class="fa fa-info"></i>
+          </b-button>
+          <b-button variant="primary" v-if="editable" class="round-button" size="sm" @click.stop="onEdit(data.item)" v-b-tooltip.hover title="რედაქტირება">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item)" v-b-tooltip.hover title="წაშლა">
+          <b-button variant="danger" v-if="editable" class="round-button" size="sm" @click.stop="onDelete(data.item)" v-b-tooltip.hover title="წაშლა">
             <i class="fa fa-times"></i>
           </b-button>
         </span>
       </b-table>
+      <b-modal ref="clinicalManagersInfoModal" title="კლინიკური მენეჯერი" hide-footer>
+        <b-container>
+          <b-row>
+            <b-col cols="4.5">
+              <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
+            </b-col>
+            <b-col class="infoCol">
+              <p><b>პირადი ნომერი:</b> {{currentManager.personalId}}</p>
+              <p><b>სახელი:</b> {{currentManager.firstName}}</p>
+              <p><b>გვარი:</b> {{currentManager.lastName}}</p>
+            </b-col>
+          </b-row>
+        </b-container>
+        <p><b>ტელეფონი:</b> {{currentManager.phone}}</p>
+        <p><b>ელ. ფოსტა:</b> {{currentManager.email}}</p>
+        <p><b>დანიშვნის თარიღი:</b> {{currentManager.appointingDate | date}}</p>
+        <p><b>გათავისუფლების თარიღი:</b> {{currentManager.firingDate | date}}</p>
+      </b-modal>
       <b-modal ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-container>
           <b-row>
@@ -48,26 +69,6 @@
             </b-col>
           </b-row>
         </b-container>
-
-        <!-- <div class="rowDirection">
-          <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
-          <div class="">
-            <div class="rowDirection">
-              <b-form-group label="პირადი ნომერი" class="col-md-11">
-                <b-form-input plain v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
-              </b-form-group>
-              <b-button variant="primary" class="round-button sync-button" @click="callSync()">
-                <i class="fa fa-search"></i>
-              </b-button>
-            </div>
-            <b-form-group label="სახელი">
-              <b-form-input plain v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
-            </b-form-group>
-            <b-form-group label="გვარი">
-              <b-form-input plain v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
-            </b-form-group>
-          </div>
-        </div> -->
         <b-form-group label="ტელეფონი">
            <b-form-input v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
@@ -145,6 +146,11 @@ export default {
     datepickerFormat: datepickerFormat
   }),
   methods: {
+    toggleInfoModal(manager) {
+      this.currentManager = Object.assign(this.managerStartState, manager)
+
+      this.$refs.clinicalManagersInfoModal.show()
+    },
     toggleAddModal() {
       this.currentManager = {}
 
@@ -202,5 +208,9 @@ export default {
 <style scoped>
 .imgCol img {
   margin-top: 1.7rem;
+}
+
+.infoCol {
+  margin-top: 4.5%;
 }
 </style>

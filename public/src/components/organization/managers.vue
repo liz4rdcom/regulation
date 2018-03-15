@@ -15,16 +15,36 @@
         :items="organization.managers"
         :fields="managerFields"
       >
-        <span slot="actions" slot-scope="data" v-if="editable">
-          <b-button variant="primary" class="round-button" size="sm" @click.stop="onEdit(data.item)" v-b-tooltip.hover title="რედაქტირება">
+        <span slot="actions" slot-scope="data">
+          <b-button variant="primary" class="round-button" size="sm" @click.stop="toggleInfoModal(data.item)" v-b-tooltip.hover title="სრული ინფორმაცია">
+            <i class="fa fa-info"></i>
+          </b-button>
+          <b-button variant="primary" v-if="editable" class="round-button" size="sm" @click.stop="onEdit(data.item)" v-b-tooltip.hover title="რედაქტირება">
             <i class="fa fa-pencil"></i>
           </b-button>
-          <b-button variant="danger" class="round-button" size="sm" @click.stop="onDelete(data.item)" v-b-tooltip.hover title="წაშლა">
+          <b-button variant="danger" v-if="editable" class="round-button" size="sm" @click.stop="onDelete(data.item)" v-b-tooltip.hover title="წაშლა">
             <i class="fa fa-times"></i>
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="managersChangeModal" title="მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal ref="managersInfoModal" title="ხელმძღვანელი" hide-footer>
+        <b-container>
+          <b-row>
+            <b-col cols="4.5">
+              <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
+            </b-col>
+            <b-col class="infoCol">
+              <p><b>პირადი ნომერი:</b> {{currentManager.personalId}}</p>
+              <p><b>სახელი:</b> {{currentManager.firstName}}</p>
+              <p><b>გვარი:</b> {{currentManager.lastName}}</p>
+            </b-col>
+          </b-row>
+        </b-container>
+        <p><b>ტელეფონი:</b> {{currentManager.phone}}</p>
+        <p><b>ელ. ფოსტა:</b> {{currentManager.email}}</p>
+        <p><b>სხვა:</b> {{currentManager.other}}</p>
+      </b-modal>
+      <b-modal ref="managersChangeModal" title="ხელმძღვანელი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">
@@ -120,6 +140,11 @@ export default {
     }
   }),
   methods: {
+    toggleInfoModal(manager) {
+      this.currentManager = Object.assign(this.managerStartState, manager)
+
+      this.$refs.managersInfoModal.show()
+    },
     toggleAddModal() {
       this.currentManager = {}
 
@@ -174,5 +199,9 @@ export default {
 <style scoped>
 .imgCol img {
   margin-top: 1.7rem;
+}
+
+.infoCol {
+  margin-top: 4.5%;
 }
 </style>
