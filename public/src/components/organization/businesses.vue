@@ -97,7 +97,7 @@
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
           <datepicker
-            clear-button
+            :clear-button="!isMessageBusiness(currentBusiness)"
             monday-first
             language="ge"
             :format="datepickerFormat"
