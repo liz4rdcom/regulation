@@ -1665,6 +1665,7 @@ const testOrganizations = [
     ],
     clinicalManagers: [
       {
+        id: shortid.generate(),
         personalId: '0000',
         firstName: 'ვიღაც',
         lastName: 'ვიღაც',
@@ -1676,6 +1677,7 @@ const testOrganizations = [
     ],
     managers: [
       {
+        id: shortid.generate(),
         position: 'დირექტორი',
         other: null,
         personalId: '00001',
@@ -1687,6 +1689,7 @@ const testOrganizations = [
     ],
     founders: [
       {
+        id: shortid.generate(),
         personalId: null,
         fullName: null,
         founderCompanyName: 'შპს რაღაც',
