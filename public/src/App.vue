@@ -118,4 +118,15 @@ export default {
   padding-right: 5%;
   text-align: right;
 }
+
+.nav-tabs .nav-link {
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+  margin-left: 1px;
+  background-color: #E0E0E0;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #D0D0D0;
+}
 </style>
