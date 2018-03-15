@@ -25,21 +25,29 @@
         </span>
       </b-table>
       <b-modal ref="managersChangeModal" title="მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
-        <img :src="photoSrc" alt="photo" float="right" v-if="currentManager.photo">
-        <div class="rowDirection">
-          <b-form-group label="პირადი ნომერი" class="col-md-11">
-            <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
-          </b-form-group>
-          <b-button variant="primary" class="round-button sync-button" @click="callSync()">
-            <i class="fa fa-search"></i>
-          </b-button>
-        </div>
-        <b-form-group label="სახელი">
-          <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
-        </b-form-group>
-        <b-form-group label="გვარი">
-          <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
-        </b-form-group>
+        <b-container>
+          <b-row>
+            <b-col cols="4.5" class="imgCol">
+              <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
+            </b-col>
+            <b-col>
+              <div class="rowDirection">
+                <b-form-group label="პირადი ნომერი" class="col-md-11">
+                  <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
+                </b-form-group>
+                <b-button variant="primary" class="round-button sync-button" @click="callSync()">
+                  <i class="fa fa-search"></i>
+                </b-button>
+              </div>
+              <b-form-group label="სახელი" class="col-md-11">
+                <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
+              </b-form-group>
+              <b-form-group label="გვარი" class="col-md-11">
+                <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </b-container>
         <b-form-group label="თანამდებობა">
            <b-form-input v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
@@ -164,7 +172,7 @@ export default {
 </script>
 
 <style scoped>
-.rowDirection .col-md-11 {
-  padding-left: 0;
+.imgCol img {
+  margin-top: 1.7rem;
 }
 </style>
