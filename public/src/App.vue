@@ -115,5 +115,7 @@ export default {
 
 .page-footer {
   margin-bottom: 1rem;
+  padding-right: 5%;
+  text-align: right;
 }
 </style>

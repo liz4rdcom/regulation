@@ -184,6 +184,16 @@
         <branches :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
       </b-tab>
     </b-tabs>
+    <div class="tabsNavigation">
+      <b-button variant="primary" @click="tabIndex--">
+        <i class="fa fa-angle-left"></i> &nbsp;
+        უკან
+      </b-button>
+      <b-button  variant="primary" @click="tabIndex++">
+        შემდეგ &nbsp;
+        <i class="fa fa-angle-right"></i>
+      </b-button>
+    </div>
     <div class="card-footer page-footer">
       <b-button variant="primary" @click="save">
         შენახვა
@@ -429,5 +439,16 @@ export default {
 
 .container {
   max-width: 100% !important;
+}
+
+.tabsNavigation {
+  width: 20%;
+  margin: auto;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.tabsNavigation .btn {
+  width: 47%;
 }
 </style>
