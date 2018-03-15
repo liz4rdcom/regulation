@@ -1,9 +1,14 @@
 <template>
   <div id="app">
     <div class="toolbar">
-      <!-- <span style="font-size: 13px;">რეგულირების მოდული</span><br />
-      <span style="font-size: 13px;">ლიცენზირება/ნებართვები</span><br />
-      <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span> -->
+      <div class="rowDirection">
+        <img src="/static/defaultlogo.png" float="left">
+        <div class="toolbar-text">
+          <span style="font-size: 13px;">რეგულირების მოდული</span><br />
+          <span style="font-size: 13px;">ლიცენზირება/ნებართვები</span><br />
+          <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span>
+        </div>
+      </div>
     </div>
     <router-view/>
     <notify></notify>
@@ -64,10 +69,19 @@ export default {
 
 .toolbar {
   background-color: #196AB0;
-  height: 70px;
+  height: 75px;
   /* height: 83px; */
   margin-bottom: 5px;
   color: white;
+}
+
+.toolbar img {
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
+.toolbar-text {
+  margin-left: 5px;
 }
 
 .bg-stone {
