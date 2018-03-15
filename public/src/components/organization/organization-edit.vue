@@ -8,97 +8,113 @@
     <b-tabs card ref="tabs" v-model="tabIndex">
       <b-tab title="ძირითადი ინფორმაცია">
         <b-card class="mb-2 main-info" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
-          <b-form-group label="სტატუსი">
-            <b-form-select v-model="organization.statusGeoName" class="mb-3 col-md-5">
-              <option v-for="status in statuses" :key="status">{{status}}</option>
-            </b-form-select>
-          </b-form-group>
-          <b-form-group label="Napr სტატუსი">
-            <b-form-select v-model="organization.naprStatus" class="mb-3 col-md-5">
-              <option v-for="status in naprStatuses" :key="status">{{status}}</option>
-            </b-form-select>
-          </b-form-group>
-          <b-form-group label="სამმართველოს რეგისტრაციის N">
-            <b-form-input class="col-md-5" type="text" v-model="organization.managementRegistrationNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="საიდენტიფიკაციო კოდი">
-            <b-form-input class="col-md-5" type="text" v-model="organization.taxCode"></b-form-input>
-          </b-form-group>
-          <b-form-group label="სახაზინო რეგისტრაციის N">
-            <b-form-input class="col-md-5" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
-            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="organization.treasuryRegistrationDate"></datepicker>
-          </b-form-group>
-          <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
-            <b-form-input class="col-md-5" type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ქართული დასახელება">
-            <b-form-input class="col-md-5" type="text" v-model="organization.georgianName"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ლათინური დასახელება">
-            <b-form-input class="col-md-5" type="text" v-model="organization.latinName"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ორგანიზაციის ტიპი">
-            <b-form-select v-model="organization.organizationType" class="mb-3 col-md-5">
-              <option v-for="type in organizationTypes" :key="type">{{type}}</option>
-            </b-form-select>
-          </b-form-group>
-          <b-form-group label="სამართლებრივი ფორმა">
-            <b-form-select v-model="organization.legalForm" class="mb-3 col-md-5">
-              <option v-for="form in legalForms" :key="form">{{form}}</option>
-            </b-form-select>
-          </b-form-group>
-          <b-form-group label="საწოლთა ფონდი">
-            <b-form-input class="col-md-5" type="number" v-model="organization.bedStock"></b-form-input>
-          </b-form-group>
-          <b-form-group label="Napr_ის ოფისის ტელეფონი">
-            <b-form-input class="col-md-5" type="text" v-model="organization.naprOfficePhone"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ოფისის ტელეფონი">
-            <b-form-input class="col-md-5" type="text" v-model="organization.phone"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ელექტრონული ფოსტა">
-            <b-form-input class="col-md-5" type="text" v-model="organization.email"></b-form-input>
-          </b-form-group>
-          <b-form-group label="E-Health Email">
-            <b-form-input class="col-md-5" type="text" v-model="organization.ehealthEmail"></b-form-input>
-          </b-form-group>
+          <b-container>
+            <b-row>
+              <b-col>
+                <b-form-group label="სტატუსი">
+                  <b-form-select v-model="organization.statusGeoName" class="mb-3">
+                    <option v-for="status in statuses" :key="status">{{status}}</option>
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="Napr სტატუსი">
+                  <b-form-select v-model="organization.naprStatus" class="mb-3">
+                    <option v-for="status in naprStatuses" :key="status">{{status}}</option>
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="საიდენტიფიკაციო კოდი">
+                  <b-form-input type="text" v-model="organization.taxCode"></b-form-input>
+                </b-form-group>
+                <b-form-group label="სახაზინო რეგისტრაციის N">
+                  <b-form-input type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
+                </b-form-group>
+                <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
+                </b-form-group>
+                <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
+                  <b-form-input type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ქართული დასახელება">
+                  <b-form-input type="text" v-model="organization.georgianName"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ლათინური დასახელება">
+                  <b-form-input type="text" v-model="organization.latinName"></b-form-input>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="ორგანიზაციის ტიპი">
+                  <b-form-select v-model="organization.organizationType" class="mb-3">
+                    <option v-for="type in organizationTypes" :key="type">{{type}}</option>
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="სამართლებრივი ფორმა">
+                  <b-form-select v-model="organization.legalForm" class="mb-3">
+                    <option v-for="form in legalForms" :key="form">{{form}}</option>
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="სამმართველოს რეგისტრაციის N">
+                  <b-form-input type="text" v-model="organization.managementRegistrationNumber"></b-form-input>
+                </b-form-group>
+                <b-form-group label="საწოლთა ფონდი">
+                  <b-form-input type="number" v-model="organization.bedStock"></b-form-input>
+                </b-form-group>
+                <b-form-group label="Napr_ის ოფისის ტელეფონი">
+                  <b-form-input type="text" v-model="organization.naprOfficePhone"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ოფისის ტელეფონი">
+                  <b-form-input type="text" v-model="organization.phone"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ელექტრონული ფოსტა">
+                  <b-form-input type="text" v-model="organization.email"></b-form-input>
+                </b-form-group>
+                <b-form-group label="E-Health Email">
+                  <b-form-input type="text" v-model="organization.ehealthEmail"></b-form-input>
+                </b-form-group>
+              </b-col>
+            </b-row>
+          </b-container>
         </b-card>
       </b-tab>
       <b-tab title="მისამართი">
-        <b-card
-          class="mb-2"
-          header="იურიდიული მისამართი"
-          header-bg-variant="stone"
-          header-text-variant="white"
-        >
-          <locations
-            :locations="locations"
-            @change="onJuridicalAddressChanged"
-            :currentLocationName="organization.juridicalAddress.region"
-            :currentLocationUnitName="organization.juridicalAddress.district"
-            :currentSettlementName="organization.juridicalAddress.settlement"
-            :currentAddress="organization.juridicalAddress.addressDescription"
-            :currentPostalCode="organization.juridicalAddress.postalCode">
-          </locations>
-        </b-card>
-        <b-card
-          class="mb-2"
-          header="ფაქტიური მისამართი"
-          header-bg-variant="stone"
-          header-text-variant="white"
-        >
-          <locations
-            :locations="locations"
-            @change="onFactualAddressChanged"
-            :currentLocationName="organization.factualAddress.region"
-            :currentLocationUnitName="organization.factualAddress.district"
-            :currentSettlementName="organization.factualAddress.settlement"
-            :currentAddress="organization.factualAddress.addressDescription"
-            :currentPostalCode="organization.factualAddress.postalCode">
-          </locations>
-        </b-card>
+        <b-container>
+          <b-row>
+            <b-col>
+              <b-card
+                class="mb-2"
+                header="იურიდიული მისამართი"
+                header-bg-variant="stone"
+                header-text-variant="white"
+              >
+                <locations
+                  :locations="locations"
+                  @change="onJuridicalAddressChanged"
+                  :currentLocationName="organization.juridicalAddress.region"
+                  :currentLocationUnitName="organization.juridicalAddress.district"
+                  :currentSettlementName="organization.juridicalAddress.settlement"
+                  :currentAddress="organization.juridicalAddress.addressDescription"
+                  :currentPostalCode="organization.juridicalAddress.postalCode">
+                </locations>
+              </b-card>
+            </b-col>
+            <b-col>
+              <b-card
+                class="mb-2"
+                header="ფაქტიური მისამართი"
+                header-bg-variant="stone"
+                header-text-variant="white"
+              >
+                <locations
+                  :locations="locations"
+                  @change="onFactualAddressChanged"
+                  :currentLocationName="organization.factualAddress.region"
+                  :currentLocationUnitName="organization.factualAddress.district"
+                  :currentSettlementName="organization.factualAddress.settlement"
+                  :currentAddress="organization.factualAddress.addressDescription"
+                  :currentPostalCode="organization.factualAddress.postalCode">
+                </locations>
+              </b-card>
+            </b-col>
+          </b-row>
+        </b-container>
       </b-tab>
       <b-tab title="ხელმძღვანელები">
         <clinical-managers :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
@@ -111,45 +127,51 @@
           header-bg-variant="stone"
           header-text-variant="white"
         >
-          <b-form-group label="სანებართვო მოწმობის N">
-            <b-form-input class="col-md-5" type="text" v-model="permission.documentNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ნებართვის გაცემის საფუძველი">
-            <b-form-input class="col-md-5" type="text" v-model="permission.issueReason"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ნებართვის გაცემის თარიღი">
-            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.issueDate"></datepicker>
-          </b-form-group>
-          <b-form-group label="ნებართვის ბრძანების ტიპი">
-            <b-form-select v-model="permission.commandType" class="mb-3 col-md-5">
-              <option v-for="type in commandTypes" :key="type">{{type}}</option>
-            </b-form-select>
-          </b-form-group>
-          <b-form-group label="ნებართვის რეესტრის N">
-            <b-form-input class="col-md-5" type="text" v-model="permission.registerNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ნებართვის გაუქმების საფუძველი">
-            <b-form-input class="col-md-5" type="text" v-model="permission.cancelReason"></b-form-input>
-          </b-form-group>
-          <b-form-group label="ნებართვის გაუქმების თარიღი">
-            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.cancelDate"></datepicker>
-          </b-form-group>
-          <p>
-            <b>დუბლიკატი:</b>
-            <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="stone">
-            </b-form-checkbox>
-          </p>
-          <span v-if="permission.hasDuplicate">
-            <b-form-group label="ნებართვის დუბლიკატის N">
-              <b-form-input class="col-md-5" type="text" v-model="permission.duplicateNumber"></b-form-input>
-            </b-form-group>
-            <b-form-group label="ნებ. დუბლ. გაცემის საფუძველი">
-              <b-form-input class="col-md-5" type="text" v-model="permission.duplicateIssueReason"></b-form-input>
-            </b-form-group>
-            <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
-              <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-5" v-model="permission.duplicateIssueDate"></datepicker>
-            </b-form-group>
-          </span>
+          <b-container>
+            <b-row>
+              <b-col>
+                <b-form-group label="სანებართვო მოწმობის N">
+                  <b-form-input type="text" v-model="permission.documentNumber"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებართვის გაცემის საფუძველი">
+                  <b-form-input type="text" v-model="permission.issueReason"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებართვის გაცემის თარიღი">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
+                </b-form-group>
+                <p>
+                  <b>დუბლიკატი:</b>
+                  <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="stone">
+                  </b-form-checkbox>
+                </p>
+                <b-form-group label="ნებართვის დუბლიკატის N">
+                  <b-form-input type="text" v-model="permission.duplicateNumber" :disabled="!permission.hasDuplicate"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებ. დუბლ. გაცემის საფუძველი">
+                  <b-form-input type="text" v-model="permission.duplicateIssueReason" :disabled="!permission.hasDuplicate"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.duplicateIssueDate" :disabled-picker="!permission.hasDuplicate"></datepicker>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="ნებართვის ბრძანების ტიპი">
+                  <b-form-select v-model="permission.commandType" class="mb-3">
+                    <option v-for="type in commandTypes" :key="type">{{type}}</option>
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="ნებართვის რეესტრის N">
+                  <b-form-input type="text" v-model="permission.registerNumber"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებართვის გაუქმების საფუძველი">
+                  <b-form-input type="text" v-model="permission.cancelReason"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებართვის გაუქმების თარიღი">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.cancelDate"></datepicker>
+                </b-form-group>
+              </b-col>
+            </b-row>
+          </b-container>
         </b-card>
         <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
       </b-tab>
@@ -401,5 +423,9 @@ export default {
   text-align: left;
   padding: 15px;
   padding-left: 30px;
+}
+
+.container {
+  max-width: 100% !important;
 }
 </style>
