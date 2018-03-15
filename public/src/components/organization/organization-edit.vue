@@ -85,6 +85,7 @@
                 header-text-variant="white"
               >
                 <locations
+                  inputClass="col-md-12"
                   :locations="locations"
                   @change="onJuridicalAddressChanged"
                   :currentLocationName="organization.juridicalAddress.region"
@@ -103,6 +104,7 @@
                 header-text-variant="white"
               >
                 <locations
+                  inputClass="col-md-12"
                   :locations="locations"
                   @change="onFactualAddressChanged"
                   :currentLocationName="organization.factualAddress.region"
@@ -133,11 +135,8 @@
                 <b-form-group label="სანებართვო მოწმობის N">
                   <b-form-input type="text" v-model="permission.documentNumber"></b-form-input>
                 </b-form-group>
-                <b-form-group label="ნებართვის გაცემის საფუძველი">
-                  <b-form-input type="text" v-model="permission.issueReason"></b-form-input>
-                </b-form-group>
-                <b-form-group label="ნებართვის გაცემის თარიღი">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
+                <b-form-group label="ნებართვის რეესტრის N">
+                  <b-form-input type="text" v-model="permission.registerNumber"></b-form-input>
                 </b-form-group>
                 <p>
                   <b>დუბლიკატი:</b>
@@ -156,12 +155,15 @@
               </b-col>
               <b-col>
                 <b-form-group label="ნებართვის ბრძანების ტიპი">
-                  <b-form-select v-model="permission.commandType" class="mb-3">
+                  <b-form-select v-model="permission.commandType">
                     <option v-for="type in commandTypes" :key="type">{{type}}</option>
                   </b-form-select>
                 </b-form-group>
-                <b-form-group label="ნებართვის რეესტრის N">
-                  <b-form-input type="text" v-model="permission.registerNumber"></b-form-input>
+                <b-form-group label="ნებართვის გაცემის საფუძველი">
+                  <b-form-input type="text" v-model="permission.issueReason"></b-form-input>
+                </b-form-group>
+                <b-form-group label="ნებართვის გაცემის თარიღი">
+                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაუქმების საფუძველი">
                   <b-form-input type="text" v-model="permission.cancelReason"></b-form-input>
