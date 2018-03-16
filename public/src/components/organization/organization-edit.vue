@@ -362,9 +362,8 @@ export default {
     async save() {
       try {
         let url = baseUrl + '/' + this.id
-        await this.$http.put(url, this.organization)
 
-        bus.$emit('org-edit', this.organization)
+        await this.$http.put(url, this.organization)
 
         this.$router.push('/')
       } catch (error) {
