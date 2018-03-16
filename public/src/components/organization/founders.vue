@@ -8,6 +8,8 @@
       v-if="organization.founders.length > 0"
     >
       <b-table
+        striped
+        thead-tr-class="tableHeader"
         responsive
         :items="organization.founders"
         :fields="founderFields"

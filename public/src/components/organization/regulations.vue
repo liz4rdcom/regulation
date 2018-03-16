@@ -11,6 +11,8 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        striped
+        thead-tr-class="tableHeader"
         responsive
         :items="regulationsWithoutPermission"
         :fields="regulationFields"

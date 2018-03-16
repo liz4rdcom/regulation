@@ -27,6 +27,14 @@ export default {
 </script>
 
 <style>
+body {
+  /* background-color: #f5f5f5; */
+  /* background-color: #fafafa; */
+  /* background-color: #f4f5f6; */
+  /* background-color: #f1f2f4; */
+  background-color: #f9fbfe;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -128,5 +136,11 @@ export default {
 
 .nav-tabs .nav-link:hover {
   border-color: #D0D0D0;
+}
+
+.tableHeader {
+  /* background-color: #adb4b8; */
+  /* background-color: #b8bdc1; */
+  background-color: #d0d4d6;
 }
 </style>
