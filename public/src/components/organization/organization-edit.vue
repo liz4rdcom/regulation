@@ -364,6 +364,8 @@ export default {
         let url = baseUrl + '/' + this.id
         await this.$http.put(url, this.organization)
 
+        bus.$emit('org-edit', this.organization)
+
         this.$router.push('/')
       } catch (error) {
         bus.$emit('error', error)

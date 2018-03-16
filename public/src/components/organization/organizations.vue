@@ -136,7 +136,7 @@
   </div>
 
   <br>
-  <b-table bordered responsive :items="organizations" :fields="fields">
+  <b-table striped bordered responsive thead-tr-class="tableHeader" :items="organizations" :fields="fields">
     <span slot="region" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.region: ''}}</span>
     <span slot="district" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.district: ''}}</span>
     <span slot="addressDescription" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.addressDescription: ''}}</span>
@@ -162,6 +162,7 @@ import {baseUrl, permissionType, licenseType, messageType} from './organization-
 import locationsComponent from '../common/locations'
 import Datepicker from 'vuejs-datepicker'
 import {datepickerFormat} from '../../utils'
+import {bus} from '../common/bus'
 
 const listTextSeparator = ', '
 
@@ -268,8 +269,21 @@ export default {
     ])
 
     this.organizations = response.data
+
+    bus.$on('org-add', org => {
+      this.refresh()
+    })
+
+    bus.$on('org-edit', async org => {
+      this.refresh()
+    })
   },
   methods: {
+    async refresh() {
+      let response = await this.$http.get(baseUrl)
+
+      this.organizations = response.data
+    },
     async search() {
       let url = baseUrl + '/search'
 
@@ -407,5 +421,4 @@ export default {
   padding-right: 0px;
   padding-left: 7px;
 }
-
 </style>

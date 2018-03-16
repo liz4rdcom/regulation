@@ -335,6 +335,8 @@ export default {
 
         this.organization.id = response.data
 
+        bus.$emit('org-add', this.organization)
+
         this.$router.push('/')
       } catch (error) {
         bus.$emit('error', error)
