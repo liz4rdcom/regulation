@@ -131,16 +131,17 @@ body {
   border-top-left-radius: 1rem !important;
   border-top-right-radius: 1rem !important;
   margin-left: 1px;
-  background-color: #E0E0E0;
+  background-color: #E0E2E6;
 }
 
 .nav-tabs .nav-link:hover {
-  border-color: #D0D0D0;
+  border-color: #D0D2D5;
 }
 
 .tableHeader {
   /* background-color: #adb4b8; */
   /* background-color: #b8bdc1; */
   background-color: #d0d4d6;
+  /* background-color: #d5d7e0; */
 }
 </style>
