@@ -80,9 +80,13 @@
           @change="onAddressChanged">
         </locations>
         <b-form-group label="საქმიანობები">
-          <b-form-checkbox v-for="pair in getBusinessCheckboxPairs()" :key="pair[1].id" :checked="pair[0]" @change="addBusinessToBranch($event, pair[1])">
-            {{pair[1].businessType}}
-          </b-form-checkbox>
+          <ul class="checkboxes-list">
+            <li v-for="pair in getBusinessCheckboxPairs()" :key="pair[1].id" >
+              <b-form-checkbox :checked="pair[0]" @change="addBusinessToBranch($event, pair[1])">
+                {{pair[1].businessType}}
+              </b-form-checkbox>
+            </li>
+          </ul>
         </b-form-group>
       </b-modal>
     </b-card>
@@ -240,4 +244,7 @@ export default {
 </script>
 
 <style scoped>
+.checkboxes-list {
+  list-style-type: none;
+}
 </style>
