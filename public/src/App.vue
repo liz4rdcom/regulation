@@ -138,6 +138,10 @@ body {
   border-color: #D0D2D5;
 }
 
+.nav-tabs:focus {
+  outline: 0;
+}
+
 .tableHeader {
   /* background-color: #adb4b8; */
   /* background-color: #b8bdc1; */
