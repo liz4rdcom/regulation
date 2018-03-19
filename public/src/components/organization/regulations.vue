@@ -64,7 +64,7 @@
       </b-modal>
       <b-modal ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-form-group label="რეგულაციის სახე/ტიპი">
-          <b-form-select v-model="currentRegulation.type" class="mb-3 col-md-12">
+          <b-form-select v-model="currentRegulation.type" class="mb-3 col-md-12" @change="onTypeChange">
             <option v-for="type in regulationTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
@@ -79,6 +79,7 @@
         </b-form-group>
         <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
           <b-form-select v-model="currentRegulation.commandType" class="mb-3 col-md-12">
+            <option slot="first" :value="null" disabled>-- აირჩიეთ ბრძანების ტიპი --</option>
             <option v-for="type in commandTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
@@ -92,7 +93,7 @@
           <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" variant="stone"></b-form-checkbox>
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
         </b-form-group>
         <span v-if="currentRegulation.hasDuplicate && !isMessage(currentRegulation)">
           <b-form-group label="დუბლიკატის N">
@@ -226,6 +227,26 @@ export default {
     },
     onCancel() {
       this.currentRegulation = {}
+    },
+    onTypeChange(type) {
+      if (type === messageType) {
+        this.currentRegulation.registerNumber = null
+        this.currentRegulation.commandType = null
+        this.currentRegulation.cancelReason = null
+        this.currentRegulation.hasDuplicate = false
+
+        this.clearDuplicateInputs()
+      }
+    },
+    onDuplicateCheckboxChange(value) {
+      if (!value) {
+        this.clearDuplicateInputs()
+      }
+    },
+    clearDuplicateInputs() {
+      this.currentRegulation.duplicateNumber = null
+      this.currentRegulation.duplicateIssueReason = null
+      this.currentRegulation.duplicateIssueDate = null
     }
   },
   computed: {
