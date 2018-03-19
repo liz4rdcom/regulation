@@ -242,7 +242,7 @@ export default {
     locations: [],
     regulationTypes: []
   }),
-  async created () {
+  async beforeCreate () {
     let response
 
     [
