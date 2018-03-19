@@ -107,7 +107,8 @@
           </b-form-group>
         </span>
         <b-form-group label="შენიშვნა">
-          <b-form-input type="text" v-model="currentRegulation.comment"></b-form-input>
+          <b-form-textarea v-model="currentRegulation.comment" :rows="2" :max-rows="3">
+          </b-form-textarea>
         </b-form-group>
       </b-modal>
     </b-card>
