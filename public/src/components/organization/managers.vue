@@ -55,7 +55,7 @@
             <b-col>
               <div class="rowDirection">
                 <b-form-group label="პირადი ნომერი" class="col-md-11">
-                  <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12"></b-form-input>
+                  <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
                 </b-form-group>
                 <b-button variant="primary" class="round-button sync-button" @click="callSync()">
                   <i class="fa fa-search"></i>
