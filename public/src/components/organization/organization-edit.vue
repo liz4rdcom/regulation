@@ -5,76 +5,76 @@
         უკან დაბრუნება
       </b-button>
     </div>
-    <b-tabs card ref="tabs" v-model="tabIndex">
-      <b-tab title="ძირითადი ინფორმაცია">
+    <b-tabs id="orgs-edit-tabs" card ref="tabs" v-model="tabIndex">
+      <b-tab id="orgs-edit-main-tab" title="ძირითადი ინფორმაცია">
         <b-card class="mb-2 main-info" header="ორგანიზაცია" header-bg-variant="stone" header-text-variant="white">
           <b-container>
             <b-row>
               <b-col>
                 <b-form-group label="სტატუსი">
-                  <b-form-select v-model="organization.statusGeoName" class="mb-3">
+                  <b-form-select id="orgs-edit-status-select" v-model="organization.statusGeoName" class="mb-3">
                     <option v-for="status in statuses" :key="status">{{status}}</option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="Napr სტატუსი">
-                  <b-form-select v-model="organization.naprStatus" class="mb-3">
+                  <b-form-select id="orgs-edit-napr-status-select" v-model="organization.naprStatus" class="mb-3">
                     <option v-for="status in naprStatuses" :key="status">{{status}}</option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="საიდენტიფიკაციო კოდი">
-                  <b-form-input type="text" v-model="organization.taxCode"></b-form-input>
+                  <b-form-input id="orgs-edit-tax-code" type="text" v-model="organization.taxCode"></b-form-input>
                 </b-form-group>
                 <b-form-group label="სახაზინო რეგისტრაციის N">
-                  <b-form-input type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
+                  <b-form-input id="orgs-edit-treasury-registration-number" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
                 </b-form-group>
                 <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
+                  <datepicker id="orgs-edit-treasury-registration-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
                 </b-form-group>
                 <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
-                  <b-form-input type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
+                  <b-form-input id="orgs-edit-treasury-registration-place" type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ქართული დასახელება">
-                  <b-form-input type="text" v-model="organization.georgianName"></b-form-input>
+                  <b-form-input id="orgs-edit-georgian-name" type="text" v-model="organization.georgianName"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ლათინური დასახელება">
-                  <b-form-input type="text" v-model="organization.latinName"></b-form-input>
+                  <b-form-input id="orgs-edit-latin-name" type="text" v-model="organization.latinName"></b-form-input>
                 </b-form-group>
               </b-col>
               <b-col>
                 <b-form-group label="ორგანიზაციის ტიპი">
-                  <b-form-select v-model="organization.organizationType" class="mb-3">
+                  <b-form-select id="orgs-edit-org-type-select" v-model="organization.organizationType" class="mb-3">
                     <option v-for="type in organizationTypes" :key="type">{{type}}</option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="სამართლებრივი ფორმა">
-                  <b-form-select v-model="organization.legalForm" class="mb-3">
+                  <b-form-select id="orgs-edit-legal-form-select" v-model="organization.legalForm" class="mb-3">
                     <option v-for="form in legalForms" :key="form">{{form}}</option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="სამმართველოს რეგისტრაციის N">
-                  <b-form-input type="text" v-model="organization.managementRegistrationNumber"></b-form-input>
+                  <b-form-input id="orgs-edit-management-registration-number" type="text" v-model="organization.managementRegistrationNumber"></b-form-input>
                 </b-form-group>
                 <b-form-group label="საწოლთა ფონდი">
-                  <b-form-input type="number" v-model="organization.bedStock"></b-form-input>
+                  <b-form-input id="orgs-edit-bed-stock" type="number" v-model="organization.bedStock"></b-form-input>
                 </b-form-group>
                 <b-form-group label="Napr_ის ოფისის ტელეფონი">
-                  <b-form-input type="text" v-model="organization.naprOfficePhone"></b-form-input>
+                  <b-form-input id="orgs-edit-napr-ofice-phone" type="text" v-model="organization.naprOfficePhone"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ოფისის ტელეფონი">
-                  <b-form-input type="text" v-model="organization.phone"></b-form-input>
+                  <b-form-input id="orgs-edit-phone" type="text" v-model="organization.phone"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ელექტრონული ფოსტა">
-                  <b-form-input type="text" v-model="organization.email"></b-form-input>
+                  <b-form-input id="orgs-edit-email" type="text" v-model="organization.email"></b-form-input>
                 </b-form-group>
                 <b-form-group label="E-Health Email">
-                  <b-form-input type="text" v-model="organization.ehealthEmail"></b-form-input>
+                  <b-form-input id="orgs-edit-ehealth-email" type="text" v-model="organization.ehealthEmail"></b-form-input>
                 </b-form-group>
               </b-col>
             </b-row>
           </b-container>
         </b-card>
       </b-tab>
-      <b-tab title="მისამართი">
+      <b-tab id="orgs-edit-address-tab" title="მისამართი">
         <b-container>
           <b-row>
             <b-col>
@@ -85,6 +85,7 @@
                 header-text-variant="white"
               >
                 <locations
+                  idPrefix="orgs-edit-juridical"
                   inputClass="col-md-12"
                   :locations="locations"
                   @change="onJuridicalAddressChanged"
@@ -104,6 +105,7 @@
                 header-text-variant="white"
               >
                 <locations
+                  idPrefix="orgs-edit-factual"
                   inputClass="col-md-12"
                   :locations="locations"
                   @change="onFactualAddressChanged"
@@ -118,11 +120,11 @@
           </b-row>
         </b-container>
       </b-tab>
-      <b-tab title="ხელმძღვანელები">
-        <clinical-managers :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
-        <managers :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
+      <b-tab id="orgs-edit-managers-tab" title="ხელმძღვანელები">
+        <clinical-managers idPrefix="orgs-edit" :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
+        <managers idPrefix="orgs-edit" :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
       </b-tab>
-      <b-tab title="რეგულაციები">
+      <b-tab id="orgs-edit-regulations-tab" title="რეგულაციები">
         <b-card
           class="mb-2"
           header="ნებართვა"
@@ -133,55 +135,55 @@
             <b-row>
               <b-col>
                 <b-form-group label="სანებართვო მოწმობის N">
-                  <b-form-input type="text" v-model="permission.documentNumber"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-document-number" type="text" v-model="permission.documentNumber"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებართვის რეესტრის N">
-                  <b-form-input type="text" v-model="permission.registerNumber"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-register-number" type="text" v-model="permission.registerNumber"></b-form-input>
                 </b-form-group>
                 <p>
                   <b>დუბლიკატი:</b>
-                  <b-form-checkbox class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="stone">
+                  <b-form-checkbox id="orgs-edit-permission-duplicate-checkbox" class="duplicateCheckbox" v-model="permission.hasDuplicate" variant="stone">
                   </b-form-checkbox>
                 </p>
                 <b-form-group label="ნებართვის დუბლიკატის N">
-                  <b-form-input type="text" v-model="permission.duplicateNumber" :disabled="!permission.hasDuplicate"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-duplicate-number" type="text" v-model="permission.duplicateNumber" :disabled="!permission.hasDuplicate"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებ. დუბლ. გაცემის საფუძველი">
-                  <b-form-input type="text" v-model="permission.duplicateIssueReason" :disabled="!permission.hasDuplicate"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-duplicate-issue-reason" type="text" v-model="permission.duplicateIssueReason" :disabled="!permission.hasDuplicate"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.duplicateIssueDate" :disabled-picker="!permission.hasDuplicate"></datepicker>
+                  <datepicker id="orgs-edit-permission-duplicate-issue-date" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.duplicateIssueDate" :disabled-picker="!permission.hasDuplicate"></datepicker>
                 </b-form-group>
               </b-col>
               <b-col>
                 <b-form-group label="ნებართვის ბრძანების ტიპი">
-                  <b-form-select v-model="permission.commandType">
+                  <b-form-select id="orgs-edit-permission-command-type-select" v-model="permission.commandType">
                     <option v-for="type in commandTypes" :key="type">{{type}}</option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაცემის საფუძველი">
-                  <b-form-input type="text" v-model="permission.issueReason"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-issue-reason" type="text" v-model="permission.issueReason"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაცემის თარიღი">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
+                  <datepicker id="orgs-edit-permission-issue-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაუქმების საფუძველი">
-                  <b-form-input type="text" v-model="permission.cancelReason"></b-form-input>
+                  <b-form-input id="orgs-edit-permission-cancel-reason" type="text" v-model="permission.cancelReason"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაუქმების თარიღი">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.cancelDate"></datepicker>
+                  <datepicker id="orgs-edit-permission-cancel-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.cancelDate"></datepicker>
                 </b-form-group>
               </b-col>
             </b-row>
           </b-container>
         </b-card>
-        <regulations :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
+        <regulations idPrefix="orgs-edit" :organization="organization" editable @add="onRegulationAdd" @edit="onRegulationEdit" @delete="onRegulationRemove"></regulations>
       </b-tab>
-      <b-tab title="საქმიანობები">
-        <businesses :organization="organization" editable @add="onBusinessAdd" @edit="onBusinessEdit" @delete="onBusinessDelete"></businesses>
+      <b-tab id="orgs-edit-businesses-tab" title="საქმიანობები">
+        <businesses idPrefix="orgs-edit" :organization="organization" editable @add="onBusinessAdd" @edit="onBusinessEdit" @delete="onBusinessDelete"></businesses>
       </b-tab>
-      <b-tab title="ფილიალები">
-        <branches :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
+      <b-tab id="orgs-edit-branches-tab" title="ფილიალები">
+        <branches idPrefix="orgs-edit" :organization="organization" editable @add="onBranchesAdd" @edit="onBranchesEdit" @delete="onBranchesDelete"></branches>
       </b-tab>
     </b-tabs>
     <div class="tabsNavigation">
@@ -202,7 +204,7 @@
         უკან დაბრუნება
       </b-button>
     </div>
-    <b-modal ref="cancelQuestionModal" size="lg" hide-header-close ok-variant="danger" ok-title="დიახ" cancel-title="არა" @ok="onCancelYes">
+    <b-modal id="orgs-edit-question-modal" ref="cancelQuestionModal" size="lg" hide-header-close ok-variant="danger" ok-title="დიახ" cancel-title="არა" @ok="onCancelYes">
       <b>უკან დაბრუნების შემთხვევაში თქვენ მიერ შეტანილი ცვლილებები დაიკარგება.</b> <br><br>
       <b>გსურთ უკან დაბრუნება?</b>
     </b-modal>
