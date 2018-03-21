@@ -25,3 +25,9 @@ export function removeEntity(list, entity) {
 
   list.splice(index)
 }
+
+export function idWithPrefix(idPrefix, idPart) {
+  if (!idPrefix) return idPart
+
+  return idPrefix + '-' + idPart
+}

@@ -11,6 +11,7 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        :id="idWithPrefix(idPrefix, 'businesses-table')"
         striped
         thead-tr-class="tableHeader"
         responsive
@@ -36,7 +37,7 @@
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="businessInfoModal" title="საქმიანობა" hide-footer>
+      <b-modal :id="idWithPrefix(idPrefix, 'businesses-info-modal')" ref="businessInfoModal" title="საქმიანობა" hide-footer>
         <p><b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}</p>
         <p><b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}</p>
         <p><b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}</p>
@@ -64,27 +65,28 @@
           <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate | date}}</p>
         </span>
       </b-modal>
-      <b-modal ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'businesses-change-modal')" ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-form-group label="რეგულაცია">
-          <b-form-select v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-3 col-md-12">
+          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-regulation-select')" v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-3 col-md-12">
             <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="საქმიანობის სახე/ტიპი">
-          <b-form-select v-model="currentBusiness.businessType" class="mb-3 col-md-12">
+          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-type-select')" v-model="currentBusiness.businessType" class="mb-3 col-md-12">
             <option v-for="type in businessTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="საქმ. ინვაზ. გაუტკივარებით" v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
-          <b-form-select v-model="currentBusinessWithInvasiveAnesthesia" @change="onBusinessWithInvasiveAnesthesiaChange" class="mb-3 col-md-12">
+          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-anesthesia-business-select')" v-model="currentBusinessWithInvasiveAnesthesia" @change="onBusinessWithInvasiveAnesthesiaChange" class="mb-3 col-md-12">
             <option v-for="type in businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="სხვა" v-if="isOtherBusiness()">
-          <b-form-input type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-other')" type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'" >
           <b-form-input
+            :id="idWithPrefix(idPrefix, 'businesses-change-modal-document-number')"
             type="text"
             v-model="currentBusiness.documentNumber"
             :disabled="isMessageBusiness(currentBusiness)">
@@ -92,6 +94,7 @@
         </b-form-group>
         <b-form-group label="გაცემის საფუძველი" >
           <b-form-input
+            :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-reason')"
             type="text"
             v-model="currentBusiness.issueReason"
             :disabled="isMessageBusiness(currentBusiness)">
@@ -99,6 +102,7 @@
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
           <datepicker
+            :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-datepicker')"
             :clear-button="!isMessageBusiness(currentBusiness)"
             monday-first
             language="ge"
@@ -109,23 +113,23 @@
           </datepicker>
         </b-form-group>
         <b-form-group label="გაუქმების საფუძველი">
-          <b-form-input type="text" v-model="currentBusiness.cancelReason"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-reason')" type="text" v-model="currentBusiness.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
+          <b-form-checkbox :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
         </b-form-group>
         <span v-if="currentBusiness.hasDuplicate && !isMessageBusiness(currentBusiness)">
           <b-form-group label="დუბლიკატის N">
-            <b-form-input type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
+            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-number')" type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის საფუძველი">
-            <b-form-input type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
+            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-reason')" type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
+            <datepicker :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
       </b-modal>
@@ -136,7 +140,7 @@
 <script>
 import {messageType, businessOther} from './organization-constants'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict} from '../../utils'
+import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 
 export default {
@@ -146,6 +150,9 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    idPrefix: {
+      type: String
     }
   },
   data: () => ({
@@ -213,6 +220,7 @@ export default {
     this.businessTypeWithInvasiveAnesthesia = messageRegulationType.businessTypes.find(item => !!item.businessesWithInvasiveAnesthesia)
   },
   methods: {
+    idWithPrefix: idWithPrefix,
     regulationShortText (id) {
       let regulation = this.organization.regulations.find(item => item.id === id)
 

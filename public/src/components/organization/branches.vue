@@ -11,6 +11,7 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        :id="idWithPrefix(idPrefix, 'branches-table')"
         striped
         thead-tr-class="tableHeader"
         responsive
@@ -29,7 +30,7 @@
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="branchInfoModal" title="ფილიალი" hide-footer>
+      <b-modal :id="idWithPrefix(idPrefix, 'branches-info-modal')" ref="branchInfoModal" title="ფილიალი" hide-footer>
         <p><b>დასახელება:</b> {{currentBranch.name}}</p>
         <p><b>ფილიალის სტატუსი:</b> {{currentBranch.status}}</p>
         <p><b>რეგისტრაციის N:</b> {{currentBranch.registrationNumber}}</p>
@@ -50,28 +51,29 @@
           </ul>
         </p>
       </b-modal>
-      <b-modal ref="branchesChangeModal" title="ფილიალი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'branches-change-modal')" ref="branchesChangeModal" title="ფილიალი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-form-group label="დასახელება">
-          <b-form-input type="text" v-model="currentBranch.name"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'branches-change-modal-name')" type="text" v-model="currentBranch.name"></b-form-input>
         </b-form-group>
         <b-form-group label="ფილიალის სტატუსი">
-          <b-form-select v-model="currentBranch.status" class="mb-3 col-md-12">
+          <b-form-select :id="idWithPrefix(idPrefix, 'branches-change-modal-status-select')" v-model="currentBranch.status" class="mb-3 col-md-12">
             <option v-for="status in statuses" :key="status">{{status}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="რეგისტრაციის N">
-          <b-form-input type="text" v-model="currentBranch.registrationNumber"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'branches-change-modal-registration-number')" type="text" v-model="currentBranch.registrationNumber"></b-form-input>
         </b-form-group>
         <b-form-group label="ფილ. ფუნქციონ. საფუძველი">
-          <b-form-input type="text" v-model="currentBranch.functioningReason"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'branches-change-modal-functioning-reason')" type="text" v-model="currentBranch.functioningReason"></b-form-input>
         </b-form-group>
         <b-form-group label="დაწყების თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'branches-change-modal-start-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'branches-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
         </b-form-group>
         <locations
+          :idPrefix="idWithPrefix(idPrefix, 'branches-modal')"
           :locations="locations"
           :currentLocationName="currentBranch.region"
           :currentLocationUnitName="currentBranch.district"
@@ -84,7 +86,7 @@
         <b-form-group label="საქმიანობები">
           <ul class="checkboxes-list">
             <li v-for="pair in getBusinessCheckboxPairs()" :key="pair[1].id" >
-              <b-form-checkbox :checked="pair[0]" @change="addBusinessToBranch($event, pair[1])">
+              <b-form-checkbox :id="idWithPrefix(idPrefix, 'branches-modal-checkbox-' + pair[1].id)" :checked="pair[0]" @change="addBusinessToBranch($event, pair[1])">
                 {{pair[1].businessType}}
               </b-form-checkbox>
             </li>
@@ -97,7 +99,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict} from '../../utils'
+import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 import locationsComponent from '../common/locations'
 
@@ -108,6 +110,9 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    idPrefix: {
+      type: String
     }
   },
   data: () => ({
@@ -169,6 +174,7 @@ export default {
     ])
   },
   methods: {
+    idWithPrefix: idWithPrefix,
     branchStartState() {
       return {
         businessIds: []

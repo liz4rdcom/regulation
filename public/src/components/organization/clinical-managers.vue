@@ -11,6 +11,7 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        :id="idWithPrefix(idPrefix, 'clinical-managers-table')"
         striped
         thead-tr-class="tableHeader"
         responsive
@@ -29,7 +30,7 @@
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="clinicalManagersInfoModal" title="კლინიკური მენეჯერი" hide-footer>
+      <b-modal :id="idWithPrefix(idPrefix, 'clinical-managers-info-modal')" ref="clinicalManagersInfoModal" title="კლინიკური მენეჯერი" hide-footer>
         <b-container>
           <b-row>
             <b-col cols="4.5">
@@ -47,7 +48,7 @@
         <p><b>დანიშვნის თარიღი:</b> {{currentManager.appointingDate | date}}</p>
         <p><b>გათავისუფლების თარიღი:</b> {{currentManager.firingDate | date}}</p>
       </b-modal>
-      <b-modal ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal')" ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">
@@ -56,32 +57,32 @@
             <b-col>
               <div class="rowDirection">
                 <b-form-group label="პირადი ნომერი" class="col-md-11">
-                  <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
+                  <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-personal-id')" v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
                 </b-form-group>
                 <b-button variant="primary" class="round-button sync-button" @click="callSync()">
                   <i class="fa fa-search"></i>
                 </b-button>
               </div>
               <b-form-group label="სახელი" class="col-md-11">
-                <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
+                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-firstname')" v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
               </b-form-group>
               <b-form-group label="გვარი" class="col-md-11">
-                <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
+                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-lastname')" v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
         </b-container>
         <b-form-group label="ტელეფონი">
-           <b-form-input v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-phone')" v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="ელ. ფოსტა">
-           <b-form-input v-model="currentManager.email" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-email')" v-model="currentManager.email" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="დანიშვნის თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.appointingDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-appoint-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.appointingDate"></datepicker>
         </b-form-group>
         <b-form-group label="გათავისუფლების თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.firingDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-fire-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.firingDate"></datepicker>
         </b-form-group>
       </b-modal>
     </b-card>
@@ -90,7 +91,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict} from '../../utils'
+import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 import {bus} from '../common/bus'
 
@@ -101,6 +102,9 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    idPrefix: {
+      type: String
     }
   },
   data: () => ({
@@ -148,6 +152,7 @@ export default {
     datepickerFormat: datepickerFormat
   }),
   methods: {
+    idWithPrefix: idWithPrefix,
     toggleInfoModal(manager) {
       this.currentManager = Object.assign(this.managerStartState, manager)
 

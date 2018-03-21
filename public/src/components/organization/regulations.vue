@@ -11,6 +11,7 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        :id="idWithPrefix(idPrefix, 'regulations-table')"
         striped
         thead-tr-class="tableHeader"
         responsive
@@ -33,7 +34,7 @@
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="regulationInfoModal" title="რეგულაცია" hide-footer>
+      <b-modal :id="idWithPrefix(idPrefix, 'regulations-info-modal')" ref="regulationInfoModal" title="რეგულაცია" hide-footer>
         <p><b>რეგულაციის სახე/ტიპი:</b> {{currentRegulation.type}}</p>
         <p>
           <b v-if="isMessage(currentRegulation)">რეგ. ნომერი:</b>
@@ -62,52 +63,52 @@
         </span>
         <p><b>შენიშვნა:</b> {{currentRegulation.comment}}</p>
       </b-modal>
-      <b-modal ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'regulations-change-modal')" ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-form-group label="რეგულაციის სახე/ტიპი">
-          <b-form-select v-model="currentRegulation.type" class="mb-3 col-md-12" @change="onTypeChange">
+          <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-regulation-type-select')" v-model="currentRegulation.type" class="mb-3 col-md-12" @change="onTypeChange">
             <option v-for="type in regulationTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group :label="isMessage(currentRegulation) ? 'რეგ. ნომერი' : 'მოწმობის N'">
-          <b-form-input type="text" v-model="currentRegulation.documentNumber"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-document-number')" type="text" v-model="currentRegulation.documentNumber"></b-form-input>
         </b-form-group>
         <b-form-group label="გაცემის საფუძველი">
-          <b-form-input type="text" v-model="currentRegulation.issueReason"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-reason')" type="text" v-model="currentRegulation.issueReason"></b-form-input>
         </b-form-group>
         <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
         </b-form-group>
         <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
-          <b-form-select v-model="currentRegulation.commandType" class="mb-3 col-md-12">
+          <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-command-type-select')" v-model="currentRegulation.commandType" class="mb-3 col-md-12">
             <option slot="first" :value="null" disabled>-- აირჩიეთ ბრძანების ტიპი --</option>
             <option v-for="type in commandTypes" :key="type">{{type}}</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="რეესტრის N" v-if="!isMessage(currentRegulation)">
-          <b-form-input type="text" v-model="currentRegulation.registerNumber"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-register-number')" type="text" v-model="currentRegulation.registerNumber"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების საფუძველი" v-if="!isMessage(currentRegulation)">
-          <b-form-input type="text" v-model="currentRegulation.cancelReason"></b-form-input>
+          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-reason')" type="text" v-model="currentRegulation.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
+          <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
+          <b-form-checkbox :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
         </b-form-group>
         <span v-if="currentRegulation.hasDuplicate && !isMessage(currentRegulation)">
           <b-form-group label="დუბლიკატის N">
-            <b-form-input type="text" v-model="currentRegulation.duplicateNumber"></b-form-input>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-number')" type="text" v-model="currentRegulation.duplicateNumber"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის საფუძველი">
-            <b-form-input type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-reason')" type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
+            <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
         <b-form-group label="შენიშვნა">
-          <b-form-textarea v-model="currentRegulation.comment" :rows="2" :max-rows="3">
+          <b-form-textarea :id="idWithPrefix(idPrefix, 'regulations-change-modal-comment')" v-model="currentRegulation.comment" :rows="2" :max-rows="3">
           </b-form-textarea>
         </b-form-group>
       </b-modal>
@@ -118,7 +119,7 @@
 <script>
 import {permissionType, licenseType, messageType} from './organization-constants'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict} from '../../utils'
+import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 
 export default {
@@ -128,6 +129,9 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    idPrefix: {
+      type: String
     }
   },
   data: () => ({
@@ -189,6 +193,7 @@ export default {
     this.commandTypes = await lib.fetchCommandTypes()
   },
   methods: {
+    idWithPrefix: idWithPrefix,
     regulationShortText (id) {
       let regulation = this.organization.regulations.find(item => item.id === id)
 

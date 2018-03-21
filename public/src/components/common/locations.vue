@@ -1,34 +1,36 @@
 <template>
 <div>
   <b-form-group label="რეგიონი">
-    <b-form-select :id="prefixForId + 'locations-region-select'" :value="selectedLocationName" :options="locations" value-field="locationName"
+    <b-form-select :id="idWithPrefix(idPrefix,'locations-region-select')" :value="selectedLocationName" :options="locations" value-field="locationName"
       text-field="locationName" @change="locationChanged" :class="inputClass">
       <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
   <b-form-group label="მუნიციპალიტეტი">
-    <b-form-select :id="prefixForId + 'locations-district-select'" :value="selectedLocationUnitName" :options="selectedLocation.units"
+    <b-form-select :id="idWithPrefix(idPrefix,'locations-district-select')" :value="selectedLocationUnitName" :options="selectedLocation.units"
       value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
       :class="inputClass">
       <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
   <b-form-group label="დასახლებული პუნქტი">
-    <b-form-select :id="prefixForId + 'locations-settlement-select'" :value="selectedSettlementName" :options="selectedUnit.settlements"
+    <b-form-select :id="idWithPrefix(idPrefix,'locations-settlement-select')" :value="selectedSettlementName" :options="selectedUnit.settlements"
       @change="settlementChanged" :class="inputClass">
       <option slot="first" :value="null" selected v-if="searching">ყველა</option>
     </b-form-select>
   </b-form-group>
   <b-form-group label="მისამართი" v-if="!searching">
-    <b-form-input :id="prefixForId + 'locations-address'" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
+    <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
   </b-form-group>
   <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
-    <b-form-input :id="prefixForId + 'locations-postal-code'" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
+    <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
   </b-form-group>
 </div>
 </template>
 
 <script>
+import { idWithPrefix } from '../../utils'
+
 /**
    * კომპონენტი მისამართისთვის (რეგიონი & რაიონი & დასახლებული პუნქტი) location , unit , settlement
    * გადაწოდებულ მისამართების მასივს (locations) უნდა ქონდეს შემდეგი სტრუქტურა
@@ -132,14 +134,10 @@ export default {
         address: this.address,
         postalCode: this.postalCode
       }
-    },
-    prefixForId() {
-      if (!this.idPrefix) return ''
-
-      return this.idPrefix + '-'
     }
   },
   methods: {
+    idWithPrefix: idWithPrefix,
     locationChanged(locationName) {
       this.selectedLocationName = locationName
 

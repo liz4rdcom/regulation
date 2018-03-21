@@ -11,6 +11,7 @@
         <i class="fa fa-plus"></i>
       </b-button>
       <b-table
+        :id="idWithPrefix(idPrefix, 'managers-table')"
         striped
         thead-tr-class="tableHeader"
         responsive
@@ -29,7 +30,7 @@
           </b-button>
         </span>
       </b-table>
-      <b-modal ref="managersInfoModal" title="ხელმძღვანელი" hide-footer>
+      <b-modal :id="idWithPrefix(idPrefix, 'managers-info-modal')" ref="managersInfoModal" title="ხელმძღვანელი" hide-footer>
         <b-container>
           <b-row>
             <b-col cols="4.5">
@@ -46,7 +47,7 @@
         <p><b>ელ. ფოსტა:</b> {{currentManager.email}}</p>
         <p><b>სხვა:</b> {{currentManager.other}}</p>
       </b-modal>
-      <b-modal ref="managersChangeModal" title="ხელმძღვანელი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'managers-change-modal')" ref="managersChangeModal" title="ხელმძღვანელი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">
@@ -55,32 +56,32 @@
             <b-col>
               <div class="rowDirection">
                 <b-form-group label="პირადი ნომერი" class="col-md-11">
-                  <b-form-input v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
+                  <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-personal-id')" v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
                 </b-form-group>
                 <b-button variant="primary" class="round-button sync-button" @click="callSync()">
                   <i class="fa fa-search"></i>
                 </b-button>
               </div>
               <b-form-group label="სახელი" class="col-md-11">
-                <b-form-input v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
+                <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-firstname')" v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
               </b-form-group>
               <b-form-group label="გვარი" class="col-md-11">
-                <b-form-input v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
+                <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-lastname')" v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
         </b-container>
         <b-form-group label="თანამდებობა">
-           <b-form-input v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-position')" v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="ტელეფონი">
-           <b-form-input v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-phone')" v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="ელ. ფოსტა">
-           <b-form-input v-model="currentManager.email" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-email')" v-model="currentManager.email" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="სხვა">
-           <b-form-input v-model="currentManager.other" type="text" class="col-md-12"></b-form-input>
+           <b-form-input :id="idWithPrefix(idPrefix, 'managers-change-modal-other')" v-model="currentManager.other" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
       </b-modal>
     </b-card>
@@ -90,6 +91,7 @@
 <script>
 import lib from '../../libs'
 import {bus} from '../common/bus'
+import {idWithPrefix} from '../../utils'
 
 export default {
   name: 'managers',
@@ -98,6 +100,9 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    idPrefix: {
+      type: String
     }
   },
   data: () => ({
@@ -142,6 +147,7 @@ export default {
     }
   }),
   methods: {
+    idWithPrefix: idWithPrefix,
     toggleInfoModal(manager) {
       this.currentManager = Object.assign(this.managerStartState, manager)
 
