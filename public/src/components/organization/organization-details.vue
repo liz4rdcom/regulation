@@ -124,14 +124,17 @@ export default {
     tabIndex: 0
   }),
   async created () {
-    let url = baseUrl + '/' + this.id
-    let response = await this.$http.get(url)
-
-    this.organization = Object.assign(this.organizationStartState, response.data)
+    await this.fetch(this.id)
   },
   methods: {
     goBack () {
       this.$router.push('/')
+    },
+    async fetch(id) {
+      let url = baseUrl + '/' + id
+      let response = await this.$http.get(url)
+
+      this.organization = Object.assign(this.organizationStartState, response.data)
     }
   },
   computed: {
@@ -148,6 +151,11 @@ export default {
         businesses: [],
         branches: []
       }
+    }
+  },
+  watch: {
+    async id(newValue) {
+      await this.fetch(newValue)
     }
   },
   components: {
