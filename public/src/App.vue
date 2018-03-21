@@ -14,7 +14,9 @@
       </div>
 
     </div>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <notify></notify>
   </div>
 </template>
