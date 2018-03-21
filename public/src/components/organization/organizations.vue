@@ -4,7 +4,7 @@
     <b-container class="searchArea">
       <b-row>
         <b-col>
-          <b-form-input v-model="searchString" type="text" @keyup.enter.native="search">
+          <b-form-input id="orgs-search" v-model="searchString" type="text" @keyup.enter.native="search">
           </b-form-input>
         </b-col>
         <b-col cols="0.5">
@@ -29,7 +29,7 @@
         <b-row>
           <b-col>
             <b-form-group label="რეგულირების სახე">
-              <b-form-select v-model="searchParams.regulationType" @change="searchParams.businessType=null" class="col-md-12">
+              <b-form-select id="orgs-regulation-type-select" v-model="searchParams.regulationType" @change="searchParams.businessType=null" class="col-md-12">
                 <template slot="first">
                   <option :value="null" selected>ყველა</option>
                 </template>
@@ -37,7 +37,7 @@
               </b-form-select>
             </b-form-group>
             <b-form-group label="საქმიანობის სახე">
-              <b-form-select v-model="searchParams.businessType" @change="searchParams.businessWithInvasiveAnesthesia = null" class="col-md-12">
+              <b-form-select id="orgs-business-type-select" v-model="searchParams.businessType" @change="searchParams.businessWithInvasiveAnesthesia = null" class="col-md-12">
                 <template slot="first">
                   <option :value="null" selected>ყველა</option>
                 </template>
@@ -46,6 +46,7 @@
             </b-form-group>
             <b-form-group label="საქმ. ინვაზ. გაუტკივარებით">
               <b-form-select
+              id="orgs-anesthesia-business-select"
               v-model="searchParams.businessWithInvasiveAnesthesia"
               :disabled="!hasBusinessesWithInvasiveAnesthesia(searchParams.regulationType, searchParams.businessType)"
               class="col-md-12">
@@ -56,7 +57,7 @@
             </b-form-select>
           </b-form-group>
           <b-form-group label="ბრძანების ტიპი">
-            <b-form-select v-model="searchParams.commandType" class="col-md-12">
+            <b-form-select id="orgs-command-type-select" v-model="searchParams.commandType" class="col-md-12">
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
@@ -67,10 +68,10 @@
             <b-container>
               <b-row>
                 <b-col xl="6" class="leftCol">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessStartDate"></datepicker>
+                  <datepicker id="orgs-business-process-start-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessStartDate"></datepicker>
                 </b-col>
                 <b-col xl="6" class="rightCol">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessEndDate"></datepicker>
+                  <datepicker id="orgs-business-process-end-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessEndDate"></datepicker>
                 </b-col>
               </b-row>
             </b-container>
@@ -78,7 +79,7 @@
         </b-col>
         <b-col>
           <b-form-group label="სტატუსი">
-            <b-form-select v-model="searchParams.statusGeoName" class="col-md-12">
+            <b-form-select id="orgs-status-select" v-model="searchParams.statusGeoName" class="col-md-12">
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
@@ -86,7 +87,7 @@
             </b-form-select>
           </b-form-group>
           <b-form-group label="Napr სტატუსი">
-            <b-form-select v-model="searchParams.naprStatus" class="col-md-12">
+            <b-form-select id="orgs-napr-status-select" v-model="searchParams.naprStatus" class="col-md-12">
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
@@ -94,7 +95,7 @@
             </b-form-select>
           </b-form-group>
           <b-form-group label="ორგანიზაციის ტიპი">
-            <b-form-select v-model="searchParams.organizationType" class="col-md-12">
+            <b-form-select id="orgs-organization-type-select" v-model="searchParams.organizationType" class="col-md-12">
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
@@ -102,7 +103,7 @@
             </b-form-select>
           </b-form-group>
           <b-form-group label="სამართლებრივი ფორმა">
-            <b-form-select v-model="searchParams.legalForm" class="col-md-12">
+            <b-form-select id="orgs-legal-form-select" v-model="searchParams.legalForm" class="col-md-12">
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
@@ -113,17 +114,17 @@
             <b-container>
               <b-row>
                 <b-col xl="6" class="leftCol">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignStartDate"></datepicker>
+                  <datepicker id="orgs-business-assign-start-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignStartDate"></datepicker>
                 </b-col>
                 <b-col xl="6" class="rightCol">
-                  <datepicker clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignEndDate"></datepicker>
+                  <datepicker id="orgs-business-assign-end-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input" v-model="searchParams.businessAssignEndDate"></datepicker>
                 </b-col>
               </b-row>
             </b-container>
           </b-form-group>
         </b-col>
         <b-col>
-          <locations :locations="locations" input-class="col-md-12" searching @change="addressChanged"></locations>
+          <locations idPrefix="orgs" :locations="locations" input-class="col-md-12" searching @change="addressChanged"></locations>
         </b-col>
       </b-row>
       <b-row>
@@ -136,7 +137,7 @@
   </div>
 
   <br>
-  <b-table striped bordered responsive thead-tr-class="tableHeader" :items="organizations" :fields="fields">
+  <b-table id="orgs-table" striped bordered responsive thead-tr-class="tableHeader" :items="organizations" :fields="fields">
     <span slot="region" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.region: ''}}</span>
     <span slot="district" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.district: ''}}</span>
     <span slot="addressDescription" slot-scope="data">{{data.item.factualAddress ? data.item.factualAddress.addressDescription: ''}}</span>
