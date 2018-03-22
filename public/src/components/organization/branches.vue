@@ -139,7 +139,7 @@
           </b-col>
           <b-col>
           <datepicker clear-button="" monday-first="" language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
-    
+
           </b-col>
         </b-row>
             <locations
@@ -149,13 +149,14 @@
           :currentSettlementName="currentBranch.settlement"
           :currentAddress="currentBranch.addressDescription"
           :currentPostalCode="currentBranch.postalCode"
+          stacked
           inputClass="col-md-12"
           @change="onAddressChanged">
         </locations>
         <b-row  class="mb-1">
           <b-col>
      <b-form-group label="საქმიანობები">
-    
+
         </b-form-group>
           </b-col>
           <b-col cols="9">
@@ -168,7 +169,7 @@
           </ul>
           </b-col>
         </b-row>
-  
+
       </b-modal>
     </b-card>
   </div>
