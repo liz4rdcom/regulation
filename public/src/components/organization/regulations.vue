@@ -63,7 +63,7 @@
         </span>
         <p><b>შენიშვნა:</b> {{currentRegulation.comment}}</p>
       </b-modal>
-      <b-modal :id="idWithPrefix(idPrefix, 'regulations-change-modal')" ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'regulations-change-modal')" ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
         <b-form-group label="რეგულაციის სახე/ტიპი">
           <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-regulation-type-select')" v-model="currentRegulation.type" class="mb-3 col-md-12" @change="onTypeChange">
             <option v-for="type in regulationTypes" :key="type">{{type}}</option>

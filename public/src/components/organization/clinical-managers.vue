@@ -48,7 +48,7 @@
         <p><b>დანიშვნის თარიღი:</b> {{currentManager.appointingDate | date}}</p>
         <p><b>გათავისუფლების თარიღი:</b> {{currentManager.firingDate | date}}</p>
       </b-modal>
-      <b-modal :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal')" ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal')" ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">

@@ -47,7 +47,7 @@
         <p><b>ელ. ფოსტა:</b> {{currentManager.email}}</p>
         <p><b>სხვა:</b> {{currentManager.other}}</p>
       </b-modal>
-      <b-modal :id="idWithPrefix(idPrefix, 'managers-change-modal')" ref="managersChangeModal" title="ხელმძღვანელი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'managers-change-modal')" ref="managersChangeModal" title="ხელმძღვანელი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">

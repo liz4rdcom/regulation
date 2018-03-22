@@ -51,7 +51,7 @@
           </ul>
         </p>
       </b-modal>
-      <b-modal :id="idWithPrefix(idPrefix, 'branches-change-modal')" ref="branchesChangeModal" title="ფილიალი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'branches-change-modal')" ref="branchesChangeModal" title="ფილიალი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
         <b-form-group label="დასახელება">
           <b-form-input :id="idWithPrefix(idPrefix, 'branches-change-modal-name')" type="text" v-model="currentBranch.name"></b-form-input>
         </b-form-group>

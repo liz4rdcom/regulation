@@ -65,7 +65,7 @@
           <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate | date}}</p>
         </span>
       </b-modal>
-      <b-modal :id="idWithPrefix(idPrefix, 'businesses-change-modal')" ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel">
+      <b-modal :id="idWithPrefix(idPrefix, 'businesses-change-modal')" ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
         <b-form-group label="რეგულაცია">
           <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-regulation-select')" v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-3 col-md-12">
             <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
