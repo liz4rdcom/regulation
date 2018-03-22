@@ -13,7 +13,7 @@
         <b-navbar-nav class="ml-auto">
           <div class="user">მარი გელაშვილი</div> </b-navbar-nav>
       </div>
-  
+
     </div>
     <router-view/>
     <notify></notify>

@@ -68,7 +68,7 @@
               </b-form-group>
             </b-col>
           </b-row>
-      
+
         <b-form-group label="თანამდებობა">
            <b-form-input v-model="currentManager.position" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
