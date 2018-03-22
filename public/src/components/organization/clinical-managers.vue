@@ -34,7 +34,7 @@
         <b-container>
           <b-row>
             <b-col cols="4.5">
-              <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
+              <img :src="photoSrc()" float="right">
             </b-col>
             <b-col class="infoCol">
               <p><b>პირადი ნომერი:</b> {{currentManager.personalId}}</p>
@@ -52,7 +52,7 @@
         <b-container>
           <b-row>
             <b-col cols="4.5" class="imgCol">
-              <img :src="currentManager.photo ? photoSrc : '/static/empty_person.jpg'" float="right">
+              <img :src="photoSrc()" float="right">
             </b-col>
             <b-col>
               <div class="rowDirection">
@@ -193,6 +193,11 @@ export default {
       } catch (error) {
         bus.$emit('error', error)
       }
+    },
+    photoSrc() {
+      if (!this.currentManager.photo) return '/static/empty_person.jpg'
+
+      return 'data:image/jpeg;base64,' + this.currentManager.photo
     }
   },
   computed: {
@@ -201,9 +206,6 @@ export default {
         firstName: '',
         lastName: ''
       }
-    },
-    photoSrc() {
-      return 'data:image/jpeg;base64,' + this.currentManager.photo
     }
   },
   components: {
