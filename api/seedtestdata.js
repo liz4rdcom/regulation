@@ -1552,7 +1552,6 @@ const testOrganizations = [
     phone: '111222',
     naprOfficePhone: '12121',
     email: null,
-    ehealthEmail: '00001@ehealth.gov.ge',
     statusId: 0,
     status: 'active',
     statusGeoName: 'აქტიური',

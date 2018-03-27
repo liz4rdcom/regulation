@@ -10,7 +10,6 @@ function createValidOrganization(organizationObject) {
     'phone',
     'naprOfficePhone',
     'email',
-    'ehealthEmail',
     'statusId',
     'status',
     'statusGeoName',

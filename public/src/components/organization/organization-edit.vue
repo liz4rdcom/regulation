@@ -66,9 +66,6 @@
                 <b-form-group label="ელექტრონული ფოსტა">
                   <b-form-input id="orgs-edit-email" type="text" v-model="organization.email"></b-form-input>
                 </b-form-group>
-                <b-form-group label="E-Health Email">
-                  <b-form-input id="orgs-edit-ehealth-email" type="text" v-model="organization.ehealthEmail"></b-form-input>
-                </b-form-group>
               </b-col>
             </b-row>
           </b-container>
