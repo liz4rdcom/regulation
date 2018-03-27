@@ -1,6 +1,11 @@
 import * as moment from 'moment'
 
 export const datepickerFormat = 'd MMMM yyyy'
+export const highlightToday = {
+  dates: [
+    new Date()
+  ]
+}
 
 export function formatDate(date) {
   if (!date || typeof date === 'string') return date

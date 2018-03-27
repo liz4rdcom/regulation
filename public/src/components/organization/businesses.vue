@@ -102,6 +102,7 @@
         </b-form-group>
         <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
           <datepicker
+            :highlighted="highlightToday"
             :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-datepicker')"
             :clear-button="!isMessageBusiness(currentBusiness)"
             monday-first
@@ -116,7 +117,7 @@
           <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-reason')" type="text" v-model="currentBusiness.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
           <b-form-checkbox :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
@@ -129,7 +130,7 @@
             <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-reason')" type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
+            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
       </b-modal>
@@ -140,7 +141,7 @@
 <script>
 import {messageType, businessOther} from './organization-constants'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
+import {datepickerFormat, highlightToday, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 
 export default {
@@ -210,7 +211,8 @@ export default {
     ],
     regulationTypes: [],
     businessTypeWithInvasiveAnesthesia: {},
-    datepickerFormat: datepickerFormat
+    datepickerFormat: datepickerFormat,
+    highlightToday: highlightToday
   }),
   async created() {
     this.regulationTypes = await lib.fetchRegulationTypes()

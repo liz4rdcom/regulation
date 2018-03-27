@@ -28,7 +28,7 @@
                   <b-form-input id="orgs-add-treasury-registration-number" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
                 </b-form-group>
                 <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
-                  <datepicker id="orgs-add-treasury-registration-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
+                  <datepicker :highlighted="highlightToday" id="orgs-add-treasury-registration-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
                 </b-form-group>
                 <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
                   <b-form-input id="orgs-add-treasury-registration-place" type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
@@ -132,7 +132,7 @@
                   <b-form-input id="orgs-add-permission-duplicate-issue-reason" type="text" v-model="permission.duplicateIssueReason" :disabled="!permission.hasDuplicate"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებ. დუბლ. გაცემის თარიღი">
-                  <datepicker id="orgs-add-permission-duplicate-issue-date" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.duplicateIssueDate" :disabled-picker="!permission.hasDuplicate"></datepicker>
+                  <datepicker :highlighted="highlightToday" id="orgs-add-permission-duplicate-issue-date" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.duplicateIssueDate" :disabled-picker="!permission.hasDuplicate"></datepicker>
                 </b-form-group>
               </b-col>
               <b-col>
@@ -145,13 +145,13 @@
                   <b-form-input id="orgs-add-permission-issue-reason" type="text" v-model="permission.issueReason"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაცემის თარიღი">
-                  <datepicker id="orgs-add-permission-issue-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
+                  <datepicker :highlighted="highlightToday" id="orgs-add-permission-issue-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.issueDate"></datepicker>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაუქმების საფუძველი">
                   <b-form-input id="orgs-add-permission-cancel-reason" type="text" v-model="permission.cancelReason"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ნებართვის გაუქმების თარიღი">
-                  <datepicker id="orgs-add-permission-cancel-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.cancelDate"></datepicker>
+                  <datepicker :highlighted="highlightToday" id="orgs-add-permission-cancel-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="permission.cancelDate"></datepicker>
                 </b-form-group>
               </b-col>
             </b-row>
@@ -201,7 +201,7 @@ import foundersComponent from './founders'
 import regulationsComponent from './regulations'
 import businessComponent from './businesses'
 import branchesComponent from './branches'
-import {datepickerFormat, editEntity, removeEntity} from '../../utils'
+import {datepickerFormat, highlightToday, editEntity, removeEntity} from '../../utils'
 import {baseUrl, permissionType} from './organization-constants'
 import {bus} from '../common/bus'
 
@@ -219,6 +219,7 @@ export default {
       branches: []
     },
     datepickerFormat: datepickerFormat,
+    highlightToday: highlightToday,
     statuses: [],
     naprStatuses: [],
     organizationTypes: [],

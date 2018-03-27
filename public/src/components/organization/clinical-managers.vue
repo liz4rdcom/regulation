@@ -79,10 +79,10 @@
            <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-email')" v-model="currentManager.email" type="text" class="col-md-12"></b-form-input>
         </b-form-group>
         <b-form-group label="დანიშვნის თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-appoint-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.appointingDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-appoint-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.appointingDate"></datepicker>
         </b-form-group>
         <b-form-group label="გათავისუფლების თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-fire-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.firingDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-fire-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentManager.firingDate"></datepicker>
         </b-form-group>
       </b-modal>
     </b-card>
@@ -91,7 +91,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
+import {datepickerFormat, highlightToday, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 import {bus} from '../common/bus'
 
@@ -149,7 +149,8 @@ export default {
       firstName: '',
       lastName: ''
     },
-    datepickerFormat: datepickerFormat
+    datepickerFormat: datepickerFormat,
+    highlightToday: highlightToday
   }),
   methods: {
     idWithPrefix: idWithPrefix,

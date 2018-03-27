@@ -76,7 +76,7 @@
           <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-reason')" type="text" v-model="currentRegulation.issueReason"></b-form-input>
         </b-form-group>
         <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
         </b-form-group>
         <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
           <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-command-type-select')" v-model="currentRegulation.commandType" class="mb-3 col-md-12">
@@ -91,7 +91,7 @@
           <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-reason')" type="text" v-model="currentRegulation.cancelReason"></b-form-input>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
         </b-form-group>
         <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
           <b-form-checkbox :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
@@ -104,7 +104,7 @@
             <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-reason')" type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
           </b-form-group>
           <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
+            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
           </b-form-group>
         </span>
         <b-form-group label="შენიშვნა">
@@ -119,7 +119,7 @@
 <script>
 import {permissionType, licenseType, messageType} from './organization-constants'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
+import {datepickerFormat, highlightToday, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 
 export default {
@@ -183,6 +183,7 @@ export default {
       }
     ],
     datepickerFormat: datepickerFormat,
+    highlightToday: highlightToday,
     commandTypes: [],
     regulationTypes: [
       licenseType,

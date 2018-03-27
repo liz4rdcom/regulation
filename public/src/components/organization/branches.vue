@@ -67,10 +67,10 @@
           <b-form-input :id="idWithPrefix(idPrefix, 'branches-change-modal-functioning-reason')" type="text" v-model="currentBranch.functioningReason"></b-form-input>
         </b-form-group>
         <b-form-group label="დაწყების თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'branches-change-modal-start-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'branches-change-modal-start-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.startDate"></datepicker>
         </b-form-group>
         <b-form-group label="გაუქმების თარიღი">
-          <datepicker :id="idWithPrefix(idPrefix, 'branches-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
+          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'branches-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBranch.cancelDate"></datepicker>
         </b-form-group>
         <locations
           :idPrefix="idWithPrefix(idPrefix, 'branches-modal')"
@@ -99,7 +99,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, formatDateStrict, idWithPrefix} from '../../utils'
+import {datepickerFormat, highlightToday, formatDateStrict, idWithPrefix} from '../../utils'
 import lib from '../../libs'
 import locationsComponent from '../common/locations'
 
@@ -161,6 +161,7 @@ export default {
       }
     ],
     datepickerFormat: datepickerFormat,
+    highlightToday: highlightToday,
     statuses: [],
     locations: []
   }),
