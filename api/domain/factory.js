@@ -26,7 +26,9 @@ function createValidOrganization(organizationObject) {
     'bedStock',
     'clinicalManagers',
     'managers',
-    'founders'
+    'founders',
+    'createDate',
+    'updateDate'
   ])
 
   let organization = new Organization(mainInfo)

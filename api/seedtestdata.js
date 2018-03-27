@@ -1578,6 +1578,7 @@ const testOrganizations = [
     organizationType: 'სტაციონარული',
     legalForm: 'შეზღუდული პასუხისმგებლობის საზოგადოება (შპს)',
     bedStock: 100,
+    createDate: new Date(),
     branches: [
       {
         id: shortid.generate(),

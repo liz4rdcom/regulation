@@ -20,6 +20,8 @@ async function registerOrganization(organizationObject) {
 
   let organization = factory.createValidOrganization(organizationObject)
 
+  organization.createDate = new Date()
+
   return await organizationRepository.addOrganization(organization)
 }
 
@@ -29,6 +31,8 @@ async function editOrganization(id, organizationObject) {
   domainUtils.generateIdsForOrganizationFields(organizationObject)
 
   let organization = factory.createValidOrganization(organizationObject)
+
+  organization.updateDate = new Date()
 
   await organizationRepository.editOrganization(organization)
 }

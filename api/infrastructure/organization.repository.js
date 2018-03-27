@@ -16,7 +16,8 @@ const type = config.get('elastic.organizationType')
 async function getList() {
   const options = {
     index,
-    type
+    type,
+    sort: 'createDate:desc'
   }
 
   let result = await client.search(options)
@@ -85,7 +86,8 @@ async function fullTextSearch(queryString) {
           ]
         }
       }
-    }
+    },
+    sort: 'createDate:desc'
   }
 
   let result = await client.search(options)
@@ -148,7 +150,8 @@ async function advancedSearch(query) {
           must: boolQuery
         }
       }
-    }
+    },
+    sort: 'createDate:desc'
   }
 
   let result = await client.search(options)
