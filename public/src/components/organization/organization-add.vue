@@ -167,11 +167,11 @@
       </b-tab>
     </b-tabs>
     <div class="tabsNavigation">
-      <b-button variant="primary" @click="tabIndex--">
+      <b-button variant="primary" @click="tabIndex--" :disabled="tabIndex <= 0">
         <i class="fa fa-angle-left"></i> &nbsp;
         უკან
       </b-button>
-      <b-button  variant="primary" @click="tabIndex++">
+      <b-button  variant="primary" @click="tabIndex++" :disabled="tabIndex >= 5">
         შემდეგ &nbsp;
         <i class="fa fa-angle-right"></i>
       </b-button>
