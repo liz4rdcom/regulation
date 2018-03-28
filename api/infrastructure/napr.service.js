@@ -1,23 +1,17 @@
-const soap = require('soap')
 const config = require('config')
 const RecordError = require('../exceptions/record.error')
+const rp = require('request-promise')
 
 async function callNaprByTaxCode(taxCode) {
-  let client = await soap.createClientAsync(config.get('napr.soapAddress'), {forceSoap12Headers: true})
+  let url = config.get('napr.address') + '/legalEntities/' + taxCode
 
-  const args = {
-    ObjectId: taxCode
+  const options = {
+    uri: url,
+    method: 'GET',
+    json: true
   }
 
-  let result = await client.GetLegalEntityAsync(args)
-
-  console.log(result)
-
-  let entityInfo = result['GetLegalEntityResult']
-
-  if (!entityInfo) {
-    throw new RecordError('ორგანიზაცია მითითებული საიდენტიფიკაციო კოდით არ მოიძებნა')
-  }
+  let entityInfo = await rp(options)
 
   return entityInfo
 }
