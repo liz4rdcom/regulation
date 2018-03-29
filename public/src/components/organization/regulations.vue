@@ -133,9 +133,9 @@
             </b-form-select>
           </b-col>
         </b-row>
-        <b-row class="mb-1 ">
+        <b-row class="mb-1 " v-if="!isMessage(currentRegulation)">
           <b-col>
-            <b-form-group label="რეესტრის N" v-if="!isMessage(currentRegulation)">
+            <b-form-group label="რეესტრის N">
             </b-form-group>
           </b-col>
           <b-col>
@@ -195,7 +195,6 @@
             </b-col>
             <b-col>
               <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
-
             </b-col>
           </b-row>
         </span>

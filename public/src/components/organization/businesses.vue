@@ -200,9 +200,9 @@
             <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
           </b-col>
         </b-row>
-        <b-row  class="mb-1">
+        <b-row  class="mb-1" v-if="!isMessageBusiness(currentBusiness)">
           <b-col>
-            <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
+            <b-form-group label="დუბლიკატი">
             </b-form-group>
           </b-col>
           <b-col>
