@@ -9,7 +9,6 @@
           <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span>
         </div>-->
 
-
         <b-navbar-nav class="ml-auto">
           <div class="user">მარი გელაშვილი</div> </b-navbar-nav>
       </div>
