@@ -49,29 +49,29 @@
         <p><b>გათავისუფლების თარიღი:</b> {{currentManager.firingDate | date}}</p>
       </b-modal>
       <b-modal :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal')" ref="clinicalManagersChangeModal" title="კლინიკური მენეჯერი" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
-        <b-container>
+
           <b-row>
-            <b-col cols="4.5" class="imgCol">
+            <b-col cols="4">
               <img :src="photoSrc()" float="right">
             </b-col>
             <b-col>
               <div class="rowDirection">
-                <b-form-group label="პირადი ნომერი" class="col-md-11">
-                  <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-personal-id')" v-model="currentManager.personalId" type="text" class="col-md-12" @keyup.enter.native="callSync()"></b-form-input>
+                <b-form-group label="პირადი ნომერი" class="col-md-10" style="padding:0 5px 0 0; margin:0;">
+                  <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-personal-id')" v-model="currentManager.personalId" type="text" @keyup.enter.native="callSync()"></b-form-input>
                 </b-form-group>
                 <b-button variant="primary" class="round-button sync-button" @click="callSync()">
                   <i class="fa fa-search"></i>
                 </b-button>
               </div>
-              <b-form-group label="სახელი" class="col-md-11">
-                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-firstname')" v-model="currentManager.firstName" type="text" class="col-md-12"></b-form-input>
+              <b-form-group label="სახელი" >
+                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-firstname')" v-model="currentManager.firstName" type="text"></b-form-input>
               </b-form-group>
-              <b-form-group label="გვარი" class="col-md-11">
-                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-lastname')" v-model="currentManager.lastName" type="text" class="col-md-12"></b-form-input>
+              <b-form-group label="გვარი" >
+                <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-lastname')" v-model="currentManager.lastName" type="text"></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
-        </b-container>
+
         <b-form-group label="ტელეფონი">
            <b-form-input :id="idWithPrefix(idPrefix, 'clinical-managers-change-modal-phone')" v-model="currentManager.phone" type="text" class="col-md-12"></b-form-input>
         </b-form-group>

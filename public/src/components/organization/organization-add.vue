@@ -1,7 +1,7 @@
 <template>
   <div class="org-info">
     <div class="header">
-      <b-button variant="bl" @click="onCancelClick">
+      <b-button variant="bl" class="btn btn-primary"  @click="onCancelClick">
         უკან დაბრუნება
       </b-button>
     </div>
@@ -177,7 +177,7 @@
       <b-button variant="primary" @click="save">
         შენახვა
       </b-button>
-      <b-button variant="danger" @click="onCancelClick">
+      <b-button variant="danger" class="btn btn-primary" @click="onCancelClick">
         უკან დაბრუნება
       </b-button>
     </div>

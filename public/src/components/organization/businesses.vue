@@ -38,70 +38,138 @@
         </span>
       </b-table>
       <b-modal :id="idWithPrefix(idPrefix, 'businesses-info-modal')" ref="businessInfoModal" title="საქმიანობა" hide-footer>
-        <p><b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}</p>
-        <p><b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}</p>
-        <p><b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}</p>
+
+        <p>
+          <b>რეგულაცია:</b> {{regulationShortText(currentBusiness.regulationId)}}
+        </p>
+
+        <p>
+          <b>საქმიანობის სახე/ტიპი:</b> {{currentBusiness.businessType}}
+        </p>
+        <p>
+          <b>საქმ. ინვაზ. გაუტკივარებით (სხვა):</b> {{currentBusiness.additionalBusinessInformation}}
+        </p>
         <p>
           <b v-if="isMessageBusiness(currentBusiness)">რეგ. ნომერი:</b>
           <b v-else>მოწმობის N:</b>
           {{currentBusiness.documentNumber}}
         </p>
-        <p><b>გაცემის საფუძველი:</b> {{currentBusiness.issueReason}}</p>
+        <p>
+          <b>გაცემის საფუძველი:</b> {{currentBusiness.issueReason}}
+        </p>
         <p>
           <b v-if="isMessageBusiness(currentBusiness)">შემოსვლის თარიღი:</b>
           <b v-else>გაცემის თარიღი:</b>
           {{currentBusiness.issueDate | date}}
         </p>
-        <p><b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}</p>
-        <p><b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate | date}}</p>
+        <p>
+          <b>გაუქმების საფუძველი:</b> {{currentBusiness.cancelReason}}
+        </p>
+        <p>
+          <b>გაუქმების თარიღი:</b> {{currentBusiness.cancelDate | date}}
+        </p>
         <p>
           <b>დუბლიკატი:</b>
           <b-form-checkbox class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" disabled variant="stone">
           </b-form-checkbox>
         </p>
         <span v-if="currentBusiness.hasDuplicate">
-          <p><b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}</p>
-          <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}</p>
-          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate | date}}</p>
+          <p>
+            <b>დუბლიკატის N:</b> {{currentBusiness.duplicateNumber}}
+          </p>
+          <p>
+            <b>დუბლ. გაცემის საფუძველი:</b> {{currentBusiness.duplicateIssueReason}}
+          </p>
+          <p>
+            <b>დუბლ. გაცემის თარიღი:</b> {{currentBusiness.duplicateIssueDate | date}}
+          </p>
         </span>
       </b-modal>
       <b-modal :id="idWithPrefix(idPrefix, 'businesses-change-modal')" ref="businessChangeModal" title="საქმიანობა" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
-        <b-form-group label="რეგულაცია">
-          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-regulation-select')" v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-3 col-md-12">
-            <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group label="საქმიანობის სახე/ტიპი">
-          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-type-select')" v-model="currentBusiness.businessType" class="mb-3 col-md-12">
-            <option v-for="type in businessTypes" :key="type">{{type}}</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group label="საქმ. ინვაზ. გაუტკივარებით" v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
-          <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-anesthesia-business-select')" v-model="currentBusinessWithInvasiveAnesthesia" @change="onBusinessWithInvasiveAnesthesiaChange" class="mb-3 col-md-12">
-            <option v-for="type in businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia" :key="type">{{type}}</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group label="სხვა" v-if="isOtherBusiness()">
-          <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-other')" type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
-        </b-form-group>
-        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'" >
-          <b-form-input
-            :id="idWithPrefix(idPrefix, 'businesses-change-modal-document-number')"
-            type="text"
-            v-model="currentBusiness.documentNumber"
-            :disabled="isMessageBusiness(currentBusiness)">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group label="გაცემის საფუძველი" >
-          <b-form-input
-            :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-reason')"
-            type="text"
-            v-model="currentBusiness.issueReason"
-            :disabled="isMessageBusiness(currentBusiness)">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker
+
+        <b-row class="mb-1" >
+          <b-col>
+            <b-form-group label="რეგულაცია">
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-regulation-select')" v-model="currentBusiness.regulationId" @change="onRegulationChange" class="mb-1 col-md-12">
+              <option v-for="regulation in organization.regulations" :key="regulation.id" :value="regulation.id">{{regulation.type}}-{{regulation.documentNumber}}</option>
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row >
+          <b-col>
+            <b-form-group label="საქმიანობის სახე/ტიპი">
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-type-select')" v-model="currentBusiness.businessType" class="mb-1 col-md-12">
+              <option v-for="type in businessTypes" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row  v-if="currentBusiness.businessType === businessTypeWithInvasiveAnesthesia.type">
+          <b-col>
+            <b-form-group label="საქმ. ინვაზ. გაუტკივარებით">
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-select :id="idWithPrefix(idPrefix, 'businesses-change-modal-anesthesia-business-select')" v-model="currentBusinessWithInvasiveAnesthesia" @change="onBusinessWithInvasiveAnesthesiaChange" class="mb-3 col-md-12">
+              <option v-for="type in businessTypeWithInvasiveAnesthesia.businessesWithInvasiveAnesthesia" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row v-if="isOtherBusiness()" >
+          <b-col>
+            <b-form-group label="სხვა">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-business-other')" type="text" v-model="currentBusiness.additionalBusinessInformation"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row  class="mb-1" >
+          <b-col>
+            <b-form-group :label="isMessageBusiness(currentBusiness) ? 'რეგ. ნომერი' : 'მოწმობის N'" >
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input
+              :id="idWithPrefix(idPrefix, 'businesses-change-modal-document-number')"
+              type="text"
+              v-model="currentBusiness.documentNumber"
+              :disabled="isMessageBusiness(currentBusiness)">
+            </b-form-input>
+          </b-col>
+        </b-row>
+        <b-row   class="mb-1">
+          <b-col>
+            <b-form-group label="გაცემის საფუძველი" >
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input
+              :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-reason')"
+              type="text"
+              v-model="currentBusiness.issueReason"
+              :disabled="isMessageBusiness(currentBusiness)">
+            </b-form-input>
+          </b-col>
+        </b-row>
+        <b-row  class="mb-1">
+          <b-col>
+            <b-form-group :label="isMessageBusiness(currentBusiness) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
+
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <datepicker
             :highlighted="highlightToday"
             :id="idWithPrefix(idPrefix, 'businesses-change-modal-issue-datepicker')"
             :clear-button="!isMessageBusiness(currentBusiness)"
@@ -111,27 +179,65 @@
             input-class="picker-input col-md-12"
             v-model="currentBusiness.issueDate"
             :disabled-picker="isMessageBusiness(currentBusiness)">
-          </datepicker>
-        </b-form-group>
-        <b-form-group label="გაუქმების საფუძველი">
-          <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-reason')" type="text" v-model="currentBusiness.cancelReason"></b-form-input>
-        </b-form-group>
-        <b-form-group label="გაუქმების თარიღი">
-          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
-        </b-form-group>
-        <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
-          <b-form-checkbox :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
-        </b-form-group>
+            </datepicker>
+          </b-col>
+        </b-row>
+        <b-row  class="mb-1">
+          <b-col>
+            <b-form-group label="გაუქმების საფუძველი">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-reason')" type="text" v-model="currentBusiness.cancelReason"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row  class="mb-1">
+          <b-col>
+            <b-form-group label="გაუქმების თარიღი">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.cancelDate"></datepicker>
+          </b-col>
+        </b-row>
+        <b-row  class="mb-1">
+          <b-col>
+            <b-form-group label="დუბლიკატი" v-if="!isMessageBusiness(currentBusiness)">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-checkbox :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentBusiness.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
+          </b-col>
+        </b-row>
         <span v-if="currentBusiness.hasDuplicate && !isMessageBusiness(currentBusiness)">
-          <b-form-group label="დუბლიკატის N">
-            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-number')" type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="დუბლ. გაცემის საფუძველი">
-            <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-reason')" type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
-          </b-form-group>
-          <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
-          </b-form-group>
+          <b-row  class="mb-1">
+            <b-col>
+              <b-form-group label="დუბლიკატის N">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-number')" type="text" v-model="currentBusiness.duplicateNumber"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row class="mb-1" >
+            <b-col>
+              <b-form-group label="დუბლ. გაცემის საფუძველი">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-input :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-reason')" type="text" v-model="currentBusiness.duplicateIssueReason"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row  class="mb-1">
+            <b-col>
+              <b-form-group label="დუბლ. გაცემის თარიღი">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'businesses-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentBusiness.duplicateIssueDate"></datepicker>
+            </b-col>
+          </b-row>
+
         </span>
       </b-modal>
     </b-card>
@@ -335,7 +441,7 @@ export default {
   components: {
     Datepicker
   }
-}
+  }
 </script>
 
 <style scoped>

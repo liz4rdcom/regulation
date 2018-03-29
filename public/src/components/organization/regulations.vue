@@ -35,82 +35,180 @@
         </span>
       </b-table>
       <b-modal :id="idWithPrefix(idPrefix, 'regulations-info-modal')" ref="regulationInfoModal" title="რეგულაცია" hide-footer>
-        <p><b>რეგულაციის სახე/ტიპი:</b> {{currentRegulation.type}}</p>
+        <p>
+          <b>რეგულაციის სახე/ტიპი:</b> {{currentRegulation.type}}
+        </p>
         <p>
           <b v-if="isMessage(currentRegulation)">რეგ. ნომერი:</b>
           <b v-else>მოწმობის N:</b>
           {{currentRegulation.documentNumber}}
         </p>
-        <p><b>გაცემის საფუძველი:</b> {{currentRegulation.issueReason}}</p>
+        <p>
+          <b>გაცემის საფუძველი:</b> {{currentRegulation.issueReason}}
+        </p>
         <p>
           <b v-if="isMessage(currentRegulation)">შემოსვლის თარიღი:</b>
           <b v-else>გაცემის თარიღი:</b>
           {{currentRegulation.issueDate | date}}
         </p>
-        <p><b>ბრძანების ტიპი:</b> {{currentRegulation.commandType}}</p>
-        <p><b>რეესტრის N:</b> {{currentRegulation.registerNumber}}</p>
-        <p><b>გაუქმების საფუძველი:</b> {{currentRegulation.cancelReason}}</p>
-        <p><b>გაუქმების თარიღი:</b> {{currentRegulation.cancelDate | date}}</p>
+        <p>
+          <b>ბრძანების ტიპი:</b> {{currentRegulation.commandType}}
+        </p>
+        <p>
+          <b>რეესტრის N:</b> {{currentRegulation.registerNumber}}
+        </p>
+        <p>
+          <b>გაუქმების საფუძველი:</b> {{currentRegulation.cancelReason}}
+        </p>
+        <p>
+          <b>გაუქმების თარიღი:</b> {{currentRegulation.cancelDate | date}}
+        </p>
         <p>
           <b>დუბლიკატი:</b>
-          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" disabled variant="stone">
+          <b-form-checkbox class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" disabled="" variant="stone">
           </b-form-checkbox>
         </p>
         <span v-if="currentRegulation.hasDuplicate">
-          <p><b>დუბლიკატის N:</b> {{currentRegulation.duplicateNumber}}</p>
-          <p><b>დუბლ. გაცემის საფუძველი:</b> {{currentRegulation.duplicateIssueReason}}</p>
-          <p><b>დუბლ. გაცემის თარიღი:</b> {{currentRegulation.duplicateIssueDate | date}}</p>
+          <p>
+            <b>დუბლიკატის N:</b> {{currentRegulation.duplicateNumber}}
+          </p>
+          <p>
+            <b>დუბლ. გაცემის საფუძველი:</b> {{currentRegulation.duplicateIssueReason}}
+          </p>
+          <p>
+            <b>დუბლ. გაცემის თარიღი:</b> {{currentRegulation.duplicateIssueDate | date}}
+          </p>
         </span>
-        <p><b>შენიშვნა:</b> {{currentRegulation.comment}}</p>
+        <p>
+          <b>შენიშვნა:</b> {{currentRegulation.comment}}
+        </p>
       </b-modal>
       <b-modal :id="idWithPrefix(idPrefix, 'regulations-change-modal')" ref="regulationsChangeModal" title="რეგულაცია" ok-title="შენახვა" cancel-title="გაუქმება" @ok="onSave" @cancel="onCancel" no-close-on-backdrop>
-        <b-form-group label="რეგულაციის სახე/ტიპი">
-          <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-regulation-type-select')" v-model="currentRegulation.type" class="mb-3 col-md-12" @change="onTypeChange">
-            <option v-for="type in regulationTypes" :key="type">{{type}}</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group :label="isMessage(currentRegulation) ? 'რეგ. ნომერი' : 'მოწმობის N'">
-          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-document-number')" type="text" v-model="currentRegulation.documentNumber"></b-form-input>
-        </b-form-group>
-        <b-form-group label="გაცემის საფუძველი">
-          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-reason')" type="text" v-model="currentRegulation.issueReason"></b-form-input>
-        </b-form-group>
-        <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
-          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
-        </b-form-group>
-        <b-form-group label="ბრძანების ტიპი" v-if="!isMessage(currentRegulation)">
-          <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-command-type-select')" v-model="currentRegulation.commandType" class="mb-3 col-md-12">
-            <option slot="first" :value="null" disabled>-- აირჩიეთ ბრძანების ტიპი --</option>
-            <option v-for="type in commandTypes" :key="type">{{type}}</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group label="რეესტრის N" v-if="!isMessage(currentRegulation)">
-          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-register-number')" type="text" v-model="currentRegulation.registerNumber"></b-form-input>
-        </b-form-group>
-        <b-form-group label="გაუქმების საფუძველი" v-if="!isMessage(currentRegulation)">
-          <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-reason')" type="text" v-model="currentRegulation.cancelReason"></b-form-input>
-        </b-form-group>
-        <b-form-group label="გაუქმების თარიღი">
-          <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
-        </b-form-group>
-        <b-form-group label="დუბლიკატი" v-if="!isMessage(currentRegulation)">
-          <b-form-checkbox :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
-        </b-form-group>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group label="რეგულაციის სახე/ტიპი"></b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-regulation-type-select')" v-model="currentRegulation.type" @change="onTypeChange">
+              <option v-for="type in regulationTypes" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group :label="isMessage(currentRegulation) ? 'რეგ. ნომერი' : 'მოწმობის N'" >
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-document-number')" type="text" v-model="currentRegulation.documentNumber"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group label="გაცემის საფუძველი">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-reason')" type="text" v-model="currentRegulation.issueReason"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group :label="isMessage(currentRegulation) ? 'შემოსვლის თარიღი' : 'გაცემის თარიღი'">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.issueDate"></datepicker>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1" v-if="!isMessage(currentRegulation)">
+          <b-col>
+            <b-form-group label="ბრძანების ტიპი">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-select :id="idWithPrefix(idPrefix, 'regulations-change-modal-command-type-select')" v-model="currentRegulation.commandType" class="mb-3 col-md-12">
+              <option slot="first" :value="null" disabled>-- აირჩიეთ ბრძანების ტიპი --</option>
+              <option v-for="type in commandTypes" :key="type">{{type}}</option>
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group label="რეესტრის N" v-if="!isMessage(currentRegulation)">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-register-number')" type="text" v-model="currentRegulation.registerNumber"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1" v-if="!isMessage(currentRegulation)">
+          <b-col>
+            <b-form-group label="გაუქმების საფუძველი" >
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-reason')" type="text" v-model="currentRegulation.cancelReason"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1 ">
+          <b-col>
+            <b-form-group label="გაუქმების თარიღი">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-cancel-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.cancelDate"></datepicker>
+          </b-col>
+        </b-row>
+        <b-row class="mb-1" v-if="!isMessage(currentRegulation)">
+          <b-col>
+            <b-form-group label="დუბლიკატი" >
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-checkbox :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-checkbox')" class="duplicateCheckbox" v-model="currentRegulation.hasDuplicate" @change="onDuplicateCheckboxChange"></b-form-checkbox>
+          </b-col>
+        </b-row>
         <span v-if="currentRegulation.hasDuplicate && !isMessage(currentRegulation)">
-          <b-form-group label="დუბლიკატის N">
-            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-number')" type="text" v-model="currentRegulation.duplicateNumber"></b-form-input>
-          </b-form-group>
-          <b-form-group label="დუბლ. გაცემის საფუძველი">
-            <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-reason')" type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
-          </b-form-group>
-          <b-form-group label="დუბლ. გაცემის თარიღი">
-            <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
-          </b-form-group>
+          <b-row class="mb-1" >
+            <b-col>
+              <b-form-group label="დუბლიკატის N">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-number')" type="text" v-model="currentRegulation.duplicateNumber"></b-form-input>
+           </b-col>
+          </b-row>
+          <b-row class="mb-1" >
+            <b-col>
+              <b-form-group label="დუბლ. გაცემის საფუძველი">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-input :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-reason')" type="text" v-model="currentRegulation.duplicateIssueReason"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row class="mb-1" >
+            <b-col>
+              <b-form-group label="დუბლ. გაცემის თარიღი">
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <datepicker :highlighted="highlightToday" :id="idWithPrefix(idPrefix, 'regulations-change-modal-duplicate-issue-datepicker')" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="currentRegulation.duplicateIssueDate"></datepicker>
+
+            </b-col>
+          </b-row>
         </span>
-        <b-form-group label="შენიშვნა">
-          <b-form-textarea :id="idWithPrefix(idPrefix, 'regulations-change-modal-comment')" v-model="currentRegulation.comment" :rows="2" :max-rows="3">
-          </b-form-textarea>
-        </b-form-group>
+        <b-row class="mb-1" >
+          <b-col>
+            <b-form-group label="შენიშვნა">
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-textarea :id="idWithPrefix(idPrefix, 'regulations-change-modal-comment')" v-model="currentRegulation.comment" :rows="2" :max-rows="3">
+            </b-form-textarea>
+          </b-col>
+        </b-row>
       </b-modal>
     </b-card>
   </div>

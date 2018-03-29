@@ -1,30 +1,90 @@
 <template>
 <div>
-  <b-form-group label="რეგიონი">
-    <b-form-select :id="idWithPrefix(idPrefix,'locations-region-select')" :value="selectedLocationName" :options="locations" value-field="locationName"
-      text-field="locationName" @change="locationChanged" :class="inputClass">
-      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
-    </b-form-select>
-  </b-form-group>
-  <b-form-group label="მუნიციპალიტეტი">
-    <b-form-select :id="idWithPrefix(idPrefix,'locations-district-select')" :value="selectedLocationUnitName" :options="selectedLocation.units"
-      value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
-      :class="inputClass">
-      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
-    </b-form-select>
-  </b-form-group>
-  <b-form-group label="დასახლებული პუნქტი">
-    <b-form-select :id="idWithPrefix(idPrefix,'locations-settlement-select')" :value="selectedSettlementName" :options="selectedUnit.settlements"
-      @change="settlementChanged" :class="inputClass">
-      <option slot="first" :value="null" selected v-if="searching">ყველა</option>
-    </b-form-select>
-  </b-form-group>
-  <b-form-group label="მისამართი" v-if="!searching">
-    <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
-  </b-form-group>
-  <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
-    <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
-  </b-form-group>
+  <div v-if="!stacked">
+    <b-form-group label="რეგიონი">
+      <b-form-select :id="idWithPrefix(idPrefix,'locations-region-select')" :value="selectedLocationName" :options="locations" value-field="locationName"
+        text-field="locationName" @change="locationChanged" :class="inputClass">
+        <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+      </b-form-select>
+    </b-form-group>
+    <b-form-group label="მუნიციპალიტეტი">
+      <b-form-select :id="idWithPrefix(idPrefix,'locations-district-select')" :value="selectedLocationUnitName" :options="selectedLocation.units"
+        value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
+        :class="inputClass">
+        <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+      </b-form-select>
+    </b-form-group>
+    <b-form-group label="დასახლებული პუნქტი">
+      <b-form-select :id="idWithPrefix(idPrefix,'locations-settlement-select')" :value="selectedSettlementName" :options="selectedUnit.settlements"
+        @change="settlementChanged" :class="inputClass">
+        <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+      </b-form-select>
+    </b-form-group>
+    <b-form-group label="მისამართი" v-if="!searching">
+      <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
+    </b-form-group>
+    <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
+      <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
+    </b-form-group>
+  </div>
+  <!-- label    input -->
+  <div v-else>
+    <b-row>
+      <b-col>
+        <b-form-group label="რეგიონი">
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-select :id="idWithPrefix(idPrefix,'locations-region-select')" :value="selectedLocationName" :options="locations" value-field="locationName"
+          text-field="locationName" @change="locationChanged" :class="inputClass">
+          <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+        </b-form-select>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group label="მუნიციპალიტეტი">
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-select :id="idWithPrefix(idPrefix,'locations-district-select')" :value="selectedLocationUnitName" :options="selectedLocation.units"
+          value-field="locationUnitName" text-field="locationUnitName" @change="locationUnitChanged"
+          :class="inputClass">
+          <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+        </b-form-select>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group label="დასახლებული პუნქტი">
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-select :id="idWithPrefix(idPrefix,'locations-settlement-select')" :value="selectedSettlementName" :options="selectedUnit.settlements"
+          @change="settlementChanged" :class="inputClass">
+          <option slot="first" :value="null" selected v-if="searching">ყველა</option>
+        </b-form-select>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group label="მისამართი" v-if="!searching">
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
+      </b-col>
+    </b-row>
+  </div>
 </div>
 </template>
 
@@ -68,6 +128,10 @@ export default {
       default: 'col-md-5'
     },
     searching: {
+      type: Boolean,
+      default: false
+    },
+    stacked: {
       type: Boolean,
       default: false
     },

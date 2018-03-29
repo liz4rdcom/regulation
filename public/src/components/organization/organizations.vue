@@ -386,7 +386,7 @@ export default {
 }
 
 .advancedSearchToggleFocused {
-  background-color: #0069d9;
+  background-color: #22dad4;
   border-color: #0062cc;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <b-button variant="bl" class="backButton" @click="goBack">
+      <b-button variant="bl" class="btn btn-primary" @click="goBack">
         უკან დაბრუნება
       </b-button>
     </div>
