@@ -21,9 +21,18 @@
                     <option v-for="status in naprStatuses" :key="status">{{status}}</option>
                   </b-form-select>
                 </b-form-group>
-                <b-form-group label="საიდენტიფიკაციო კოდი">
-                  <b-form-input id="orgs-add-tax-code" type="text" v-model="organization.taxCode"></b-form-input>
-                </b-form-group>
+                <b-row>
+                  <b-col cols="11">
+                    <b-form-group  label="საიდენტიფიკაციო კოდი">
+                      <b-form-input id="orgs-add-tax-code" type="text" v-model="organization.taxCode"></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                  <b-col cols="0.5">
+                    <b-button variant="primary" class="round-button sync-button" @click="syncOrganization(organization.taxCode)">
+                      <i class="fa fa-search"></i>
+                    </b-button>
+                  </b-col>
+                </b-row>
                 <b-form-group label="სახაზინო რეგისტრაციის N">
                   <b-form-input id="orgs-add-treasury-registration-number" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
                 </b-form-group>
@@ -213,7 +222,15 @@ export default {
       managers: [],
       founders: [],
       businesses: [],
-      branches: []
+      branches: [],
+      naprStatus: null,
+      taxCode: null,
+      treasuryRegistrationDate: null,
+      treasuryRegistrationPlace: null,
+      georgianName: null,
+      legalForm: null,
+      naprOfficePhone: null,
+      email: null
     },
     datepickerFormat: datepickerFormat,
     highlightToday: highlightToday,
@@ -248,6 +265,17 @@ export default {
     ])
   },
   methods: {
+    async syncOrganization(taxCode) {
+      let url = baseUrl + '/syncOrganization/' + taxCode
+
+      try {
+        let response = await this.$http.get(url)
+
+        Object.assign(this.organization, response.data)
+      } catch (error) {
+        // bus.$emit('error', error)
+      }
+    },
     onJuridicalAddressChanged(location) {
       this.organization.juridicalAddress.region = location.locationName
       this.organization.juridicalAddress.district = location.locationUnitName
