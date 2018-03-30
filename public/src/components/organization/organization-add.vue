@@ -24,7 +24,7 @@
                 <b-row>
                   <b-col cols="11">
                     <b-form-group  label="საიდენტიფიკაციო კოდი">
-                      <b-form-input id="orgs-add-tax-code" type="text" v-model="organization.taxCode"></b-form-input>
+                      <b-form-input id="orgs-add-tax-code" type="text" v-model="organization.taxCode" @keyup.enter.native="syncOrganization(organization.taxCode)"></b-form-input>
                     </b-form-group>
                   </b-col>
                   <b-col cols="0.5">
