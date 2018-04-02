@@ -1687,16 +1687,22 @@ const testOrganizations = [
         email: null
       }
     ],
-    founders: [
+    accounts: [
       {
         id: shortid.generate(),
-        personalId: null,
-        fullName: null,
-        founderCompanyName: 'შპს რაღაც',
-        taxCode: '000',
-        founderType: 'ქართული ორგანიზაცია',
-        share: '100%',
-        legalForm: 'შეზღუდული პასუხისმგებლობის საზოგადოება (შპს)'
+        accountNumber: '0000000',
+        share: '100',
+        owners: [
+          {
+            ownerType: 'იურიდიული პირი',
+            personalId: null,
+            firstName: null,
+            lastName: null,
+            taxCode: '000',
+            ownerCompanyName: 'შპს რაღაც',
+            legalForm: 'შეზღუდული პასუხისმგებლობის საზოგადოება (შპს)'
+          }
+        ]
       }
     ]
   }

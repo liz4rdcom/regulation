@@ -1,5 +1,4 @@
 const config = require('config')
-const RecordError = require('../exceptions/record.error')
 const rp = require('request-promise')
 const moment = require('moment')
 
@@ -25,18 +24,16 @@ async function callNaprByTaxCode(taxCode) {
   result.georgianName = entityInfo.Name
   result.legalForm = entityInfo.LegalForm
 
-  if (entityInfo.Contacts) {
-    let phoneContact = entityInfo.Contacts.find(item => item.ContactTypeId == 1)
+  let phoneContact = entityInfo.Contacts.find(item => item.ContactTypeId == 1)
 
-    if (phoneContact) {
-      result.naprOfficePhone = phoneContact.ContactValue
-    }
+  if (phoneContact) {
+    result.naprOfficePhone = phoneContact.ContactValue
+  }
 
-    let emailContact = entityInfo.Contacts.find(item => item.ContactTypeId == 5)
+  let emailContact = entityInfo.Contacts.find(item => item.ContactTypeId == 5)
 
-    if (emailContact) {
-      result.email = emailContact.ContactValue
-    }
+  if (emailContact) {
+    result.email = emailContact.ContactValue
   }
 
   if (entityInfo.Address) {
@@ -44,6 +41,43 @@ async function callNaprByTaxCode(taxCode) {
       addressDescription: entityInfo.Address
     }
   }
+
+  result.managers = entityInfo.DirectorAndRepresentorList.map(item => {
+    return {
+      personalId: item.PersonalNumber,
+      firstName: item.FirstName,
+      lastName: item.LastName,
+      position: item.PersonType
+    }
+  })
+
+  result.accounts = entityInfo.AccountList.map(item => {
+    let account = {
+      accountNumber: item.AccountNumber,
+      share: item.ShareQty
+    }
+
+    account.owners = item.Owners.map(owner => {
+      let result = {
+        ownerType: owner.EntityType
+      }
+
+      // ფიზიკური პირი
+      if (owner.EntityTypeId == 1) {
+        result.personalId = owner.PersonalNumber
+        result.firstName = owner.FirstName
+        result.lastName = owner.LastName
+      } else {
+        result.taxCode = owner.IdNumber
+        result.ownerCompanyName = owner.Name
+        result.legalForm = owner.LegalForm
+      }
+
+      return result
+    })
+
+    return account
+  })
 
   return result
 }
