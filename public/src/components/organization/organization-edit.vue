@@ -17,9 +17,8 @@
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="Napr სტატუსი">
-                  <b-form-select id="orgs-edit-napr-status-select" v-model="organization.naprStatus" class="mb-3">
-                    <option v-for="status in naprStatuses" :key="status">{{status}}</option>
-                  </b-form-select>
+                  <b-form-input disabled id="orgs-edit-napr-status" v-model="organization.naprStatus">
+                  </b-form-input>
                 </b-form-group>
                 <b-row>
                   <b-col cols="11">
