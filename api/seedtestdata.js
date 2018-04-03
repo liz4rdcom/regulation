@@ -1689,7 +1689,6 @@ const testOrganizations = [
     ],
     accounts: [
       {
-        id: shortid.generate(),
         accountNumber: '0000000',
         share: '100',
         owners: [
