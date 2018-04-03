@@ -235,7 +235,6 @@ export default {
     datepickerFormat: datepickerFormat,
     highlightToday: highlightToday,
     statuses: [],
-    naprStatuses: [],
     organizationTypes: [],
     legalForms: [],
     locations: [],
@@ -248,7 +247,6 @@ export default {
   async created() {
     [
       this.statuses,
-      this.naprStatuses,
       this.organizationTypes,
       this.legalForms,
       this.locations,
@@ -256,7 +254,6 @@ export default {
       this.permission.id
     ] = await Promise.all([
       lib.fetchStatuses(),
-      lib.fetchNaprStatuses(),
       lib.fetchOrganizationTypes(),
       lib.fetchLegalForms(),
       lib.fetchLocations(),

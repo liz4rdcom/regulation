@@ -16,16 +16,6 @@ router.get('/statuses', async (req, res, next) => {
   }
 })
 
-router.get('/naprStatuses', async (req, res, next) => {
-  try {
-    let result = await libRepository.getNaprStatuses()
-
-    next({result})
-  } catch (error) {
-    next({error})
-  }
-})
-
 router.get('/organizationTypes', async (req, res, next) => {
   try {
     let result = await libRepository.getOrganizationTypes()

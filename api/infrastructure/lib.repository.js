@@ -32,11 +32,6 @@ async function getOrganizationStatuses() {
   return result.statuses
 }
 
-async function getNaprStatuses() {
-  let result = await getLibDocument()
-  return result.naprStatuses
-}
-
 async function getOrganizationTypes() {
   let result = await getLibDocument()
   return result.organizationTypes
@@ -91,7 +86,6 @@ async function getBusinessesWithInvasiveAnesthesia() {
 
 module.exports = {
   getOrganizationStatuses,
-  getNaprStatuses,
   getOrganizationTypes,
   getLegalForms,
   getCommandTypes,

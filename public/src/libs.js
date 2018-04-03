@@ -9,15 +9,6 @@ async function fetchStatuses () {
   return this.statuses
 }
 
-async function fetchNaprStatuses () {
-  if (this.naprStatuses) return this.naprStatuses
-
-  let response = await axios.get('/api/libs/naprStatuses')
-  this.naprStatuses = response.data
-
-  return this.naprStatuses
-}
-
 async function fetchOrganizationTypes () {
   if (this.organizationTypes) return this.organizationTypes
 
@@ -82,7 +73,6 @@ async function syncPerson(personalId) {
 
 export default {
   statuses: null,
-  naprStatuses: null,
   organizationTypes: null,
   legalForms: null,
   commandTypes: null,
@@ -90,7 +80,6 @@ export default {
   locations: null,
   regulationTypes: null,
   fetchStatuses,
-  fetchNaprStatuses,
   fetchOrganizationTypes,
   fetchLegalForms,
   fetchCommandTypes,
