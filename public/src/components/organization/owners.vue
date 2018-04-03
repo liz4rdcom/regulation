@@ -7,18 +7,34 @@
       header-text-variant="white"
       v-if="organization.accounts.length > 0"
     >
-      <b-list-group>
-        <b-list-group-item v-for="account in organization.accounts" :key="account.accountNumber">
-          <span @click="account._showOwners = !account._showOwners">
-            <i v-if="!account._showOwners" class="fa fa-plus-square"></i>
-            <i v-if="account._showOwners" class="fa fa-minus-square"></i>
-          </span>
-          <span>{{account.share}}</span>
-          <b-collapse v-model="account._showOwners" :id="'account_' + account.accountNumber">
-            ragac
-          </b-collapse>
-        </b-list-group-item>
-      </b-list-group>
+      <b-card no-body class="mb-1" v-for="account in organization.accounts" :key="account.accountNumber">
+        <b-card-header class="percent" role="tab">
+          <b-row>
+            <b-col>
+              <span @click="account._showOwners = !account._showOwners">
+                <i v-if="!account._showOwners" class="fa fa-plus"></i>
+                <i v-if="account._showOwners" class="fa fa-minus"></i>
+              </span>
+            </b-col>
+            <b-col cols="2">
+              {{account.accountNumber}}
+            </b-col>
+            <b-col cols="9" style="text-align: center;">
+              <span>{{account.share}}%</span>
+            </b-col>
+          </b-row>
+        </b-card-header>
+        <b-collapse role="tabpanel" v-model="account._showOwners" :id="'account_' + account.accountNumber">
+          <b-card-body>
+            <b-table
+                   :fields="ownerFields"
+                   :items="account.owners"
+            >
+              <span slot="fullName" slot-scope="data">{{data.item.firstName}} {{data.item.lastName}}</span>
+            </b-table>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
     </b-card>
   </div>
 </template>
@@ -29,7 +45,32 @@ export default {
     organization: {}
   },
   data: () => ({
-
+    ownerFields: [
+      {
+        key: 'personalId',
+        label: 'პირადი ნომერი'
+      },
+      {
+        key: 'fullName',
+        label: 'სახელი და გვარი'
+      },
+      {
+        key: 'ownerCompanyName',
+        label: 'დასახელება'
+      },
+      {
+        key: 'taxCode',
+        label: 'საიდენტიფიკაციო კოდი'
+      },
+      {
+        key: 'ownerType',
+        label: 'მფლობელის ტიპი'
+      },
+      {
+        key: 'legalForm',
+        label: 'სამართლებრივი ფორმა'
+      }
+    ]
   })
 }
 </script>
