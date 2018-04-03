@@ -109,6 +109,7 @@
       <b-tab id="orgs-add-managers-tab" title="ხელმძღვანელები">
         <clinical-managers idPrefix="orgs-add" :organization="organization" editable @add="onClinicalManagerAdd" @edit="onClinicalManagerEdit" @delete="onClinicalManagerRemove"></clinical-managers>
         <managers idPrefix="orgs-add" :organization="organization" editable @add="onManagerAdd" @edit="onManagerEdit" @delete="onManagerRemove"></managers>
+        <owners idPrefix="orgs-add" :organization="organization"></owners>
       </b-tab>
       <b-tab id="orgs-add-regulations-tab" title="რეგულაციები">
         <b-card
@@ -203,7 +204,7 @@ import lib from '../../libs'
 import locations from '../common/locations'
 import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
-import foundersComponent from './founders'
+import ownersComponent from './owners'
 import regulationsComponent from './regulations'
 import businessComponent from './businesses'
 import branchesComponent from './branches'
@@ -220,7 +221,7 @@ export default {
       regulations: [],
       clinicalManagers: [],
       managers: [],
-      founders: [],
+      accounts: [],
       businesses: [],
       branches: [],
       naprStatus: null,
@@ -435,7 +436,7 @@ export default {
     locations,
     'clinical-managers': clinicalManagersComponent,
     'managers': managersComponent,
-    'founders': foundersComponent,
+    'owners': ownersComponent,
     'regulations': regulationsComponent,
     'businesses': businessComponent,
     'branches': branchesComponent

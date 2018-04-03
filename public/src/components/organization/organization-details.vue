@@ -59,6 +59,7 @@
         <b-tab title="ხელმძღვანელები" v-if="organization.clinicalManagers.length > 0 && organization.managers.length > 0">
           <clinical-managers :organization="organization"></clinical-managers>
           <managers :organization="organization"></managers>
+          <owners :organization="organization"></owners>
         </b-tab>
         <b-tab title="რეგულაციები" v-if="organization.regulations.length > 0">
           <b-card
@@ -103,7 +104,7 @@
 import {baseUrl, permissionType} from './organization-constants'
 import clinicalManagersComponent from './clinical-managers'
 import managersComponent from './managers'
-import foundersComponent from './founders'
+import ownersComponent from './owners'
 import regulationsComponent from './regulations'
 import businessesComponent from './businesses'
 import branchesComponent from './branches'
@@ -116,7 +117,7 @@ export default {
       regulations: [],
       clinicalManagers: [],
       managers: [],
-      founders: [],
+      accounts: [],
       businesses: [],
       branches: []
     },
@@ -142,7 +143,7 @@ export default {
   components: {
     'clinical-managers': clinicalManagersComponent,
     'managers': managersComponent,
-    'founders': foundersComponent,
+    'owners': ownersComponent,
     'regulations': regulationsComponent,
     'businesses': businessesComponent,
     'branches': branchesComponent
