@@ -14,9 +14,9 @@
             <p><b>Napr სტატუსი:</b> {{organization.naprStatus}}</p>
             <p><b>სამმართველოს რეგისტრაციის N:</b> {{organization.managementRegistrationNumber}}</p>
             <p><b>საიდენტიფიკაციო კოდი:</b> {{organization.taxCode}}</p>
-            <p><b>სახაზინო რეგისტრაციის N:</b> {{organization.treasuryRegistrationNumber}}</p>
-            <p><b>სახაზინო რეგისტრაციის თარიღი:</b> {{organization.treasuryRegistrationDate | date}}</p>
-            <p><b>სახაზინო რეგისტრაციის ადგილი:</b> {{organization.treasuryRegistrationPlace}}</p>
+            <p><b>სახელმწიფო რეგისტრაციის N:</b> {{organization.governmentRegistrationNumber}}</p>
+            <p><b>სახელმწიფო რეგისტრაციის თარიღი:</b> {{organization.governmentRegistrationDate | date}}</p>
+            <p><b>სახელმწიფო რეგისტრაციის ადგილი:</b> {{organization.governmentRegistrationPlace}}</p>
             <p><b>ქართული დასახელება:</b> {{organization.georgianName}}</p>
             <p><b>ლათინური დასახელება:</b> {{organization.latinName}}</p>
             <p><b>ორგანიზაციის ტიპი:</b> {{organization.organizationType}}</p>

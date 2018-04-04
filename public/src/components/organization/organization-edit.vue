@@ -32,14 +32,14 @@
                     </b-button>
                   </b-col>
                 </b-row>
-                <b-form-group label="სახაზინო რეგისტრაციის N">
-                  <b-form-input id="orgs-edit-treasury-registration-number" type="text" v-model="organization.treasuryRegistrationNumber"></b-form-input>
+                <b-form-group label="სახელმწიფო რეგისტრაციის N">
+                  <b-form-input id="orgs-edit-government-registration-number" type="text" v-model="organization.governmentRegistrationNumber"></b-form-input>
                 </b-form-group>
-                <b-form-group label="სახაზინო რეგისტრაციის თარიღი">
-                  <datepicker :highlighted="highlightToday" id="orgs-edit-treasury-registration-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.treasuryRegistrationDate"></datepicker>
+                <b-form-group label="სახელმწიფო რეგისტრაციის თარიღი">
+                  <datepicker :highlighted="highlightToday" id="orgs-edit-government-registration-datepicker" clear-button monday-first language="ge" :format="datepickerFormat" input-class="picker-input col-md-12" v-model="organization.governmentRegistrationDate"></datepicker>
                 </b-form-group>
-                <b-form-group label="სახაზინო რეგისტრაციის ადგილი">
-                  <b-form-input id="orgs-edit-treasury-registration-place" type="text" v-model="organization.treasuryRegistrationPlace"></b-form-input>
+                <b-form-group label="სახელმწიფო რეგისტრაციის ადგილი">
+                  <b-form-input id="orgs-edit-government-registration-place" type="text" v-model="organization.governmentRegistrationPlace"></b-form-input>
                 </b-form-group>
                 <b-form-group label="ქართული დასახელება">
                   <b-form-input id="orgs-edit-georgian-name" type="text" v-model="organization.georgianName"></b-form-input>
@@ -246,8 +246,8 @@ export default {
       branches: [],
       naprStatus: null,
       taxCode: null,
-      treasuryRegistrationDate: null,
-      treasuryRegistrationPlace: null,
+      governmentRegistrationDate: null,
+      governmentRegistrationPlace: null,
       georgianName: null,
       legalForm: null,
       naprOfficePhone: null,
@@ -434,8 +434,8 @@ export default {
       branches: [],
       naprStatus: null,
       taxCode: null,
-      treasuryRegistrationDate: null,
-      treasuryRegistrationPlace: null,
+      governmentRegistrationDate: null,
+      governmentRegistrationPlace: null,
       georgianName: null,
       legalForm: null,
       naprOfficePhone: null,

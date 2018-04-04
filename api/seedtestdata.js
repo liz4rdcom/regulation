@@ -1557,9 +1557,9 @@ const testOrganizations = [
     statusGeoName: 'აქტიური',
     naprStatus: 'რეგისტრირებულია',
     managementRegistrationNumber: '2878',
-    treasuryRegistrationNumber: '000010101000',
-    treasuryRegistrationDate: '2016-11-09T00:00:00',
-    treasuryRegistrationPlace: 'სასამართლო',
+    governmentRegistrationNumber: '000010101000',
+    governmentRegistrationDate: '2016-11-09T00:00:00',
+    governmentRegistrationPlace: 'სასამართლო',
     juridicalAddress: {
       region: 'თბილისი',
       district: 'დიდუბე',

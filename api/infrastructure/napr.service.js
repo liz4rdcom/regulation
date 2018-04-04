@@ -18,9 +18,9 @@ async function callNaprByTaxCode(taxCode) {
   result.naprStatus = entityInfo.Status
   // result.managementRegistrationNumber = entityInfo.RegistrationMunicipalityID
   result.taxCode = entityInfo.IdNumber
-  // result.treasuryRegistrationNumber = entityInfo.TaxAuthorityCode
-  result.treasuryRegistrationDate = entityInfo.GovRegDate ? moment(entityInfo.GovRegDate, 'YYYY-MM-DDZZ').toDate() : null
-  result.treasuryRegistrationPlace = entityInfo.RegistrationMunicipality
+  // result.governmentRegistrationNumber = entityInfo.TaxAuthorityCode
+  result.governmentRegistrationDate = entityInfo.GovRegDate ? moment(entityInfo.GovRegDate, 'YYYY-MM-DDZZ').toDate() : null
+  result.governmentRegistrationPlace = entityInfo.RegistrationMunicipality
   result.georgianName = entityInfo.Name
   result.legalForm = entityInfo.LegalForm
 
