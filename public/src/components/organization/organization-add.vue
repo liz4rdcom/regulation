@@ -89,7 +89,7 @@
                 header-bg-variant="stone"
                 header-text-variant="white"
               >
-                <locations idPrefix="orgs-add-juridical" :locations="locations" inputClass="col-md-12" @change="onJuridicalAddressChanged"></locations>
+                <locations idPrefix="orgs-add-juridical" :locations="locations" :currentAddress="organization.juridicalAddress.addressDescription" inputClass="col-md-12" @change="onJuridicalAddressChanged"></locations>
               </b-card>
             </b-col>
             <b-col>
@@ -215,7 +215,9 @@ export default {
   name: 'organization-add',
   data: () => ({
     organization: {
-      juridicalAddress: {},
+      juridicalAddress: {
+        addressDescription: null
+      },
       factualAddress: {},
       regulations: [],
       clinicalManagers: [],

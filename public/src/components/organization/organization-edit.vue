@@ -236,7 +236,9 @@ export default {
   props: ['id'],
   data: () => ({
     organization: {
-      juridicalAddress: {},
+      juridicalAddress: {
+        addressDescription: null
+      },
       factualAddress: {},
       regulations: [],
       clinicalManagers: [],
