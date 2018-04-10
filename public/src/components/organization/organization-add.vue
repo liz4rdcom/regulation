@@ -386,7 +386,7 @@ export default {
         'regulations',
         'clinicalManagers',
         'managers',
-        'founders',
+        'accounts',
         'businesses',
         'branches'
       ]

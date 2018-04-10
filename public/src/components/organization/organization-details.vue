@@ -127,7 +127,7 @@ export default {
     let url = baseUrl + '/' + this.id
     let response = await this.$http.get(url)
 
-    this.organization = response.data
+    this.organization = Object.assign(this.organizationStartState, response.data)
   },
   methods: {
     goBack () {
@@ -138,6 +138,16 @@ export default {
     permission () {
       return this.organization.regulations
         .find(item => item.type === permissionType)
+    },
+    organizationStartState() {
+      return {
+        regulations: [],
+        clinicalManagers: [],
+        managers: [],
+        accounts: [],
+        businesses: [],
+        branches: []
+      }
     }
   },
   components: {
