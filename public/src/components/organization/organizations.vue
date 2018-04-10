@@ -371,7 +371,22 @@ export default {
       this.searchParams.settlement = location.settlement
     }
   },
-  computed: { },
+  watch: {
+    showAdvancedSearch(show) {
+      if (!show) {
+        this.searchParams = {
+          statusGeoName: null,
+          naprStatus: null,
+          organizationType: null,
+          legalForm: null,
+          regulationType: null,
+          businessType: null,
+          businessWithInvasiveAnesthesia: null,
+          commandType: null
+        }
+      }
+    }
+  },
   components: {
     'locations': locationsComponent,
     Datepicker
