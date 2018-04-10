@@ -3,18 +3,13 @@
     <div class="toolbar">
       <div class="rowDirection">
         <img src="/static/defaultlogo.png" float="left"/>
-        <!--<div class="toolbar-text">
-          <span style="font-size: 13px;">რეგულირების მოდული</span><br />
-          <span style="font-size: 13px;">ლიცენზირება/ნებართვები</span><br />
-          <span style="font-size: 15px;">ელექტრონული ჯანდაცვა</span>
-        </div>-->
 
         <b-navbar-nav class="ml-auto">
-          <div class="user">მარი გელაშვილი</div> </b-navbar-nav>
+          <div class="user">მარი გელაშვილი</div>
+        </b-navbar-nav>
       </div>
-
     </div>
-    <keep-alive>
+    <keep-alive include="organizations">
       <router-view/>
     </keep-alive>
     <notify></notify>
