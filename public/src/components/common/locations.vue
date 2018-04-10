@@ -23,9 +23,6 @@
     <b-form-group label="მისამართი" v-if="!searching">
       <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
     </b-form-group>
-    <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
-      <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
-    </b-form-group>
   </div>
   <!-- label    input -->
   <div v-else>
@@ -75,15 +72,6 @@
         <b-form-input :id="idWithPrefix(idPrefix,'locations-address')" :class="inputClass" type="text" :value="address" @change="addressChanged"></b-form-input>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <b-form-group label="საფოსტო ინდექსი" v-if="!searching">
-        </b-form-group>
-      </b-col>
-      <b-col>
-        <b-form-input :id="idWithPrefix(idPrefix,'locations-postal-code')" :class="inputClass" type="text" :value="postalCode" @change="postalCodeChanged"></b-form-input>
-      </b-col>
-    </b-row>
   </div>
 </div>
 </template>
@@ -122,7 +110,6 @@ export default {
     currentLocationUnitName: {},
     currentSettlementName: {},
     currentAddress: {},
-    currentPostalCode: {},
     inputClass: {
       type: String,
       default: 'col-md-5'
@@ -154,8 +141,7 @@ export default {
       selectedSettlementName: null,
       selectedLocation: this.locationDefaultObject,
       selectedUnit: this.unitDefaultObject,
-      address: '',
-      postalCode: ''
+      address: ''
     }
   },
   created() {
@@ -184,9 +170,6 @@ export default {
     },
     currentAddress(value) {
       this.address = value
-    },
-    currentPostalCode(value) {
-      this.postalCode = value
     }
   },
   computed: {
@@ -195,8 +178,7 @@ export default {
         locationName: this.selectedLocationName,
         locationUnitName: this.selectedLocationUnitName,
         settlement: this.selectedSettlementName,
-        address: this.address,
-        postalCode: this.postalCode
+        address: this.address
       }
     }
   },
@@ -229,11 +211,6 @@ export default {
     },
     addressChanged(address) {
       this.address = address
-
-      this.$emit('change', this.locationFullObject)
-    },
-    postalCodeChanged(code) {
-      this.postalCode = code
 
       this.$emit('change', this.locationFullObject)
     },

@@ -1564,15 +1564,13 @@ const testOrganizations = [
       region: 'თბილისი',
       district: 'დიდუბე',
       settlement: 'დიდუბე',
-      addressDescription: 'წერეთელზე',
-      postalCode: null
+      addressDescription: 'წერეთელზე'
     },
     factualAddress: {
       region: 'თბილისი',
       district: 'დიდუბე',
       settlement: 'დიდუბე',
-      addressDescription: 'წერეთელზე',
-      postalCode: null
+      addressDescription: 'წერეთელზე'
     },
     organizationType: 'სტაციონარული',
     legalForm: 'შეზღუდული პასუხისმგებლობის საზოგადოება (შპს)',
@@ -1593,8 +1591,7 @@ const testOrganizations = [
         region: 'ქვემო ქართლი',
         district: 'რუსთავი',
         settlement: 'რუსთავი',
-        addressDescription: 'სასტუმროსთან',
-        postalCode: null
+        addressDescription: 'სასტუმროსთან'
       }
     ],
     regulations: [

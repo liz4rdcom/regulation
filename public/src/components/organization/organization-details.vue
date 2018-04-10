@@ -40,7 +40,6 @@
             <p><b>მუნიციპალიტეტი:</b> {{organization.juridicalAddress.district}}</p>
             <p><b>დასახლებული პუნქტი:</b> {{organization.juridicalAddress.settlement}}</p>
             <p><b>მისამართი:</b> {{organization.juridicalAddress.addressDescription}}</p>
-            <p><b>საფოსტო ინდექსი:</b> {{organization.juridicalAddress.postalCode}}</p>
           </b-card>
           <b-card
             class="mb-2"
@@ -53,7 +52,6 @@
             <p><b>მუნიციპალიტეტი:</b> {{organization.factualAddress.district}}</p>
             <p><b>დასახლებული პუნქტი:</b> {{organization.factualAddress.settlement}}</p>
             <p><b>მისამართი:</b> {{organization.factualAddress.addressDescription}}</p>
-            <p><b>საფოსტო ინდექსი:</b> {{organization.factualAddress.postalCode}}</p>
           </b-card>
         </b-tab>
         <b-tab title="ხელმძღვანელები" v-if="organization.clinicalManagers.length > 0 && organization.managers.length > 0">

@@ -62,9 +62,6 @@
           <b>მისამართი:</b> {{currentBranch.addressDescription}}
         </p>
         <p>
-          <b>საფოსტო ინდექსი:</b> {{currentBranch.postalCode}}
-        </p>
-        <p>
           <b>
             საქმიანობები: <br />
           </b>
@@ -139,7 +136,6 @@
           :currentLocationUnitName="currentBranch.district"
           :currentSettlementName="currentBranch.settlement"
           :currentAddress="currentBranch.addressDescription"
-          :currentPostalCode="currentBranch.postalCode"
           stacked
           inputClass="col-md-12"
           @change="onAddressChanged">
@@ -309,7 +305,6 @@
       this.currentBranch.district = location.locationUnitName
       this.currentBranch.settlement = location.settlement
       this.currentBranch.addressDescription = location.address
-      this.currentBranch.postalCode = location.postalCode
     }
   },
   components: {

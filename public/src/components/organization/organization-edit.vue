@@ -97,8 +97,7 @@
                   :currentLocationName="organization.juridicalAddress.region"
                   :currentLocationUnitName="organization.juridicalAddress.district"
                   :currentSettlementName="organization.juridicalAddress.settlement"
-                  :currentAddress="organization.juridicalAddress.addressDescription"
-                  :currentPostalCode="organization.juridicalAddress.postalCode">
+                  :currentAddress="organization.juridicalAddress.addressDescription">
                 </locations>
               </b-card>
             </b-col>
@@ -117,8 +116,7 @@
                   :currentLocationName="organization.factualAddress.region"
                   :currentLocationUnitName="organization.factualAddress.district"
                   :currentSettlementName="organization.factualAddress.settlement"
-                  :currentAddress="organization.factualAddress.addressDescription"
-                  :currentPostalCode="organization.factualAddress.postalCode">
+                  :currentAddress="organization.factualAddress.addressDescription">
                 </locations>
               </b-card>
             </b-col>
@@ -312,14 +310,12 @@ export default {
       this.organization.juridicalAddress.district = location.locationUnitName
       this.organization.juridicalAddress.settlement = location.settlement
       this.organization.juridicalAddress.addressDescription = location.address
-      this.organization.juridicalAddress.postalCode = location.postalCode
     },
     onFactualAddressChanged(location) {
       this.organization.factualAddress.region = location.locationName
       this.organization.factualAddress.district = location.locationUnitName
       this.organization.factualAddress.settlement = location.settlement
       this.organization.factualAddress.addressDescription = location.address
-      this.organization.factualAddress.postalCode = location.postalCode
     },
     async onClinicalManagerAdd(manager) {
       manager.id = await this.newUniqueId()

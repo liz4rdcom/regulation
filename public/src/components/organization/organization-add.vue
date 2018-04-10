@@ -280,14 +280,12 @@ export default {
       this.organization.juridicalAddress.district = location.locationUnitName
       this.organization.juridicalAddress.settlement = location.settlement
       this.organization.juridicalAddress.addressDescription = location.address
-      this.organization.juridicalAddress.postalCode = location.postalCode
     },
     onFactualAddressChanged(location) {
       this.organization.factualAddress.region = location.locationName
       this.organization.factualAddress.district = location.locationUnitName
       this.organization.factualAddress.settlement = location.settlement
       this.organization.factualAddress.addressDescription = location.address
-      this.organization.factualAddress.postalCode = location.postalCode
     },
     async onClinicalManagerAdd(manager) {
       manager.id = await this.newUniqueId()
