@@ -63,9 +63,9 @@
         </b-form-select>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="!searching">
       <b-col>
-        <b-form-group label="მისამართი" v-if="!searching">
+        <b-form-group label="მისამართი">
         </b-form-group>
       </b-col>
       <b-col>
