@@ -124,7 +124,7 @@ export default {
     tabIndex: 0
   }),
   async created () {
-    let url = baseUrl + '/' + id
+    let url = baseUrl + '/' + this.id
     let response = await this.$http.get(url)
 
     this.organization = Object.assign(this.organizationStartState, response.data)
