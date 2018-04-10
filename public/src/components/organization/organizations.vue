@@ -162,7 +162,8 @@ import lib from '../../libs'
 import {baseUrl, permissionType, licenseType, messageType} from './organization-constants'
 import locationsComponent from '../common/locations'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat} from '../../utils'
+import {datepickerFormat, editEntity} from '../../utils'
+import {bus} from '../common/bus'
 
 const listTextSeparator = ', '
 
@@ -269,6 +270,14 @@ export default {
     ])
 
     this.organizations = response.data
+
+    bus.$on('org-add', org => {
+      this.organizations.push(org)
+    })
+
+    bus.$on('org-edit', async org => {
+      editEntity(this.organizations, org)
+    })
   },
   methods: {
     async refresh() {
@@ -362,7 +371,22 @@ export default {
       this.searchParams.settlement = location.settlement
     }
   },
-  computed: { },
+  watch: {
+    showAdvancedSearch(show) {
+      if (!show) {
+        this.searchParams = {
+          statusGeoName: null,
+          naprStatus: null,
+          organizationType: null,
+          legalForm: null,
+          regulationType: null,
+          businessType: null,
+          businessWithInvasiveAnesthesia: null,
+          commandType: null
+        }
+      }
+    }
+  },
   components: {
     'locations': locationsComponent,
     Datepicker
