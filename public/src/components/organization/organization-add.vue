@@ -56,7 +56,10 @@
                 </b-form-group>
                 <b-form-group label="სამართლებრივი ფორმა">
                   <b-form-select id="orgs-add-legal-form-select" v-model="organization.legalForm" class="mb-3">
-                    <option v-for="form in legalForms" :key="form">{{form}}</option>
+                    <option v-for="form in legalForms" :key="form" :value="form.name">
+                      {{form.name}}
+                      <span v-if="form.abbrev">&nbsp;({{form.abbrev}})</span>
+                    </option>
                   </b-form-select>
                 </b-form-group>
                 <b-form-group label="სამმართველოს რეგისტრაციის N">

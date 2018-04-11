@@ -107,7 +107,10 @@
               <template slot="first">
                 <option :value="null" selected>ყველა</option>
               </template>
-              <option v-for="form in legalForms" :key="form">{{form}}</option>
+              <option v-for="form in legalForms" :key="form" :value="form.name">
+                {{form.name}}
+                <span v-if="form.abbrev">&nbsp;({{form.abbrev}})</span>
+              </option>
             </b-form-select>
           </b-form-group>
           <b-form-group label="საქმიანობის მინიჭების პერიოდი">
