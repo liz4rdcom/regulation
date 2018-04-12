@@ -200,14 +200,10 @@
       <b-button variant="primary" @click="save">
         შენახვა
       </b-button>
-      <b-button variant="danger" @click="onCancelClick">
+      <b-button variant="danger" @click="onCancel">
         უკან დაბრუნება
       </b-button>
     </div>
-    <b-modal id="orgs-edit-question-modal" ref="cancelQuestionModal" size="lg" hide-header-close ok-variant="danger" ok-title="დიახ" cancel-title="არა" @ok="onCancelYes">
-      <b>უკან დაბრუნების შემთხვევაში თქვენ მიერ შეტანილი ცვლილებები დაიკარგება.</b> <br><br>
-      <b>გსურთ უკან დაბრუნება?</b>
-    </b-modal>
   </div>
 </template>
 
@@ -382,10 +378,7 @@ export default {
         bus.$emit('error', error)
       }
     },
-    onCancelClick() {
-      this.$refs.cancelQuestionModal.show()
-    },
-    onCancelYes() {
+    onCancel() {
       this.$router.push('/')
     }
   },
