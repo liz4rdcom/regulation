@@ -1560,12 +1560,7 @@ const testOrganizations = [
     governmentRegistrationNumber: '000010101000',
     governmentRegistrationDate: '2016-11-09T00:00:00',
     governmentRegistrationPlace: 'სასამართლო',
-    juridicalAddress: {
-      region: 'თბილისი',
-      district: 'დიდუბე',
-      settlement: 'დიდუბე',
-      addressDescription: 'წერეთელზე'
-    },
+    juridicalAddress: 'თბილისი, დიდუბე, წერეთელზე',
     factualAddress: {
       region: 'თბილისი',
       district: 'დიდუბე',

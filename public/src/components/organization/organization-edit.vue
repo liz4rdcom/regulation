@@ -56,7 +56,7 @@
                 </b-form-group>
                 <b-form-group label="სამართლებრივი ფორმა">
                   <b-form-select id="orgs-edit-legal-form-select" v-model="organization.legalForm" class="mb-3">
-                    <option v-for="form in legalForms" :key="form" :value="form.name">
+                    <option v-for="form in legalForms" :key="form.name" :value="form.name">
                       {{form.name}}
                       <span v-if="form.abbrev">&nbsp;({{form.abbrev}})</span>
                     </option>
@@ -92,16 +92,9 @@
                 header-bg-variant="stone"
                 header-text-variant="white"
               >
-                <locations
-                  idPrefix="orgs-edit-juridical"
-                  inputClass="col-md-12"
-                  :locations="locations"
-                  @change="onJuridicalAddressChanged"
-                  :currentLocationName="organization.juridicalAddress.region"
-                  :currentLocationUnitName="organization.juridicalAddress.district"
-                  :currentSettlementName="organization.juridicalAddress.settlement"
-                  :currentAddress="organization.juridicalAddress.addressDescription">
-                </locations>
+                <b-form-group label="მისამართი">
+                  <b-form-input id="orgs-edit-juridical-locations-address" class="col-md-12" type="text" v-model="organization.juridicalAddress"></b-form-input>
+                </b-form-group>
               </b-card>
             </b-col>
             <b-col>
@@ -237,9 +230,7 @@ export default {
   props: ['id'],
   data: () => ({
     organization: {
-      juridicalAddress: {
-        addressDescription: null
-      },
+      juridicalAddress: null,
       factualAddress: {},
       regulations: [],
       clinicalManagers: [],
@@ -307,12 +298,6 @@ export default {
       } catch (error) {
         bus.$emit('error', error)
       }
-    },
-    onJuridicalAddressChanged(location) {
-      this.organization.juridicalAddress.region = location.locationName
-      this.organization.juridicalAddress.district = location.locationUnitName
-      this.organization.juridicalAddress.settlement = location.settlement
-      this.organization.juridicalAddress.addressDescription = location.address
     },
     onFactualAddressChanged(location) {
       this.organization.factualAddress.region = location.locationName
@@ -426,7 +411,7 @@ export default {
   },
   computed: {
     organizationDefaultObject: () => ({
-      juridicalAddress: {},
+      juridicalAddress: null,
       factualAddress: {},
       regulations: [],
       clinicalManagers: [],

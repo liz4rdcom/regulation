@@ -36,10 +36,7 @@
             header-text-variant="white"
             v-if="organization.juridicalAddress != null"
           >
-            <p><b>რეგიონი:</b> {{organization.juridicalAddress.region}}</p>
-            <p><b>მუნიციპალიტეტი:</b> {{organization.juridicalAddress.district}}</p>
-            <p><b>დასახლებული პუნქტი:</b> {{organization.juridicalAddress.settlement}}</p>
-            <p><b>მისამართი:</b> {{organization.juridicalAddress.addressDescription}}</p>
+            <p><b>მისამართი:</b> {{organization.juridicalAddress}}</p>
           </b-card>
           <b-card
             class="mb-2"

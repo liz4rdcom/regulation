@@ -56,7 +56,7 @@
                 </b-form-group>
                 <b-form-group label="სამართლებრივი ფორმა">
                   <b-form-select id="orgs-add-legal-form-select" v-model="organization.legalForm" class="mb-3">
-                    <option v-for="form in legalForms" :key="form" :value="form.name">
+                    <option v-for="form in legalForms" :key="form.name" :value="form.name">
                       {{form.name}}
                       <span v-if="form.abbrev">&nbsp;({{form.abbrev}})</span>
                     </option>
@@ -92,7 +92,9 @@
                 header-bg-variant="stone"
                 header-text-variant="white"
               >
-                <locations idPrefix="orgs-add-juridical" :locations="locations" :currentAddress="organization.juridicalAddress.addressDescription" inputClass="col-md-12" @change="onJuridicalAddressChanged"></locations>
+                <b-form-group label="მისამართი">
+                  <b-form-input id="orgs-add-juridical-locations-address" class="col-md-12" type="text" v-model="organization.juridicalAddress"></b-form-input>
+                </b-form-group>
               </b-card>
             </b-col>
             <b-col>
@@ -218,9 +220,7 @@ export default {
   name: 'organization-add',
   data: () => ({
     organization: {
-      juridicalAddress: {
-        addressDescription: null
-      },
+      juridicalAddress: null,
       factualAddress: {},
       regulations: [],
       clinicalManagers: [],
@@ -277,12 +277,6 @@ export default {
       } catch (error) {
         bus.$emit('error', error)
       }
-    },
-    onJuridicalAddressChanged(location) {
-      this.organization.juridicalAddress.region = location.locationName
-      this.organization.juridicalAddress.district = location.locationUnitName
-      this.organization.juridicalAddress.settlement = location.settlement
-      this.organization.juridicalAddress.addressDescription = location.address
     },
     onFactualAddressChanged(location) {
       this.organization.factualAddress.region = location.locationName
@@ -381,8 +375,6 @@ export default {
       this.$router.push('/')
     },
     isEmptyPage() {
-      if (Object.keys(this.organization.juridicalAddress) > 0) return false
-
       if (Object.keys(this.organization.factualAddress) > 0) return false
 
       let listFields = [
@@ -398,7 +390,7 @@ export default {
         if (this.organization[field].length > 0) return false
       }
 
-      let predefinedFieldsSet = new Set(listFields.concat(['juridicalAddress', 'factualAddress']))
+      let predefinedFieldsSet = new Set(listFields.concat(['factualAddress']))
 
       let organizationOtherFields = Object.keys(this.organization)
         .filter(field => !predefinedFieldsSet.has(field))
