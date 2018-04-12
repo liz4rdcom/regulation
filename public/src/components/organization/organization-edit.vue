@@ -305,7 +305,7 @@ export default {
 
         Object.assign(this.organization, response.data)
       } catch (error) {
-        // bus.$emit('error', error)
+        bus.$emit('error', error)
       }
     },
     onJuridicalAddressChanged(location) {
