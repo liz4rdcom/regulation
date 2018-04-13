@@ -40,9 +40,7 @@ async function callNaprByTaxCode(taxCode) {
     }
 
     if (entityInfo.Address) {
-      result.juridicalAddress = {
-        addressDescription: entityInfo.Address
-      }
+      result.juridicalAddress = entityInfo.Address
     }
 
     result.managers = entityInfo.DirectorAndRepresentorList.map(item => {
