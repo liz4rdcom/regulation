@@ -85,6 +85,16 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await organizationInteractor.deleteOrganization(req.params.id)
+
+    next({})
+  } catch (error) {
+    next({error})
+  }
+})
+
 module.exports = {
   router,
   baseUrl

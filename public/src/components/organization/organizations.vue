@@ -155,6 +155,9 @@
       <b-button variant="primary" @click.stop="goToEditPage(data.item)" class="round-button" v-b-tooltip.hover title="რედაქტირება">
         <i class="fa fa-pencil"></i>
       </b-button>
+      <b-button variant="danger" class="round-button" @click.stop="deleteOrganization(data.item)" v-b-tooltip.hover title="ორგანიზაციის წაშლა">
+        <i class="fa fa-times"></i>
+      </b-button>
     </div>
   </b-table>
 </div>
@@ -165,7 +168,7 @@ import lib from '../../libs'
 import {baseUrl, permissionType, licenseType, messageType} from './organization-constants'
 import locationsComponent from '../common/locations'
 import Datepicker from 'vuejs-datepicker'
-import {datepickerFormat, editEntity} from '../../utils'
+import {datepickerFormat, editEntity, removeEntity} from '../../utils'
 import {bus} from '../common/bus'
 
 const listTextSeparator = ', '
@@ -372,6 +375,13 @@ export default {
       this.searchParams.region = location.locationName
       this.searchParams.district = location.locationUnitName
       this.searchParams.settlement = location.settlement
+    },
+    async deleteOrganization(organization) {
+      let url = baseUrl + '/' + organization.id
+
+      await this.$http.delete(url)
+
+      removeEntity(this.organizations, organization)
     }
   },
   watch: {
