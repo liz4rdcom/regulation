@@ -25,7 +25,7 @@ function createValidOrganization(organizationObject) {
     'bedStock',
     'clinicalManagers',
     'managers',
-    'founders',
+    'accounts',
     'createDate',
     'updateDate'
   ])
